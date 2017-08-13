@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170812135925) do
+ActiveRecord::Schema.define(version: 20170813130602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,11 +46,24 @@ ActiveRecord::Schema.define(version: 20170812135925) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "default_settings", force: :cascade do |t|
+    t.integer "max_applicant_size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "merchants", force: :cascade do |t|
     t.string "uuid"
     t.text "token"
     t.string "mobile_no"
     t.boolean "is_created", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "response_messages", force: :cascade do |t|
+    t.text "message"
+    t.string "message_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
