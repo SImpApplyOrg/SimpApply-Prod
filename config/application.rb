@@ -14,5 +14,9 @@ module SimpApply
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Custom directories with classes and modules you want to be autoloadable.
+    config.autoload_paths << Rails.root.join('lib')
+    config.enable_dependency_loading = true
   end
 end
