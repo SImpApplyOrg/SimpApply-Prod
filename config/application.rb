@@ -18,5 +18,10 @@ module SimpApply
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths << Rails.root.join('lib')
     config.enable_dependency_loading = true
+
+
+    config.i18n.fallbacks = true
+    config.i18n.default_locale = :en
+    config.i18n.available_locales = [:en, :de]
   end
 end

@@ -14,4 +14,15 @@ ActiveAdmin.register ResponseMessage do
 
   config.filters = false
 
+  form do |f|
+    f.inputs do
+      f.input :message_type, as: :select, collection: ResponseMessage::message_types.map(&:reverse), prompt: "Select Any"
+      f.input :message
+    end
+
+    f.actions
+  end
+
+  permit_params :message, :message_type
+
 end
