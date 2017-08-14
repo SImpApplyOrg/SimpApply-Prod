@@ -6,6 +6,8 @@ class Merchant < ApplicationRecord
 
   before_create :generate_token
 
+  belongs_to :user
+
   def self.get_merchant(options)
 
     return [nil, 'blank'] if options[:Body].blank?

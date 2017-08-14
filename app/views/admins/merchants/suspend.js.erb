@@ -1,0 +1,1 @@
+$("tr#"+<%= @merchant.id %>).replaceWith("<%= escape_javascript(render 'admins/merchants/merchant', merchant: @merchant) %>")
