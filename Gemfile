@@ -36,10 +36,13 @@ gem "twitter-bootstrap-rails"
 
 # Use active admin for provide admin feature
 gem 'devise'
-gem 'activeadmin'
 
 # To send and receive sms
 gem 'twilio-ruby'
+
+# To translate model
+gem 'globalize', git: 'https://github.com/globalize/globalize'
+gem 'activemodel-serializers-xml'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

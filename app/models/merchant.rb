@@ -7,6 +7,7 @@ class Merchant < ApplicationRecord
   before_create :generate_token
 
   def self.get_merchant(options)
+
     return [nil, 'blank'] if options[:Body].blank?
 
     merchant = where(uuid: options[:Body]).first
@@ -20,6 +21,6 @@ class Merchant < ApplicationRecord
 
   private
     def generate_token
-      self.token = self.generate_unique_secure_token
+      self.token = SecureRandom.base58(24)
     end
 end

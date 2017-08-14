@@ -1,5 +1,7 @@
 class ResponseMessage < ApplicationRecord
 
+  translates :message
+
   enum message_types: {
     new_merchant: 'Response for new Merchant',
     exsit_merchant: "Response for Aplicant",

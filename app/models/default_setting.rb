@@ -1,7 +1,9 @@
 class DefaultSetting < ApplicationRecord
   DEFAULT_APPLICANT_SIZE = 5
 
-  after_initialize :default_applicant_size
+  validates_presence_of :max_applicant_size
+
+  before_create :default_applicant_size
 
   private
     def default_applicant_size

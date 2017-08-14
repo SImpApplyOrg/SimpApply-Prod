@@ -1,4 +1,4 @@
-class ResponseMessage
+class MessageResponse
 
   def initialize(merchant, message_type)
     @merchant = merchant

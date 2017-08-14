@@ -1,0 +1,41 @@
+<%= form_for @response_message, :html => { :class => "form-horizontal response_message" } do |f| %>
+
+  <% if @response_message.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@response_message.errors.count, "error") %> prohibited this response_message from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @response_message.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :message, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :message, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:message) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :message_type, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :message_type, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:message_type) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                response_messages_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

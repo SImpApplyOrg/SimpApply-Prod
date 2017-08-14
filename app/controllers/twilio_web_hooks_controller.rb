@@ -4,9 +4,7 @@ class TwilioWebHooksController < ApplicationController
     # content_type 'text/xml'
 
     merchant, message_type = Merchant.get_merchant(get_params)
-    message = ResponseMessage.new(merchant, message_type).get_message
-
-    binding.pry
+    message = MessageResponse.new(merchant, message_type).get_message
 
     TwilioResponse.new(message).get_response
   end
