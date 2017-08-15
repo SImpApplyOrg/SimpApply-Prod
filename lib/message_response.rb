@@ -9,7 +9,7 @@ class MessageResponse
     case @message_type
     when 'new'
       message_for_new
-    when 'exsit'
+    when 'exist'
       message_for_exsit
     when 'error', 'blank'
       message_for_error_and_blank
@@ -22,7 +22,7 @@ class MessageResponse
     end
 
     def message_for_new
-      "Hi, open this url #{new_user_registration_path(token: @merchant.token)} and fillup the from"
+      "Hi, open this url http://localhost:3000/users/sign_up?token=#{@merchant.token} and fillup the from"
     end
 
     def message_for_exsit
