@@ -6,14 +6,18 @@ class Merchant < ApplicationRecord
 
   before_create :generate_token
 
-  belongs_to :user
+  belongs_to :user, optional: true
+  has_many :applicants
 
   def self.get_merchant(options)
 
     return [nil, 'blank'] if options[:Body].blank?
 
     merchant = where(uuid: options[:Body]).first
-    return [merchant, 'exist'] unless merchant.blank?
+    unless merchant.blank?
+      applicant = merchant.applicants.create(mobile_no: options[:From])
+      return [applicant, 'exist']
+    end
 
     merchant = create(uuid: options[:Body], mobile_no: options[:From])
     return [merchant, 'error'] if merchant.errors.any?

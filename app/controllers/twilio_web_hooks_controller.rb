@@ -4,10 +4,10 @@ class TwilioWebHooksController < ApplicationController
     response.headers['Content-Type'] = 'text/xml'
     # content_type 'text/xml'
 
-    merchant, message_type = Merchant.get_merchant(get_params)
-    message = MessageResponse.new(merchant, message_type).get_message
+    object, message_type = Merchant.get_merchant(get_params)
+    message = MessageResponse.new(object, message_type).get_message
 
-    TwilioResponse.new(message, merchant.mobile_no).get_response
+    TwilioResponse.new(message, object.mobile_no).get_response
   end
 
   private
