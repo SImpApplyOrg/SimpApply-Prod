@@ -17,12 +17,12 @@
       <tr>
         <td><%= link_to response_message.id, admins_response_message_path(response_message) %></td>
         <td><%= response_message.message %></td>
-        <td><%= response_message.message_type %></td>
+        <td><%= ResponseMessage.message_types[response_message.message_type] %></td>
         <td><%=l response_message.created_at %></td>
         <td>
           <%= link_to t('.show', :default => t("helpers.links.show")),
                       admins_response_message_path(response_message), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+          <%= link_to t('.add_translation', :default => t("helpers.links.add_translation")),
                       edit_admins_response_message_path(response_message), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       admins_response_message_path(response_message),

@@ -15,4 +15,5 @@ class ResponseMessage < ApplicationRecord
   type_form_link: 'type_form_link' }
 
   validates_presence_of :message_type, :message
+  validates_uniqueness_of :message_type
 end

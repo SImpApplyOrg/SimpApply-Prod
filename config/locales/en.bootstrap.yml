@@ -18,13 +18,18 @@ en:
       edit: "Edit"
       active: 'Active'
       suspend: "Suspend"
+      add_translation: 'Add Translation'
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
       delete: "Delete %{model}"
+      add_translation: "Add new Translation for %{model}"
+      edit_translation: "Edit %{lang} Translation %{model}"
     texts:
       not_registered: 'Registration awaiting'
       registered: 'Registered'
       status: 'Status'
-
+    buttons:
+      create_translation: 'Create Translation'
+      edit_translation: 'Edit Translation'
