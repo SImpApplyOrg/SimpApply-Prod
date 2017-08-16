@@ -14,10 +14,7 @@ class Merchant < ApplicationRecord
     return [nil, 'blank'] if options[:Body].blank?
 
     merchant = where(uuid: options[:Body]).first
-    unless merchant.blank?
-      applicant = merchant.applicants.create(mobile_no: options[:From])
-      return [applicant, 'exist']
-    end
+    return [merchant, 'exist'] unless merchant.blank?
 
     merchant = create(uuid: options[:Body], mobile_no: options[:From])
     return [merchant, 'error'] if merchant.errors.any?

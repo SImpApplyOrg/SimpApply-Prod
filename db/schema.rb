@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815170024) do
+ActiveRecord::Schema.define(version: 20170816133055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,19 +48,27 @@ ActiveRecord::Schema.define(version: 20170815170024) do
 
   create_table "applicants", force: :cascade do |t|
     t.bigint "merchant_id"
-    t.bigint "user_id"
     t.string "mobile_no"
-    t.text "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["merchant_id"], name: "index_applicants_on_merchant_id"
-    t.index ["user_id"], name: "index_applicants_on_user_id"
   end
 
   create_table "default_settings", force: :cascade do |t|
     t.integer "max_applicant_size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "job_applications", force: :cascade do |t|
+    t.bigint "applicant_id"
+    t.text "token"
+    t.text "full_response"
+    t.text "questions"
+    t.text "answers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_id"], name: "index_job_applications_on_applicant_id"
   end
 
   create_table "merchants", force: :cascade do |t|
@@ -110,5 +118,5 @@ ActiveRecord::Schema.define(version: 20170815170024) do
   end
 
   add_foreign_key "applicants", "merchants"
-  add_foreign_key "applicants", "users"
+  add_foreign_key "job_applications", "applicants"
 end

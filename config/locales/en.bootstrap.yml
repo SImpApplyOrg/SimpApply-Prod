@@ -23,3 +23,8 @@ en:
       save: "Save %{model}"
       new: "New %{model}"
       delete: "Delete %{model}"
+    texts:
+      not_registered: 'Registration awaiting'
+      registered: 'Registered'
+      status: 'Status'
+

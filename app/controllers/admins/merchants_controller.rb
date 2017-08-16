@@ -1,7 +1,7 @@
 class Admins::MerchantsController < Admins::ApplicationController
   before_action :get_merchant, only: [:suspend, :active]
   def index
-    @merchants = Merchant.joins(:user)
+    @merchants = Merchant.all
   end
 
   def suspend

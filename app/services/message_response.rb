@@ -1,7 +1,7 @@
 class MessageResponse
 
-  def initialize(object, message_type)
-    @object = object
+  def initialize(token, message_type)
+    @token = token
     @message_type = message_type
   end
 
@@ -15,6 +15,10 @@ class MessageResponse
       "error_in_merchant_id"
     when 'blank'
       "blank_merchant_id"
+    when 'new_application'
+      "new_application_form"
+    when 'view_application'
+      "view_application_form"
     end
 
     response_message = ResponseMessage.where(message_type: message_type).first
@@ -30,8 +34,8 @@ class MessageResponse
     def customize_message(message)
       mailer_options = ResponseMessage::MARKUP_VARIABLES
       {
-        sign_up_link: Rails.application.routes.url_helpers.new_user_registration_url(token: @object.token),
-        type_form_link: "https://genesis18.typeform.com/to/M7Zo8Z?token=#{@object.token}"
+        sign_up_link: Rails.application.routes.url_helpers.new_user_registration_url(token: @token),
+        type_form_link: "https://genesis18.typeform.com/to/M7Zo8Z?application_token=#{@token}"
       }.each do |key, value|
         message.gsub!(mailer_options[key], value) if message.include? mailer_options[key]
       end
@@ -40,8 +44,9 @@ class MessageResponse
     end
 
     def translated_mesage(response_message)
-      if @message_type == 'exist'
-        locale = @object.user.present? ? @object.user.locale : 'en'
+      if ['exist', 'new_application', 'view_application'].include? @message_type
+        merchant = Merchant.where(token: @token).first
+        locale = merchant.user.present? ? merchant.user.locale : 'en'
         Globalize.with_locale(locale.to_sym) { response_message.message }
       else
         response_message.message
@@ -57,10 +62,18 @@ class MessageResponse
     end
 
     def message_for_new
-      "Hi, To become a merchant open this url #{Rails.application.routes.url_helpers.new_user_registration_url(token: @object.token)} and fillup the from"
+      "Hi, To become a merchant open this url #{Rails.application.routes.url_helpers.new_user_registration_url(token: @token)} and fillup the from"
     end
 
-    def message_for_exsit
-      "Hi, Fillup the application by accessing the url https://genesis18.typeform.com/to/M7Zo8Z?token=#{@object.token}"
+    def message_for_exist
+      "Hi, Fillup the application by accessing the url https://genesis18.typeform.com/to/M7Zo8Z?application_token=#{@token}"
+    end
+
+    def message_for_new_application
+      "Hi, you have got a new application form"
+    end
+
+    def message_for_view_application
+      "Hi, Merchant has reviewd your application form"
     end
 end

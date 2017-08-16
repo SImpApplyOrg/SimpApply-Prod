@@ -4,10 +4,18 @@ class TwilioWebHooksController < ApplicationController
     response.headers['Content-Type'] = 'text/xml'
     # content_type 'text/xml'
 
-    object, message_type = Merchant.get_merchant(get_params)
-    message = MessageResponse.new(object, message_type).get_message
+    merchant, message_type = Merchant.get_merchant(get_params)
 
-    TwilioResponse.new(message, object.mobile_no).get_response
+    token, mobile_no = if message_type == "exist"
+      applicant = merchant.applicants.find_or_create_by(mobile_no: get_params[:From])
+      job_application = applicant.job_applications.create()
+      [job_application.token, applicant.mobile_no]
+    else
+      [merchant.token, merchant.mobile_no]
+    end
+    message = MessageResponse.new(token, message_type).get_message
+
+    TwilioResponse.new(message, mobile_no).get_response
   end
 
   private

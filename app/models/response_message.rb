@@ -5,8 +5,10 @@ class ResponseMessage < ApplicationRecord
   enum message_types: {
     new_merchant: 'Response for new Merchant',
     exist_merchant: "Response for Aplicant",
-    error_in_merchant_id: 'Response if error in Merchant ID',
-    blank_merchant_id: "Response if merchant ID not present"
+    error_in_merchant_id: 'Response for Merchant ID not in proper format',
+    blank_merchant_id: "Response for Merchant ID not present",
+    new_application_form: "Response for getting new application form",
+    view_application_form: "Response for merchant reviewed application form"
   }
 
   MARKUP_VARIABLES = { sign_up_link: "sign_up_link",

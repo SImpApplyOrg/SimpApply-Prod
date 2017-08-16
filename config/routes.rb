@@ -25,5 +25,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :type_form_web_hooks, only: :nil do
+    collection do
+      post :create_application
+    end
+  end
+
   root "welcome#index"
 end
