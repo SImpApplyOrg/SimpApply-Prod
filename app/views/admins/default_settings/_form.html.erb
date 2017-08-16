@@ -21,11 +21,11 @@
 
 
   <div class="form-group">
-    <%= f.label :max_applicant_size, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.number_field :max_applicant_size, :class => 'form-control' %>
+    <%= f.label :default_max_application_limit_for_trail_merchant, :class => 'control-label col-lg-4' %>
+    <div class="col-lg-8">
+      <%= f.number_field :default_max_application_limit_for_trail_merchant, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:max_applicant_size) %>
+    <%=f.error_span(:default_max_application_limit_for_trail_merchant) %>
   </div>
 
   <div class="form-group">

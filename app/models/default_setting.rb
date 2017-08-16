@@ -1,12 +1,12 @@
 class DefaultSetting < ApplicationRecord
-  DEFAULT_APPLICANT_SIZE = 5
+  DEFAULT_MAX_APPLICATION_LIMIT = 5
 
-  validates_presence_of :max_applicant_size
+  validates_presence_of :default_max_application_limit_for_trail_merchant
 
   before_create :default_applicant_size
 
   private
     def default_applicant_size
-      self.max_applicant_size = DEFAULT_APPLICANT_SIZE
+      self.default_max_application_limit_for_trail_merchant = DEFAULT_MAX_APPLICATION_LIMIT
     end
 end

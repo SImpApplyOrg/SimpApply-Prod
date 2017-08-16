@@ -13,6 +13,6 @@ class Admins::DefaultSettingsController < Admins::ApplicationController
 
   private
     def default_setting_params
-      params.require(:default_setting).permit(:max_applicant_size)
+      params.require(:default_setting).permit(:default_max_application_limit_for_trail_merchant)
     end
 end

@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20170816133055) do
   end
 
   create_table "default_settings", force: :cascade do |t|
-    t.integer "max_applicant_size"
+    t.integer "default_max_application_limit_for_trail_merchant"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
