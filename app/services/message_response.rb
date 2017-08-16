@@ -35,7 +35,7 @@ class MessageResponse
       mailer_options = ResponseMessage::MARKUP_VARIABLES
       {
         sign_up_link: Rails.application.routes.url_helpers.new_user_registration_url(token: @token),
-        type_form_link: "https://genesis18.typeform.com/to/M7Zo8Z?application_token=#{@token}"
+        type_form_link: "#{ENV['type_form_url']}#{@token}"
       }.each do |key, value|
         message.gsub!(mailer_options[key], value) if message.include? mailer_options[key]
       end
@@ -66,11 +66,11 @@ class MessageResponse
     end
 
     def message_for_exist
-      "Hi, Fillup the application by accessing the url https://genesis18.typeform.com/to/M7Zo8Z?application_token=#{@token}"
+      "Hi, Fillup the application by accessing the url #{ENV['type_form_url']}#{@token}"
     end
 
     def message_for_new_application
-      "Hi, you have got a new application form"
+      "Hi, You have got a new application form"
     end
 
     def message_for_view_application

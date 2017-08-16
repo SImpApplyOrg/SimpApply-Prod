@@ -9,7 +9,7 @@ class TwilioResponse
 
   def get_response
     TWILIO_CLIENT.messages.create(
-      from: Rails.application.secrets.twilio_no,
+      from: ENV['twilio_no'],
       to: @mobile_no,
       body: @message
     )
