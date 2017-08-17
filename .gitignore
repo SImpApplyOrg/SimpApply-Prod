@@ -24,7 +24,6 @@
 
 # ignore config files
 /config/database.yml
-/config/secrets.yml
 
 # Ignore rvm files
 .ruby-version
