@@ -10,6 +10,8 @@ class TwilioWebHooksController < ApplicationController
       applicant = merchant.applicants.find_or_create_by(mobile_no: get_params[:From])
       job_application = applicant.job_applications.create()
       [job_application.token, applicant.mobile_no]
+    elsif message_type == "blank"
+      ['', params[:From]]
     else
       [merchant.token, merchant.mobile_no]
     end

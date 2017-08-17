@@ -45,8 +45,12 @@ class MessageResponse
 
     def translated_mesage(response_message)
       if ['exist', 'new_application', 'view_application'].include? @message_type
-        merchant = Merchant.where(token: @token).first
-        locale = merchant.user.present? ? merchant.user.locale : 'en'
+        merchant = if message_type == "exist"
+          JobApplication.where(token: @token).first.applicant.merchant
+        else
+          Merchant.where(token: @token).first
+        end
+        locale = merchant && merchant.user.present? ? merchant.user.locale : 'en'
         Globalize.with_locale(locale.to_sym) { response_message.message }
       else
         response_message.message
