@@ -31,5 +31,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :job_applications, only: [:index, :show]
+
   root "welcome#index"
 end

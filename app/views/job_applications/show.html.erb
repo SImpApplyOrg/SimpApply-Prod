@@ -1,0 +1,31 @@
+<%- model_class = JobApplication -%>
+
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<table class="table">
+  <colgroup>
+    <col width="80%">
+    <col width="20%">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Answer</th>
+    </tr>
+  </thead>
+  <% JSON.parse(@job_application.questions).each do |question_hash| %>
+    <% question_id = question_hash["id"] %>
+    <% answer = {} %>
+    <% JSON.parse(@job_application.answers).each_with_index do |answer_hash, index| %>
+      <% answer = answer_hash if answer_hash["field"]["id"] == question_id %>
+      <% break %>
+    <% end %>
+
+    <tr>
+      <td><strong><%= question_hash["title"] %>:</strong></td>
+      <td><%= answer[answer["type"]] %></td>
+    </tr>
+  <% end %>
+</dl>

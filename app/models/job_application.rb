@@ -4,9 +4,9 @@ class JobApplication < ApplicationRecord
 
   belongs_to :applicant
 
-  serialize :full_response, Hash
-  serialize :questions, Hash
-  serialize :answers, Hash
+  # serialize :full_response, Hash
+  # serialize :questions, Hash
+  # serialize :answers, Hash
 
   private
     def generate_token

@@ -3,10 +3,10 @@ class TypeFormWebHooksController < ApplicationController
   before_action :check_application_token
 
   def create_application
-    questions = params[:type_form_web_hook][:form_response][:definition][:fields]
-    answers = params[:type_form_web_hook][:form_response][:answers]
+    questions = params[:type_form_web_hook][:form_response][:definition][:fields].to_json.to_s
+    answers = params[:type_form_web_hook][:form_response][:answers].to_json.to_s
 
-    @job_application.update_attributes(full_response: get_params, questions: questions, answers: answers)
+    @job_application.update_attributes(full_response: get_params.to_json.to_s, questions: questions, answers: answers)
 
     merchant = @job_application.applicant.merchant
     message = MessageResponse.new(merchant.token, 'new_application').get_message
