@@ -19,6 +19,7 @@ en:
       active: 'Active'
       suspend: "Suspend"
       add_translation: 'Add Translation'
+      show_application: 'Show Application'
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"

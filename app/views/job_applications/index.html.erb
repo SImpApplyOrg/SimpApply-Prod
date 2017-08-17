@@ -4,6 +4,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -16,15 +17,14 @@
   </thead>
   <tbody>
     <% @job_applications.each do |job_application| %>
+      <% question_answers = JSON.parse(job_application.question_answers) %>
       <tr>
         <td><%= link_to job_application.id, job_application_path(job_application.token) %></td>
         <td><%= job_application.applicant.mobile_no %></td>
         <td><%=  %></td>
         <td><%=  %></td>
         <td>
-          <%= link_to t('.show', :default => t("helpers.links.show")),
-                      job_application_path(job_application.token), :class => 'btn btn-default btn-xs' %>
-
+          <%= link_to t('.show', :default => t("helpers.links.show_application")), job_application_path(job_application.token), :class => 'btn btn-default btn-xs' %>
         </td>
       </tr>
     <% end %>
