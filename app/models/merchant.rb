@@ -8,6 +8,7 @@ class Merchant < ApplicationRecord
 
   belongs_to :user, optional: true
   has_many :applicants
+  has_many :job_applications, through: :applicants
 
   def self.get_merchant(options)
 

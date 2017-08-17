@@ -26,7 +26,7 @@ class MessageResponse
     if response_message.blank?
       send("message_for_#{@message_type}")
     else
-      customize_message(translated_mesage(response_message))
+      customize_message(translated_message(response_message))
     end
   end
 
@@ -43,9 +43,9 @@ class MessageResponse
       message
     end
 
-    def translated_mesage(response_message)
+    def translated_message(response_message)
       if ['exist', 'new_application', 'view_application'].include? @message_type
-        merchant = if message_type == "exist"
+        merchant = if @message_type == "exist"
           JobApplication.where(token: @token).first.applicant.merchant
         else
           Merchant.where(token: @token).first

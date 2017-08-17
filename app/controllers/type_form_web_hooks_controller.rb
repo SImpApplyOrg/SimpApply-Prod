@@ -6,7 +6,9 @@ class TypeFormWebHooksController < ApplicationController
     questions = params[:type_form_web_hook][:form_response][:definition][:fields].to_json.to_s
     answers = params[:type_form_web_hook][:form_response][:answers].to_json.to_s
 
-    @job_application.update_attributes(full_response: get_params.to_json.to_s, questions: questions, answers: answers)
+    question_answers = ParseTypeFormResponse.new(questions, answers).get_question_answers
+
+    @job_application.update_attributes(full_response: get_params.to_json.to_s, questions: questions, answers: answers, question_answers: question_answers.to_json.to_s)
 
     merchant = @job_application.applicant.merchant
     message = MessageResponse.new(merchant.token, 'new_application').get_message

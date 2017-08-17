@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816191849) do
+ActiveRecord::Schema.define(version: 20170817115227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20170816191849) do
     t.text "answers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_reviewed", default: false
+    t.text "question_answers"
     t.index ["applicant_id"], name: "index_job_applications_on_applicant_id"
   end
 

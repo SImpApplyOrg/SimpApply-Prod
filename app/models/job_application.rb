@@ -4,9 +4,7 @@ class JobApplication < ApplicationRecord
 
   belongs_to :applicant
 
-  # serialize :full_response, Hash
-  # serialize :questions, Hash
-  # serialize :answers, Hash
+  scope :completed_applications, -> { where("full_response IS NOT NULL") }
 
   private
     def generate_token
