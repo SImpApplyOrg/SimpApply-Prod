@@ -24,7 +24,7 @@ class MessageResponse
     response_message = ResponseMessage.where(message_type: message_type).first
 
     if response_message.blank?
-      send("message_for_#{@message_type}")
+      raise Exceptions::ResponseMessageNotFoundError
     else
       customize_message(translated_message(response_message))
     end
@@ -55,29 +55,5 @@ class MessageResponse
       else
         response_message.message
       end
-    end
-
-    def message_for_error
-      "Please send the message in proper format. Merchant ID could be alphanumeric, min-length-5, max-length-10."
-    end
-
-    def message_for_blank
-      "Please send the message in proper format. Merchant ID could be alphanumeric, min-length-5, max-length-10."
-    end
-
-    def message_for_new
-      "Hi, To become a merchant open this url #{Rails.application.routes.url_helpers.new_user_registration_url(token: @token)} and fillup the from"
-    end
-
-    def message_for_exist
-      "Hi, Fillup the application by accessing the url #{ENV['type_form_url']}#{@token}"
-    end
-
-    def message_for_new_application
-      "Hi, You have got a new application form"
-    end
-
-    def message_for_view_application
-      "Hi, Merchant has reviewd your application form"
     end
 end

@@ -10,7 +10,8 @@
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
-twilio_sid: AC78d8f414079e70be8c5e4db29a128abd
-twilio_auth_token: c4e4481d3cab9f301b49a6cfbe130aff
-twilio_no: '+14158436105'
-type_form_url: 'https://genesis18.typeform.com/to/M7Zo8Z?application_token='
+SECRET_KEY_BASE: 'SECRET_KEY_BASE GOES HERE'
+twilio_sid: 'TWILIO ACCOUNT ID GOES HERE'
+twilio_auth_token: 'TWILIO AUTH TOKEN GOES HERE'
+twilio_no: 'TWILIO NO GOES HERE'
+type_form_url: 'TYPE FORM URL GOES HERE'
