@@ -90,6 +90,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.after_initialize do
-     Rails.application.routes.default_url_options[:host] = 'https://dev-simp-apply.herokuapp.com'
+     Rails.application.routes.default_url_options[:host] = ENV["APPLICALTION_HOST"].presence || "http://www.simpapply.com"
   end
 end
