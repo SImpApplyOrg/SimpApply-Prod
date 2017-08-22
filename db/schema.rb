@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817115227) do
+ActiveRecord::Schema.define(version: 20170822142408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,23 @@ ActiveRecord::Schema.define(version: 20170817115227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+  end
+
+  create_table "reminder_message_translations", force: :cascade do |t|
+    t.integer "reminder_message_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "message"
+    t.index ["locale"], name: "index_reminder_message_translations_on_locale"
+    t.index ["reminder_message_id"], name: "index_reminder_message_translations_on_reminder_message_id"
+  end
+
+  create_table "reminder_messages", force: :cascade do |t|
+    t.string "reminder_for"
+    t.integer "remind_after"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "response_message_translations", force: :cascade do |t|

@@ -34,3 +34,11 @@ en:
     buttons:
       create_translation: 'Create Translation'
       edit_translation: 'Edit Translation'
+    labels:
+      days: 'Days'
+  top_menus:
+    links:
+      response_messages: 'Response Messages'
+      merchants: 'Merchants'
+      reminder_messages: 'Reminder Messages'
+      applications: 'Applications'

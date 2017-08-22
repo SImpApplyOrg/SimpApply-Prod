@@ -1,0 +1,9 @@
+<%- model_class = ReminderMessage -%>
+<div class="page-header">
+  <% if params[:lang] %>
+    <h1><%=t '.title', :default => :'helpers.titles.edit_translation', :model => model_class.model_name.human.titleize, :lang => params[:lang] %></h1>
+  <% else %>
+    <h1><%=t '.title', :default => :'helpers.titles.add_translation', :model => model_class.model_name.human.titleize %></h1>
+  <% end %>
+</div>
+<%= render :partial => 'form' %>

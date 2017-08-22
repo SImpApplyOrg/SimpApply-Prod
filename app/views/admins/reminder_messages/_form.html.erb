@@ -1,0 +1,62 @@
+<%- lang = params[:lang] || 'en' -%>
+
+<% Globalize.with_locale(lang.to_sym) do %>
+  <%= form_for [:admins, @reminder_message], :html => { :class => "form-horizontal reminder_message" } do |f| %>
+
+    <% if @reminder_message.errors.any? %>
+      <div id="error_expl" class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= pluralize(@reminder_message.errors.count, "error") %> prohibited this reminder_message from being saved:</h3>
+        </div>
+        <div class="panel-body">
+          <ul>
+          <% @reminder_message.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+    <% unless @reminder_message.new_record? %>
+      <div class="form-group">
+        <%= f.label :locale, :class => 'control-label col-lg-2' %>
+        <div class="col-lg-10">
+          <%= f.select :locale, @locales, selected: params[:lang], :class => 'form-control', prompt: 'Select any' %>
+        </div>
+        <%=f.error_span(:locale) %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :reminder_for, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.select :reminder_for, ReminderMessage.reminder_fors, { :class => 'form-control', prompt: 'Select any' }, { disabled: !@reminder_message.new_record? } %>
+      </div>
+      <%=f.error_span(:reminder_for) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :remind_after, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-4">
+        <%= f.number_field :remind_after, :class => 'form-control', disabled: !@reminder_message.new_record? %>
+      </div>
+      <%= f.label :days, :class => 'control-label col-lg-6 control-label-left' %>
+      <%=f.error_span(:remind_after) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :message, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.text_area :message, :class => 'form-control' %>
+      </div>
+      <%=f.error_span(:message) %>
+    </div>
+
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit (t '.status', :default => (params[:lang] ? t("helpers.buttons.edit_translation") : t("helpers.buttons.create_translation"))), :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  admins_reminder_messages_path, :class => 'btn btn-default' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
     resources :response_messages
 
+    resources :reminder_messages
+
     resources :merchants, only: :index do
       get :active
       get :suspend
