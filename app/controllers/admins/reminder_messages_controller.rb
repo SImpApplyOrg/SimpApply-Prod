@@ -43,7 +43,7 @@ class Admins::ReminderMessagesController < Admins::ApplicationController
 
   private
     def reminder_message_params
-      params.require(:reminder_message).permit(:reminder_for, :remind_after, :message, :locale)
+      params.require(:reminder_message).permit(:reminder_for, :remind_after, :message, :locale, :remind_preference)
     end
 
     def set_reminder_message

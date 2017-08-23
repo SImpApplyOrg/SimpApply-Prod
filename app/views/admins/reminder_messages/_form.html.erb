@@ -31,10 +31,19 @@
     <div class="form-group">
       <%= f.label :reminder_for, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.select :reminder_for, ReminderMessage.reminder_fors, { :class => 'form-control', prompt: 'Select any' }, { disabled: !@reminder_message.new_record? } %>
+        <%= f.select :reminder_for, ReminderMessage.reminder_fors.map(&:reverse), { :class => 'form-control', prompt: 'Select any' }, { disabled: !@reminder_message.new_record? } %>
       </div>
       <%=f.error_span(:reminder_for) %>
     </div>
+
+    <div class="form-group">
+      <%= f.label :remind_preference, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.collection_radio_buttons :remind_preference, ReminderMessage.remind_preferences.map(&:reverse), :last, :first, { checked: @reminder_message.remind_preference }, { :class => 'radio', disabled: !@reminder_message.new_record? } %>
+      </div>
+      <%=f.error_span(:remind_preference) %>
+    </div>
+
     <div class="form-group">
       <%= f.label :remind_after, :class => 'control-label col-lg-2' %>
       <div class="col-lg-4">

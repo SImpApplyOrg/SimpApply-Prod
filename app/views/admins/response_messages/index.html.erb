@@ -17,7 +17,7 @@
       <tr>
         <td><%= link_to response_message.id, admins_response_message_path(response_message) %></td>
         <td><%= response_message.message %></td>
-        <td><%= ResponseMessage.message_types[response_message.message_type] %></td>
+        <td><%= ResponseMessage.message_types[response_message.message_type.to_sym] %></td>
         <td><%=l response_message.created_at %></td>
         <td>
           <%= link_to t('.show', :default => t("helpers.links.show")),

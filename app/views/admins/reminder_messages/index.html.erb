@@ -7,6 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:reminder_for) %></th>
+      <th><%= model_class.human_attribute_name(:remind_preference) %></th>
       <th><%= model_class.human_attribute_name(:remind_after) %></th>
       <th><%= model_class.human_attribute_name(:message) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -17,7 +18,8 @@
     <% @reminder_messages.each do |reminder_message| %>
       <tr>
         <td><%= link_to reminder_message.id, admins_reminder_message_path(reminder_message) %></td>
-        <td><%= reminder_message.reminder_for %></td>
+        <td><%= ReminderMessage.reminder_fors[reminder_message.reminder_for.to_sym] %></td>
+        <td><%= ReminderMessage.remind_preferences[reminder_message.remind_preference.to_sym] %></td>
         <td><%= reminder_message.remind_after_days_text %></td>
         <td><%= reminder_message.message %></td>
         <td><%=l reminder_message.created_at %></td>

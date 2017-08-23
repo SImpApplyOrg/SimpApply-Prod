@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170822142408) do
+ActiveRecord::Schema.define(version: 20170823105936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20170822142408) do
     t.integer "remind_after"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remind_preference"
   end
 
   create_table "response_message_translations", force: :cascade do |t|

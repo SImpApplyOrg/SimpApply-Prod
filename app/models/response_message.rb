@@ -2,7 +2,7 @@ class ResponseMessage < ApplicationRecord
 
   translates :message
 
-  enum message_types: {
+  enum message_type: {
     new_merchant: 'Response for new Merchant',
     exist_merchant: "Response for Aplicant",
     error_in_merchant_id: 'Response for Merchant ID not in proper format',

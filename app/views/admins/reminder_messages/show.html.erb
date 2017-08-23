@@ -8,7 +8,9 @@
 <% Globalize.with_locale(lang.to_sym) do %>
   <dl class="dl-horizontal">
     <dt><strong><%= model_class.human_attribute_name(:reminder_for) %>:</strong></dt>
-    <dd><%= @reminder_message.reminder_for %></dd>
+    <dd><%=  ReminderMessage.reminder_fors[@reminder_message.reminder_for.to_sym] %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:remind_preference) %>:</strong></dt>
+    <dd><%= ReminderMessage.remind_preferences[@reminder_message.remind_preference.to_sym] %></dd>
     <dt><strong><%= model_class.human_attribute_name(:remind_after) %>:</strong></dt>
     <dd><%= @reminder_message.remind_after_days_text %></dd>
     <dt><strong><%= model_class.human_attribute_name(:message) %>:</strong></dt>
