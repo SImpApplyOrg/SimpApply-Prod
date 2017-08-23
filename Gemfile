@@ -48,6 +48,9 @@ gem 'activemodel-serializers-xml'
 
 gem "figaro"
 
+gem 'sidekiq'
+gem 'whenever'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

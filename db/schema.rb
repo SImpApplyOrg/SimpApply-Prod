@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823105936) do
+ActiveRecord::Schema.define(version: 20170823115923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20170823105936) do
     t.datetime "updated_at", null: false
     t.boolean "is_reviewed", default: false
     t.text "question_answers"
+    t.datetime "last_reminder_at"
     t.index ["applicant_id"], name: "index_job_applications_on_applicant_id"
   end
 
@@ -81,6 +82,7 @@ ActiveRecord::Schema.define(version: 20170823105936) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.datetime "last_reminder_at"
   end
 
   create_table "reminder_message_translations", force: :cascade do |t|

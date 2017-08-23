@@ -1,0 +1,7 @@
+---
+:verbose: false
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:concurrency: <%= ENV['sidekiq_concurrency'] || 25 %>
+:queues:
+ - [urgent, <%= ENV['sidekiq_concurrency'] || 25 %>]

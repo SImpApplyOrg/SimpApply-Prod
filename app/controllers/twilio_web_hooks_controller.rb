@@ -14,7 +14,7 @@ class TwilioWebHooksController < ApplicationController
     end
     message = MessageResponse.new(token, message_type).get_message
 
-    TwilioResponse.new(message, mobile_no).get_response
+    TwilioResponse.new(message, mobile_no).send_response
   end
 
   private

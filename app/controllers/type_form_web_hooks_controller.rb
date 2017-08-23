@@ -13,7 +13,7 @@ class TypeFormWebHooksController < ApplicationController
     merchant = @job_application.applicant.merchant
     message = MessageResponse.new(merchant.token, 'new_application').get_message
 
-    TwilioResponse.new(message, merchant.mobile_no).get_response
+    TwilioResponse.new(message, merchant.mobile_no).send_response
 
     redirect_to root_path, notice: 'Job Application successfully updated'
   end

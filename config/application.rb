@@ -23,5 +23,10 @@ module SimpApply
     config.i18n.fallbacks = true
     config.i18n.default_locale = :en
     config.i18n.available_locales = [:en, :de]
+
+    # Be sure to have the adapter's gem in your Gemfile
+    # and follow the adapter's specific installation
+    # and deployment instructions.
+    config.active_job.queue_adapter = :sidekiq
   end
 end

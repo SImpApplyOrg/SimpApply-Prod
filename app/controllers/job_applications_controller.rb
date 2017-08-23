@@ -20,7 +20,7 @@ class JobApplicationsController < ApplicationController
       @job_application.update_attributes(is_reviewed: true)
 
       message = MessageResponse.new(merchant.token, 'view_application').get_message
-      TwilioResponse.new(message, applicant.mobile_no).get_response
+      TwilioResponse.new(message, applicant.mobile_no).send_response
     end
   end
 end

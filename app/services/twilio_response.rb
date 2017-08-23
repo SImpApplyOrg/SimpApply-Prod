@@ -7,7 +7,7 @@ class TwilioResponse
     @mobile_no = mobile_no
   end
 
-  def get_response
+  def send_response
     TWILIO_CLIENT.messages.create(
       from: ENV['twilio_no'],
       to: @mobile_no,
