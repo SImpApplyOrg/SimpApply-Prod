@@ -4,7 +4,7 @@ class ResponseMessage < ApplicationRecord
 
   enum message_type: {
     new_merchant: 'Response for new Merchant',
-    exist_merchant: "Response for Aplicant",
+    exist_merchant: "Response for Applicant",
     error_in_merchant_id: 'Response for Merchant ID not in proper format',
     blank_merchant_id: "Response for Merchant ID not present",
     new_application_form: "Response for getting new application form",

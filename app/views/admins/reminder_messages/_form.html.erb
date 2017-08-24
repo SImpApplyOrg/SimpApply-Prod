@@ -39,7 +39,7 @@
     <div class="form-group">
       <%= f.label :remind_preference, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.collection_radio_buttons :remind_preference, ReminderMessage.remind_preferences.map(&:reverse), :last, :first, { checked: @reminder_message.remind_preference }, { :class => 'radio', disabled: !@reminder_message.new_record? } %>
+        <%= f.collection_radio_buttons :remind_preference, ReminderMessage.remind_preferences.map(&:reverse), :last, :first, { checked: @reminder_message.remind_preference }, { :class => 'radio', readonly: !@reminder_message.new_record? } %>
       </div>
       <%=f.error_span(:remind_preference) %>
     </div>
