@@ -11,7 +11,7 @@ class JobApplication < ApplicationRecord
       ReminderMessage.applicant.each do |reminder_message|
         reminder_date = job_application.get_reminder_date(reminder_message)
 
-        SetupJobApplicationReminderJob.set(wait_until: reminder_date).perform_later(job_application.id, reminder_message.id) if reminder_date.to_date == Date.today
+        SetupJobApplicationReminderJob.perform_now(job_application.id, reminder_message.id) if reminder_date.to_date == Date.today
       end
     end
   end

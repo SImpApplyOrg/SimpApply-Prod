@@ -28,7 +28,7 @@ class Merchant < ApplicationRecord
       ReminderMessage.merchant.each do |reminder_message|
         reminder_date = merchant.get_reminder_date(reminder_message)
 
-        SetupMerchantReminderJob.set(wait_until: reminder_date).perform_later(merchant.id, reminder_message.id) if reminder_date.to_date == Date.today
+        SetupMerchantReminderJob.perform_now(merchant.id, reminder_message.id) if reminder_date.to_date == Date.today
       end
     end
   end
