@@ -46,10 +46,15 @@ gem 'twilio-ruby'
 gem 'globalize', git: 'https://github.com/globalize/globalize'
 gem 'activemodel-serializers-xml'
 
+# For set ENV variables
 gem "figaro"
 
+# For background job
 gem 'sidekiq'
 gem 'whenever'
+
+# For type from data
+gem 'typeform_data'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

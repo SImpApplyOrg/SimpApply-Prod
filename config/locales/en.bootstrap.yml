@@ -20,6 +20,7 @@ en:
       suspend: "Suspend"
       add_translation: 'Add Translation'
       show_application: 'Show Application'
+      fetch_questions: 'Fetch Questions'
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
@@ -42,3 +43,4 @@ en:
       merchants: 'Merchants'
       reminder_messages: 'Reminder Messages'
       applications: 'Applications'
+      job_application_questions: 'Job Application Questions'

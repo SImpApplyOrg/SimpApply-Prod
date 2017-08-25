@@ -1,0 +1,20 @@
+<%- model_class = JobApplicationQuestion -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+
+<%= link_to t('.fetch_questions', :default => t("helpers.links.fetch_questions")), fetch_questions_admins_job_application_questions_path, :class => 'btn btn-primary' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:field_id) %></th>
+      <th><%= model_class.human_attribute_name(:question) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @Job_application_questions %>
+  </tbody>
+</table>
