@@ -46,7 +46,8 @@
 
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
-        <%= f.submit (t '.status', :default => (params[:lang] ? t("helpers.buttons.edit_translation") : t("helpers.buttons.create_translation"))), :class => 'btn btn-primary' %>
+        <% button_text = @response_message.new_record? ? nil : (t '.status', :default => (params[:lang] ? t("helpers.buttons.edit_translation") : t("helpers.buttons.create_translation"))) %>
+        <%= f.submit button_text, :class => 'btn btn-primary' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                   admins_response_messages_path, :class => 'btn btn-default' %>
       </div>

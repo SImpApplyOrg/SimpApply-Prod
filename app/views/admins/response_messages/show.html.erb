@@ -8,7 +8,7 @@
 <% Globalize.with_locale(lang.to_sym) do %>
   <dl class="dl-horizontal">
     <dt><strong><%= model_class.human_attribute_name(:message_type) %>:</strong></dt>
-    <dd><%= ResponseMessage.message_types[@response_message.message_type.to_sym] %></dd>
+    <dd><%= ResponseMessage.message_types[@response_message.message_type.to_sym] if @response_message.message_type %></dd>
     <dt><strong><%= model_class.human_attribute_name(:message) %>:</strong></dt>
     <dd><%= @response_message.message %></dd>
   </dl>
