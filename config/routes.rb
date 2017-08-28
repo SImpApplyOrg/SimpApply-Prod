@@ -26,6 +26,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :view_screens
+
     root "welcome#index"
   end
 
