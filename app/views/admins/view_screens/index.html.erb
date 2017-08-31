@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <!-- <th><%#= model_class.human_attribute_name(:screen_for) %></th> -->
+      <th><%= model_class.human_attribute_name(:is_active) %></th>
       <th><%= model_class.human_attribute_name(:screentabs) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -16,7 +16,7 @@
     <% @view_screens.each do |view_screen| %>
       <tr>
         <td><%= link_to view_screen.id, admins_view_screen_path(view_screen) %></td>
-        <!-- <td><%#= view_screen.screen_for %></td> -->
+        <td><%= view_screen.is_active %></td>
         <td><%= view_screen.screen_tabs.map(&:name).join(", ") %></td>
         <td><%=l view_screen.created_at %></td>
         <td>

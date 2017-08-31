@@ -2,15 +2,17 @@ class ViewScreen < ApplicationRecord
 
   enum screen_for: { job_application: 'Job Application' }
 
-  has_many :screen_tabs, dependent: :destroy
+  has_many :screen_tabs, -> { order('position ASC') }, dependent: :destroy
   accepts_nested_attributes_for :screen_tabs, allow_destroy: true
-  has_many :tab_fields, through: :screentabs
+  has_many :tab_fields, through: :screen_tabs
 
   validates_presence_of :screen_for
-  validates_uniqueness_of :screen_for, if: 'screen_for.present?'
+  # validates_uniqueness_of :screen_for, if: 'screen_for.present?'
   validate :check_screen_tabs_position
 
   after_initialize :assign_screen_for
+
+  scope :active, -> { where(is_active: true) }
 
   private
     def assign_screen_for
@@ -19,6 +21,7 @@ class ViewScreen < ApplicationRecord
 
     def check_screen_tabs_position
       positions = screen_tabs.pluck(:position)
+      errors.add(:base, "Must have at-least one screen tab.") if screen_tabs.blank?
       screen_tabs.each do |screen_tab|
         if screen_tab.new_record?
           if positions.include?(screen_tab.position)

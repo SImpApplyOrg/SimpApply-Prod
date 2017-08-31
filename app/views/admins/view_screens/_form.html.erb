@@ -24,6 +24,17 @@
 
   <%= f.hidden_field :screen_for %>
 
+  <% if !@view_screen.new_record? %>
+      <div class="form-group">
+        <%#= screen_tab.label :name, :class => 'control-label col-lg-4' %>
+        <div class="col-lg-8">
+          <%= f.check_box :is_active %>
+          <%= f.label :is_active, 'Active' %>
+        </div>
+        <%=f.error_span(:is_active) %>
+      </div>
+    <% end %>
+
   <div class="row">
     <%= render "screen_tabs", f: f %>
   </div>

@@ -21,6 +21,8 @@ class Admins::ViewScreensController < Admins::ApplicationController
     if @view_screen.save
       redirect_to admins_view_screens_path, notice: "Created successfully"
     else
+      @view_screen.screen_tabs.build if @view_screen.screen_tabs.blank?
+
       flash[:error] = "There was some errors in saving"
       render :new
     end
@@ -36,6 +38,8 @@ class Admins::ViewScreensController < Admins::ApplicationController
     if @view_screen.update_attributes(view_screen_params)
       redirect_to admins_view_screens_path, notice: "Updated successfully"
     else
+      @view_screen.screen_tabs.build if @view_screen.screen_tabs.blank?
+
       flash[:error] = "There was some error in update"
       render :edit
     end
@@ -54,6 +58,6 @@ class Admins::ViewScreensController < Admins::ApplicationController
     end
 
     def view_screen_params
-      params.require(:view_screen).permit(:screen_for, screen_tabs_attributes: [:id, :name, :position, :is_active, :_destroy, tab_fields_attributes: [:id, :job_application_question_id, :_destroy]])
+      params.require(:view_screen).permit(:screen_for, :is_active, screen_tabs_attributes: [:id, :name, :position, :is_active, :_destroy, tab_fields_attributes: [:id, :job_application_question_id, :_destroy]])
     end
 end
