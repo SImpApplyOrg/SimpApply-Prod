@@ -1,0 +1,1 @@
+TYPE_FORM_CLIENT = TypeformData::Client.new(api_key: ENV['typeform_api_key'])

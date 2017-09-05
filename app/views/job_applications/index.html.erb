@@ -5,28 +5,35 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= applicant_class.human_attribute_name(:mobile_no) %></th>
-      <th><%#= model_class.human_attribute_name(:message_type) %></th>
-      <th><%#= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
+<% unless @no_view_screen_available_message %>
+  <div class="row">
+    <div class="col-lg-12">
+      <center><%= @upgrade_account_message %></center>
+    </div>
+  </div>
+
+  <div class="list-group">
     <% @job_applications.each do |job_application| %>
-      <% question_answers = JSON.parse(job_application.question_answers) %>
-      <tr>
-        <td><%= link_to job_application.id, job_application_path(job_application.token) %></td>
-        <td><%= job_application.applicant.mobile_no %></td>
-        <td><%=  %></td>
-        <td><%=  %></td>
-        <td>
-          <%= link_to t('.show', :default => t("helpers.links.show_application")), job_application_path(job_application.token), :class => 'btn btn-default btn-xs' %>
-        </td>
-      </tr>
+
+      <% url = @view_screen.screen_tabs.active.count == 1 ? "javascript:;" : job_application_path(job_application.token) %>
+
+      <%= link_to url, class: "list-group-item list-group-item-action flex-column align-items-start" do %>
+        <% answers = get_answers(@view_screen, job_application) %>
+        <% answers.each do |index, tab_field| %>
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%= tab_field["question"] %></h5>
+            <small><%= tab_field["answer"] %></small>
+          </div>
+          <div class="<%= 'border' if index<answers.size-1 %>"></div>
+        <% end %>
+      <% end %>
+
     <% end %>
-  </tbody>
-</table>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-lg-12">
+      <center><%= @no_view_screen_available_message %></center>
+    </div>
+  </div>
+<% end %>

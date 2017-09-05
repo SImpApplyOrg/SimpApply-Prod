@@ -20,6 +20,14 @@ Rails.application.routes.draw do
       get :suspend
     end
 
+    resources :job_application_questions, only: [:index] do
+      collection do
+        get :fetch_questions
+      end
+    end
+
+    resources :view_screens
+
     root "welcome#index"
   end
 

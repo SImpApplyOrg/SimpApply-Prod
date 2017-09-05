@@ -20,6 +20,7 @@ en:
       suspend: "Suspend"
       add_translation: 'Add Translation'
       show_application: 'Show Application'
+      fetch_questions: 'Fetch Questions'
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
@@ -42,3 +43,9 @@ en:
       merchants: 'Merchants'
       reminder_messages: 'Reminder Messages'
       applications: 'Applications'
+      job_application_questions: 'Job Application Questions'
+      view_screens: 'View Screens'
+      job_applications: 'Job Applications'
+  paragraph:
+    upgrade_account_mesage: 'You have more than %{max_limit} job application. Click here %{upgrade_link} to view all applications.'
+    no_view_screen_available: "Right now we don't have anything to show you, please contact to administrator"

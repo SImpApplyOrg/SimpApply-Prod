@@ -1,8 +1,8 @@
 class ParseTypeFormResponse
 
   def initialize(questions, answers)
-    @questions_arr = questions
-    @answers_arr = answers
+    @questions_arr = questions ||= "[]"
+    @answers_arr = answers ||= "[]"
   end
 
   def get_question_answers

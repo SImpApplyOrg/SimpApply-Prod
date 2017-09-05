@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823115923) do
+ActiveRecord::Schema.define(version: 20170831085624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,13 @@ ActiveRecord::Schema.define(version: 20170823115923) do
 
   create_table "default_settings", force: :cascade do |t|
     t.integer "default_max_application_limit_for_trail_merchant"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "job_application_questions", force: :cascade do |t|
+    t.string "question"
+    t.integer "field_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -119,6 +126,25 @@ ActiveRecord::Schema.define(version: 20170823115923) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "screen_tabs", force: :cascade do |t|
+    t.bigint "view_screen_id"
+    t.string "name"
+    t.integer "position"
+    t.boolean "is_active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["view_screen_id"], name: "index_screen_tabs_on_view_screen_id"
+  end
+
+  create_table "tab_fields", force: :cascade do |t|
+    t.bigint "job_application_question_id"
+    t.bigint "screen_tab_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_application_question_id"], name: "index_tab_fields_on_job_application_question_id"
+    t.index ["screen_tab_id"], name: "index_tab_fields_on_screen_tab_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -140,6 +166,14 @@ ActiveRecord::Schema.define(version: 20170823115923) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "view_screens", force: :cascade do |t|
+    t.string "screen_for"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "is_active", default: true
+  end
+
   add_foreign_key "applicants", "merchants"
   add_foreign_key "job_applications", "applicants"
+  add_foreign_key "tab_fields", "job_application_questions"
 end

@@ -1,0 +1,38 @@
+<%= f.fields_for :screen_tabs do |screen_tab| %>
+  <div class="well col-lg-4">
+    <%= screen_tab.link_to_remove "Remove", class: 'pull-right' %>
+    <div class="clearfix"></div>
+
+    <div class="form-group">
+      <%= screen_tab.label :name, :class => 'control-label col-lg-4' %>
+      <div class="col-lg-8">
+        <%= screen_tab.text_field :name, placeholder: 'Tab name', class: 'form-control' %>
+      </div>
+      <%=screen_tab.error_span(:name) %>
+    </div>
+
+    <div class="form-group">
+      <%= screen_tab.label :position, :class => 'control-label col-lg-4' %>
+      <div class="col-lg-8">
+        <%= screen_tab.number_field :position, class: 'form-control' %>
+      </div>
+      <%=screen_tab.error_span(:position) %>
+    </div>
+
+    <% if screen_tab.object.persisted? %>
+      <div class="form-group">
+        <%#= screen_tab.label :name, :class => 'control-label col-lg-4' %>
+        <div class="col-lg-8">
+          <%= screen_tab.check_box :is_active %>
+          <%= screen_tab.label :is_active, 'Active' %>
+        </div>
+        <%=screen_tab.error_span(:is_active) %>
+      </div>
+    <% end %>
+
+    <%= render "tab_fields", screen_tab: screen_tab %>
+
+  </div>
+<% end %>
+
+<%= f.link_to_add "New tab", :screen_tabs, :class=> "btn btn-primary" %>
