@@ -2,7 +2,7 @@ class Merchant < ApplicationRecord
 
   validates_presence_of :uuid
   validates :uuid, length: { minimum: 5, maximum: 10 }, if: '!uuid.blank?'
-  validates :uuid, format: { with: /[A-Za-z0-9]/, message: "must be alphanumeric" }, if: '!uuid.blank?'
+  validates :uuid, format: { with: /\A[a-zA-Z0-9]+\Z/i, message: "must be alphanumeric" }, if: '!uuid.blank?'
 
   before_create :generate_token, :assign_reminder_date
 
@@ -11,13 +11,14 @@ class Merchant < ApplicationRecord
   has_many :job_applications, through: :applicants
 
   def self.get_merchant(options)
+    merchant_code = options[:Body].strip.downcase
 
-    return [nil, 'blank'] if options[:Body].blank?
+    return [nil, 'blank'] if merchant_code.blank?
 
-    merchant = where(uuid: options[:Body]).first
+    merchant = where(uuid: merchant_code).first
     return [merchant, 'exist'] unless merchant.blank?
 
-    merchant = create(uuid: options[:Body], mobile_no: options[:From])
+    merchant = create(uuid: merchant_code, mobile_no: options[:From])
     return [merchant, 'error'] if merchant.errors.any?
 
     [merchant, 'new']
