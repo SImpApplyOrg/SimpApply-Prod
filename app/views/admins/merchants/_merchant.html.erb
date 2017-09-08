@@ -1,7 +1,7 @@
 <% user = merchant.user %>
 <tr id="<%= merchant.id %>">
   <td><%= merchant.uuid %></td>
-  <td><%= user.blank? ? "" : user.email %></td>
+  <td><%= user.blank? ? merchant.email : user.email %></td>
   <td><%= merchant.mobile_no %></td>
   <td><%= user.blank? ? t('.not_registered', :default => t("helpers.texts.not_registered")): t('.registered', :default => t("helpers.texts.registered")) %></td>
   <td><%= user.blank? ? '' : (l user.created_at) %></td>

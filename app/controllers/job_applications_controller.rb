@@ -5,7 +5,7 @@ class JobApplicationsController < ApplicationController
 
   def index
     if @view_screen && !@active_tabs.blank?
-      @job_applications = current_user.job_applications.completed_applications
+      @job_applications = current_user.job_applications
 
       if current_user.is_trail_account?
         max_limit = DefaultSetting.first.default_max_application_limit_for_trail_merchant

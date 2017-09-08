@@ -59,6 +59,9 @@ gem 'typeform_data'
 # For Use nested form
 gem 'nested_form'
 
+# For Email template and send email
+gem 'mandrill-api'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -79,6 +82,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'pry'
+
+  gem 'letter_opener'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

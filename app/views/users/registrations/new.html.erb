@@ -1,6 +1,6 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :class => "form-horizontal response_message" }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name, token: params[:token]), :html => { :class => "form-horizontal response_message" }) do |f| %>
   <%= devise_error_messages! %>
 
   <%= f.hidden_field :token, value: params[:token] || resource.token %>
@@ -8,9 +8,16 @@
   <div class="form-group">
     <%= f.label :email, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.email_field :email, autofocus: true, :class => 'form-control' %>
+      <%= f.email_field :email, autofocus: true, :class => 'form-control', readonly: resource.email.present? %>
     </div>
   </div>
+
+  <div class="form-group">
+    <%= f.label :mobile_no, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :mobile_no, :class => 'form-control', readonly: @merchant.mobile_no.present?, placeholder: '+147236587' %>
+     </div>
+   </div>
 
   <div class="form-group">
     <%= f.label :locale, :class => 'control-label col-lg-2' %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831085624) do
+ActiveRecord::Schema.define(version: 20170909102357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,11 +47,16 @@ ActiveRecord::Schema.define(version: 20170831085624) do
   end
 
   create_table "applicants", force: :cascade do |t|
-    t.bigint "merchant_id"
     t.string "mobile_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["merchant_id"], name: "index_applicants_on_merchant_id"
+    t.text "full_response"
+    t.text "questions"
+    t.text "answers"
+    t.boolean "is_reviewed"
+    t.text "question_answers"
+    t.datetime "last_reminder_at"
+    t.text "token"
   end
 
   create_table "default_settings", force: :cascade do |t|
@@ -69,15 +74,9 @@ ActiveRecord::Schema.define(version: 20170831085624) do
 
   create_table "job_applications", force: :cascade do |t|
     t.bigint "applicant_id"
-    t.text "token"
-    t.text "full_response"
-    t.text "questions"
-    t.text "answers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_reviewed", default: false
-    t.text "question_answers"
-    t.datetime "last_reminder_at"
+    t.integer "merchant_id"
     t.index ["applicant_id"], name: "index_job_applications_on_applicant_id"
   end
 
@@ -90,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170831085624) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.datetime "last_reminder_at"
+    t.string "email"
   end
 
   create_table "reminder_message_translations", force: :cascade do |t|
@@ -173,7 +173,6 @@ ActiveRecord::Schema.define(version: 20170831085624) do
     t.boolean "is_active", default: true
   end
 
-  add_foreign_key "applicants", "merchants"
   add_foreign_key "job_applications", "applicants"
   add_foreign_key "tab_fields", "job_application_questions"
 end

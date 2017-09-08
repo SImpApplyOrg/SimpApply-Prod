@@ -1,0 +1,6 @@
+<% if @applicant.present? %>
+  Redirecting to <%= ENV['type_form_url']+@applicant.token %> ....
+  <script type="text/javascript">
+    window.location.replace("<%= ENV['type_form_url']+@applicant.token %>")
+  </script>
+<% end %>

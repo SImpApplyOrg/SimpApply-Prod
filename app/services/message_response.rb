@@ -19,6 +19,12 @@ class MessageResponse
       "new_application_form"
     when 'view_application'
       "view_application_form"
+    when "applicant_exist"
+      "applicant_exist"
+    when 'email_error'
+      "error_in_email"
+    when "error_in_submit_applicant"
+      "error_in_submit_applicant"
     end
 
     response_message = ResponseMessage.where(message_type: message_type).first
@@ -35,7 +41,7 @@ class MessageResponse
       mailer_options = ResponseMessage::MARKUP_VARIABLES
       {
         sign_up_link: Rails.application.routes.url_helpers.new_user_registration_url(token: @token),
-        type_form_link: "#{ENV['type_form_url']}#{@token}"
+        type_form_link: Rails.application.routes.url_helpers.get_type_form_type_form_web_hooks_url(token: @token)
       }.each do |key, value|
         message.gsub!(mailer_options[key], value) if message.include? mailer_options[key]
       end
@@ -46,7 +52,7 @@ class MessageResponse
     def translated_message(response_message)
       if ['exist', 'new_application', 'view_application'].include? @message_type
         merchant = if @message_type == "exist"
-          JobApplication.where(token: @token).first.applicant.merchant
+          Applicant.where(token: @token).first.merchants.first
         else
           Merchant.where(token: @token).first
         end

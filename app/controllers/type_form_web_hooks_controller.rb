@@ -1,6 +1,12 @@
 class TypeFormWebHooksController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :check_application_token
+  before_action :check_application_token, only: [:create_application]
+
+  def get_type_form
+    applicant_token = params[:token] || ""
+    @applicant = Applicant.where(token: applicant_token).first
+    flash.now[:error] = "Invalid Token, Please try again with valid token"
+  end
 
   def create_application
     questions = params[:type_form_web_hook][:form_response][:definition][:fields].to_json.to_s
@@ -8,12 +14,25 @@ class TypeFormWebHooksController < ApplicationController
 
     question_answers = ParseTypeFormResponse.new(questions, answers).get_question_answers
 
-    @job_application.update_attributes(full_response: get_params.to_json.to_s, questions: questions, answers: answers, question_answers: question_answers.to_json.to_s)
+    applicant_attribute_hash = { full_response: get_params.to_json.to_s, questions: questions, answers: answers, question_answers: question_answers.to_json.to_s, token: nil }
 
-    merchant = @job_application.applicant.merchant
-    message = MessageResponse.new(merchant.token, 'new_application').get_message
+    if @applicant.update_attributes(applicant_attribute_hash)
+      merchants = @applicant.merchants
+      message_for_merchant = MessageResponse.new('', 'new_application').get_message
+      message_for_applicant = MessageResponse.new('', 'applicant_exist').get_message
+      merchants.each do |merchant|
+        if merchant.mobile_no.present?
+          TwilioResponse.new(message_for_merchant, merchant.mobile_no).send_response
+        else
+          MerchantMailer.get_application(merchant.id).deliver
+        end
+      end
 
-    TwilioResponse.new(message, merchant.mobile_no).send_response
+      TwilioResponse.new(message_for_applicant, @applicant.mobile_no).send_response
+    else
+      message = MessageResponse.new('', 'error_in_submit_applicant').get_message
+      TwilioResponse.new(message, @applicant.mobile_no).send_response
+    end
 
     redirect_to root_path, notice: 'Job Application successfully updated'
   end
@@ -26,8 +45,8 @@ class TypeFormWebHooksController < ApplicationController
     def check_application_token
       application_token = get_params[:form_response][:hidden][:application_token]
 
-      @job_application = JobApplication.where(token: application_token).first
+      @applicant = Applicant.where(token: application_token).first
 
-      redirect_to root_path, error: 'No Application found.' if @job_application.blank?
+      redirect_to root_path, error: 'No Application found.' if @applicant.blank?
     end
 end

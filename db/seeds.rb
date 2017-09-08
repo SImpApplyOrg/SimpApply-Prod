@@ -20,3 +20,9 @@ ResponseMessage.where(message_type: 'blank_merchant_id').first_or_create(message
 ResponseMessage.where(message_type: 'new_application_form').first_or_create(message: "Hi, You have got a new application form")
 
 ResponseMessage.where(message_type: 'view_application_form').first_or_create(message: "Hi, Merchant has reviewd your application form")
+
+ResponseMessage.where(message_type: 'applicant_exist').first_or_create(message: "Hi, we’ve submitted your application for you and will notify when the hiring manager has received it")
+
+ResponseMessage.where(message_type: 'error_in_email').first_or_create(message: "Hi Please send the message in proper format")
+
+ResponseMessage.where(message_type: 'error_in_submit_applicant').first_or_create(message: "Hi, we got your application but there was some error to submit to hiring manager, Please contact to administrator.")

@@ -8,7 +8,10 @@ class ResponseMessage < ApplicationRecord
     error_in_merchant_id: 'Response for Merchant ID not in proper format',
     blank_merchant_id: "Response for Merchant ID not present",
     new_application_form: "Response for getting new application form",
-    view_application_form: "Response for merchant reviewed application form"
+    view_application_form: "Response for merchant reviewed application form",
+    applicant_exist: 'Response for applicant present',
+    error_in_email: "Response for email not in proper format",
+    error_in_submit_applicant: 'Response for not submit applicant information'
   }
 
   MARKUP_VARIABLES = { sign_up_link: "sign_up_link",

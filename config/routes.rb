@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, path: '/admins'
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   namespace :admins do
     resources :default_settings, only: :update
@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   resources :type_form_web_hooks, only: :nil do
     collection do
+      get :get_type_form
       post :create_application
     end
   end
