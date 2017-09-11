@@ -31,8 +31,10 @@ class User < ApplicationRecord
       if self.new_record?
         merchant = Merchant.where(token: self.token).first
 
-        self.mobile_no = merchant.mobile_no
-        self.email = merchant.email
+        if merchant
+          self.mobile_no = merchant.mobile_no
+          self.email = merchant.email
+        end
       end
     end
 
