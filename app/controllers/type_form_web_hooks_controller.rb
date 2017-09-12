@@ -5,7 +5,7 @@ class TypeFormWebHooksController < ApplicationController
   def get_type_form
     applicant_token = params[:token] || ""
     @applicant = Applicant.where(token: applicant_token).first
-    flash.now[:error] = "Invalid Token, Please try again with valid token"
+    flash.now[:error] = "Invalid Token, Please try again with valid token" unless @applicant
   end
 
   def create_application

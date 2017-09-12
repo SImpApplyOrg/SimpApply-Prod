@@ -20,11 +20,11 @@ class JobApplicationsController < ApplicationController
   end
 
   def show
-    @job_application = JobApplication.find_by_token(params[:id])
+    @job_application = JobApplication.find(params[:id])
 
     unless @job_application.is_reviewed?
       applicant = @job_application.applicant
-      merchant = applicant.merchant
+      merchant = @job_application.merchant
       @job_application.update_attributes(is_reviewed: true)
 
       message = MessageResponse.new(merchant.token, 'view_application').get_message
@@ -34,7 +34,7 @@ class JobApplicationsController < ApplicationController
 
   private
     def get_view_screen
-      @view_screen = ViewScreen.active.first
+      @view_screen = ViewScreen.active_screens.first
       @active_tabs = @view_screen.screen_tabs.active if @view_screen
     end
 end

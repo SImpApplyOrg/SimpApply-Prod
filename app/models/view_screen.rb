@@ -12,7 +12,7 @@ class ViewScreen < ApplicationRecord
 
   after_initialize :assign_screen_for
 
-  scope :active, -> { where(is_active: true) }
+  scope :active_screens, -> { where(is_active: true) }
 
   private
     def assign_screen_for

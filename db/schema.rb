@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170909102357) do
+ActiveRecord::Schema.define(version: 20170912123936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(version: 20170909102357) do
     t.text "full_response"
     t.text "questions"
     t.text "answers"
-    t.boolean "is_reviewed"
     t.text "question_answers"
     t.datetime "last_reminder_at"
     t.text "token"
@@ -77,6 +76,7 @@ ActiveRecord::Schema.define(version: 20170909102357) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "merchant_id"
+    t.boolean "is_reviewed", default: false
     t.index ["applicant_id"], name: "index_job_applications_on_applicant_id"
   end
 

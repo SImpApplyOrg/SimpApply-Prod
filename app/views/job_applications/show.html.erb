@@ -6,10 +6,10 @@
 
 <% screen_tabs = @view_screen.screen_tabs.offset(1) %>
 <div class="tab-content">
-  <% screen_tabs.each_with_index do |screen_tab, index| %>
-    <div role="tabpanel" class="tab-pane <%='active' if index==0 %>" id="screen_tab-<%=index%>">
+  <% screen_tabs.each_with_index do |screen_tab, tab_index| %>
+    <div role="tabpanel" class="tab-pane <%='active' if tab_index==0 %>" id="screen_tab-<%=tab_index%>">
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <% answers = ScreenTabDetail.new(@view_screen, @job_application).get_answers(screen_tab) %>
+        <% answers = get_answers(@view_screen, @job_application, screen_tab) %>
 
         <% answers.each do |index, answer|%>
           <div class="panel panel-default">
@@ -29,14 +29,14 @@
         <hr>
         <div class="row">
           <div class="col-sm-12 mbl">
-            <% if index == 0 %>
+            <% if tab_index == 0 %>
               <a href="<%= job_applications_path %>" class="btn btn-primary btn-sm pull-left"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Previous</a>
             <% else %>
-              <a href="#screen_tab-<%= index-1 %>" aria-controls="screen_tab-<%= index-1 %>" role="tab" data-toggle="tab" class="btn btn-primary btn-sm pull-left"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Previous</a>
+              <a href="#screen_tab-<%= tab_index-1 %>" aria-controls="screen_tab-<%= tab_index-1 %>" role="tab" data-toggle="tab" class="btn btn-primary btn-sm pull-left"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Previous</a>
             <% end %>
 
-            <% if index < screen_tabs.size-1 %>
-              <a href="#screen_tab-<%= index+1 %>" aria-controls="screen_tab-<%= index+1 %>" role="tab" data-toggle="tab" class="btn btn-primary btn-sm pull-right">Next <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+            <% if tab_index < screen_tabs.size-1 %>
+              <a href="#screen_tab-<%= tab_index+1 %>" aria-controls="screen_tab-<%= tab_index+1 %>" role="tab" data-toggle="tab" class="btn btn-primary btn-sm pull-right">Next <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
             <% end %>
           </div>
         </div>
