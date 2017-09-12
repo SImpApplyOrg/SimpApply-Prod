@@ -24,7 +24,7 @@ class User < ApplicationRecord
   private
     def assign_user_to_merchant
       merchant = Merchant.where(token: self.token).first
-      merchant.update_attributes(user_id: self.id, token: nil)
+      merchant.update_attributes(user_id: self.id, email: self.email, token: nil)
     end
 
     def assign_default_values
