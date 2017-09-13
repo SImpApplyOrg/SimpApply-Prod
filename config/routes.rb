@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       get :suspend
     end
 
-    resources :job_application_questions, only: [:index] do
+    resources :job_application_questions, only: [:index, :update] do
       collection do
         get :fetch_questions
       end

@@ -3,3 +3,12 @@
   margin: 8px 0 0;
   padding: 5px 0 0;
 }
+
+.table-input-width {
+  width: 80%;
+  display: inline;
+}
+
+.question-form {
+  display: none;
+}

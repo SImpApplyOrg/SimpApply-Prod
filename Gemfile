@@ -62,6 +62,10 @@ gem 'nested_form'
 # For Email template and send email
 gem 'mandrill-api'
 
+# For pagination
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

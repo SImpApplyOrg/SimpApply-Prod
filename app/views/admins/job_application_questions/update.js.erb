@@ -1,0 +1,5 @@
+<% if @job_application_question.errors.any? %>
+  $('td#question-<%= @job_application_question.id %>').html("<%= escape_javascript(render 'form', job_application_question: @job_application_question) %>");
+<% else %>
+  $('td#question-<%= @job_application_question.id %>').html("<%= escape_javascript(render 'question_title', job_application_question: @job_application_question) %>")
+<% end %>

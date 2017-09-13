@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912123936) do
+ActiveRecord::Schema.define(version: 20170913170333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 20170912123936) do
     t.integer "field_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "question_title"
+    t.boolean "is_custom_field", default: false
   end
 
   create_table "job_applications", force: :cascade do |t|

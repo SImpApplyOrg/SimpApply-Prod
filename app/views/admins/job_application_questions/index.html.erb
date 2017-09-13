@@ -6,15 +6,25 @@
 <%= link_to t('.fetch_questions', :default => t("helpers.links.fetch_questions")), fetch_questions_admins_job_application_questions_path, :class => 'btn btn-primary' %>
 
 <table class="table table-striped">
+  <colgroup>
+    <col width="1%">
+    <col width="10%">
+    <col width="40%">
+    <col width="40%">
+    <col width="9%">
+  </colgroup>
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:field_id) %></th>
       <th><%= model_class.human_attribute_name(:question) %></th>
+      <th><%= model_class.human_attribute_name(:question_title) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
     </tr>
   </thead>
   <tbody>
-    <%= render @Job_application_questions %>
+    <%= render @job_application_questions %>
   </tbody>
 </table>
+
+<%= paginate @job_application_questions, :theme => 'twitter-bootstrap-3' %>

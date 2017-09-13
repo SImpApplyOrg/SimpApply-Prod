@@ -26,3 +26,5 @@ ResponseMessage.where(message_type: 'applicant_exist').first_or_create(message: 
 ResponseMessage.where(message_type: 'error_in_email').first_or_create(message: "Hi Please send the message in proper format")
 
 ResponseMessage.where(message_type: 'error_in_submit_applicant').first_or_create(message: "Hi, we got your application but there was some error to submit to hiring manager, Please contact to administrator.")
+
+JobApplicationQuestion.where(is_custom_field: true, question: "No of job applications").first_or_create(question_title: 'Total no of job applications for this applicant')
