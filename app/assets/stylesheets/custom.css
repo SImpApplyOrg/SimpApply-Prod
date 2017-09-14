@@ -12,3 +12,13 @@
 .question-form {
   display: none;
 }
+
+.list-group-item {
+  margin-bottom: 10px !important;
+}
+
+.even {
+  background-color: #f5f5f5 !important;
+  color: #555555 !important;
+  text-decoration: none !important;
+}

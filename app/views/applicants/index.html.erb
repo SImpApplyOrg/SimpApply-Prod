@@ -12,11 +12,11 @@
   </div>
 
   <div class="list-group">
-    <% @applicants.each do |applicant| %>
+    <% @applicants.each_with_index do |applicant, index| %>
 
       <% url = @view_screen.screen_tabs.active.count == 1 ? "javascript:;" : applicant_path(applicant) %>
 
-      <%= link_to url, class: "list-group-item list-group-item-action flex-column align-items-start" do %>
+      <%= link_to url, class: "list-group-item list-group-item-action flex-column align-items-start #{'even' if index%2 == 0 }" do %>
         <% applicant_details = get_details(@view_screen, applicant) %>
 
         <% applicant_details.each do |index, tab_field| %>
