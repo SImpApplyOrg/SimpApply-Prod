@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :job_applications, only: [:index, :show]
+  resources :applicants, only: [:index, :show]
 
   root "welcome#index"
 end

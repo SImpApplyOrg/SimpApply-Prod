@@ -1,11 +1,12 @@
 class ScreenTabDetail
 
-  def initialize(view_screen, applicant)
+  def initialize(view_screen, applicant, merchant)
     @view_screen = view_screen
     @applicant = applicant
+    @merchant = merchant
   end
 
-  def get_answers(screen_tab=nil)
+  def get_details(screen_tab=nil)
     screen_tab ||= @view_screen.screen_tabs.active.first
     tab_questions = get_tab_field_questions(screen_tab)
 
@@ -20,12 +21,19 @@ class ScreenTabDetail
         question_answers = JSON.parse(@applicant.question_answers)
 
         tab_questions.each_with_index do |question, index|
-          question_answers.each do |question_answer|
-            if question_answer["question_id"] == question.field_id.to_s
-              answers[index] = question_answer
-              break
+          if question.field_id.blank?
+            no_of_applications = @applicant.job_applications.where(merchant_id: @merchant.id).size
+            answers[index] = {"question" => question.question_text, "answer" => no_of_applications }
+          else
+            question_answers.each do |question_answer|
+              if question_answer["question_id"] == question.field_id.to_s
+                question_answer["question"] = question.question_text
+                answers[index] = question_answer
+                break
+              end
             end
           end
+
         end
       end
       answers

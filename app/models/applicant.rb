@@ -5,6 +5,8 @@ class Applicant < ApplicationRecord
   has_many :job_applications
   has_many :merchants, through: :job_applications
 
+  scope :have_details, -> { where("full_response IS NOT NULL")}
+
   def self.send_reminder_messages
     where("full_response IS NULL").each do |applicant|
       ReminderMessage.applicant.each do |reminder_message|

@@ -1,5 +1,4 @@
-<%- model_class = JobApplication -%>
-<%- applicant_class = Applicant -%>
+<%- model_class = Applicant -%>
 
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
@@ -13,19 +12,19 @@
   </div>
 
   <div class="list-group">
-    <% @job_applications.each do |job_application| %>
+    <% @applicants.each do |applicant| %>
 
-      <% url = @view_screen.screen_tabs.active.count == 1 ? "javascript:;" : job_application_path(job_application) %>
+      <% url = @view_screen.screen_tabs.active.count == 1 ? "javascript:;" : applicant_path(applicant) %>
 
       <%= link_to url, class: "list-group-item list-group-item-action flex-column align-items-start" do %>
-        <% answers = get_answers(@view_screen, job_application) %>
+        <% applicant_details = get_details(@view_screen, applicant) %>
 
-        <% answers.each do |index, tab_field| %>
+        <% applicant_details.each do |index, tab_field| %>
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1"><%= tab_field["question"] %></h5>
             <small><%= tab_field["answer"] %></small>
           </div>
-          <div class="<%= 'border' if index<answers.size-1 %>"></div>
+          <div class="<%= 'border' if index<applicant_details.size-1 %>"></div>
         <% end %>
       <% end %>
 
