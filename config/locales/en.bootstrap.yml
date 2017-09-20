@@ -46,6 +46,7 @@ en:
       job_application_questions: 'Job Application Questions'
       view_screens: 'View Screens'
       applicants: 'Applicants'
+      messages: 'Messages'
   paragraph:
     upgrade_account_mesage: 'You have more than %{max_limit} job application. Click here %{upgrade_link} to view all applications.'
     no_view_screen_available: "Right now we don't have anything to show you, please contact to administrator"
