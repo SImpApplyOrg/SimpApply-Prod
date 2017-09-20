@@ -41,7 +41,16 @@ class MessageResponse
       mailer_options = ResponseMessage::MARKUP_VARIABLES
       {
         sign_up_link: Rails.application.routes.url_helpers.new_user_registration_url(token: @token),
-        type_form_link: Rails.application.routes.url_helpers.get_type_form_type_form_web_hooks_url(token: @token)
+        type_form_link: Rails.application.routes.url_helpers.get_type_form_type_form_web_hooks_url(token: @token),
+        applicant_position: '',
+        date_submitted: '',
+        merchant_first_name: '',
+        business_name: '',
+        applicant_first_name: '',
+        applicant_phone_number: '',
+        applicant_age: '',
+        applicant_city: '',
+        job_application_link: ''
       }.each do |key, value|
         message.gsub!(mailer_options[key], value) if message.include? mailer_options[key]
       end

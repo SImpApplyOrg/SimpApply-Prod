@@ -39,7 +39,11 @@
     <div class="form-group">
       <%= f.label :message, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_area :message, :class => 'form-control' %>
+        <%= f.text_area :message, :class => 'form-control tags' %>
+        <% ResponseMessage::MARKUP_VARIABLES.values.each do |link| %>
+          <%= link_to "#{link}", "javascript:;", class: "tag_links" %>
+          <%= "," if ResponseMessage::MARKUP_VARIABLES.values[-1] != link %>
+        <% end %>
       </div>
       <%=f.error_span(:message) %>
     </div>
