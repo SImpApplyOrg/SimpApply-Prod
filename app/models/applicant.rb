@@ -2,7 +2,7 @@ class Applicant < ApplicationRecord
 
   before_create :assign_reminder_date
 
-  has_many :job_applications
+  has_many :job_applications, dependent: :destroy
   has_many :merchants, through: :job_applications
 
   scope :have_details, -> { where("full_response IS NOT NULL")}
