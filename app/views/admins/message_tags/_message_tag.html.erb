@@ -1,0 +1,21 @@
+<tr>
+  <td><%= message_tag.id %></td>
+  <td><%= message_tag.tag_name %></td>
+  <td><%= message_tag.tag_value %></td>
+  <td><%= message_tag.job_application_question.try(:question) %></td>
+  <td><%= message_tag.is_editable %></td>
+  <td><%= message_tag.created_at %></td>
+  <td>
+    <%= link_to t('.show', :default => t("helpers.links.show")),
+                admins_message_tag_path(message_tag), :class => 'btn btn-default btn-xs' %>
+    <% if message_tag.is_editable? %>
+      <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_admins_message_tag_path(message_tag), :class => 'btn btn-default btn-xs' %>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  admins_message_tag_path(message_tag),
+                  :method => :delete,
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-xs btn-danger' %>
+    <% end %>
+  </td>
+</tr>

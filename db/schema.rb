@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914164841) do
+ActiveRecord::Schema.define(version: 20170921080320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,16 @@ ActiveRecord::Schema.define(version: 20170914164841) do
     t.integer "user_id"
     t.datetime "last_reminder_at"
     t.string "email"
+  end
+
+  create_table "message_tags", force: :cascade do |t|
+    t.string "tag_name"
+    t.string "tag_value"
+    t.bigint "job_application_question_id"
+    t.boolean "is_editable", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_application_question_id"], name: "index_message_tags_on_job_application_question_id"
   end
 
   create_table "reminder_message_translations", force: :cascade do |t|

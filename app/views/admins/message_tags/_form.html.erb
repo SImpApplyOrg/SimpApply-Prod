@@ -1,0 +1,50 @@
+<%= form_for [:admins, @message_tag], :html => { :class => "form-horizontal message_tag" } do |f| %>
+
+  <% if @message_tag.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@message_tag.errors.count, "error") %> prohibited this message_tag from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @message_tag.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :tag_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :tag_name, :class => 'form-control' %>
+      <p><%= t('helpers.texts.do_not_edit_tag') unless @message_tag.new_record? %></p>
+    </div>
+    <%=f.error_span(:tag_name) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :tag_value, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :tag_value, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:base) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :job_application_question_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select :job_application_question_id, @type_form_questions.map{|q| [q.question, q.id]}, { prompt: 'Select any' }, { :class => 'form-control' } %>
+    </div>
+    <%=f.error_span(:base) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                admins_message_tags_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

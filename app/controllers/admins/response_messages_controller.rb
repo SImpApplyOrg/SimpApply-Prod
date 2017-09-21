@@ -1,6 +1,7 @@
 class Admins::ResponseMessagesController < Admins::ApplicationController
   before_action :set_response_message, except: [:index, :new, :create]
   before_action :get_locales, only: [:edit, :update]
+  before_action :get_message_tags, except: [:index, :show, :destroy]
 
   def index
     @response_messages = ResponseMessage.all
@@ -55,5 +56,9 @@ class Admins::ResponseMessagesController < Admins::ApplicationController
     def get_locales
       added_locales = @response_message.translations.map(&:locale)
       @locales = params[:lang].blank? ? (I18n.available_locales - added_locales) : [params[:lang]]
+    end
+
+    def get_message_tags
+      @message_tags = MessageTag.all
     end
 end

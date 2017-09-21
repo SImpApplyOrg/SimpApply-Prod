@@ -32,6 +32,7 @@ en:
       not_registered: 'Registration awaiting'
       registered: 'Registered'
       status: 'Status'
+      do_not_edit_tag: "Don't edit the tag if you have used in any of response message boby."
     buttons:
       create_translation: 'Create Translation'
       edit_translation: 'Edit Translation'
