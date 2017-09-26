@@ -13,11 +13,25 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :first_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :first_name, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :last_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :last_name, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :mobile_no, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.text_field :mobile_no, :class => 'form-control', readonly: @merchant.mobile_no.present?, placeholder: '+147236587' %>
-     </div>
-   </div>
+    </div>
+  </div>
 
   <div class="form-group">
     <%= f.label :locale, :class => 'control-label col-lg-2' %>

@@ -16,7 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:locale, :token, :mobile_no])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:locale, :token, :mobile_no, :first_name, :last_name])
     end
 
     def authenticate_merchant_token
