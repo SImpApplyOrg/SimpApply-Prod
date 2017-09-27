@@ -18,19 +18,20 @@ class TypeFormWebHooksController < ApplicationController
 
     if @applicant.update_attributes(applicant_attribute_hash)
       merchants = @applicant.merchants
-      message_for_merchant = MessageResponse.new('', 'new_application').get_message
-      message_for_applicant = MessageResponse.new('', 'applicant_exist').get_message
+
+      message_for_applicant = MessageResponse.new('applicant_exist', nil, @applicant).get_message
       merchants.each do |merchant|
         if merchant.mobile_no.present?
+          message_for_merchant = MessageResponse.new('new_application', merchant, @aplicant).get_message
           TwilioResponse.new(message_for_merchant, merchant.mobile_no).send_response
         else
-          MerchantMailer.get_application(merchant.id).deliver
+          MerchantMailer.get_application(merchant.id, @applicant.id).deliver
         end
       end
 
       TwilioResponse.new(message_for_applicant, @applicant.mobile_no).send_response
     else
-      message = MessageResponse.new('', 'error_in_submit_applicant').get_message
+      message = MessageResponse.new('error_in_submit_applicant', nil, @applicant).get_message
       TwilioResponse.new(message, @applicant.mobile_no).send_response
     end
 

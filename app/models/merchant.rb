@@ -38,9 +38,9 @@ class Merchant < ApplicationRecord
     (reminder_message.since_signup_date? ? self.created_at : self.last_reminder_at) + reminder_message.remind_after.days
   end
 
-  def send_mail(message_type)
+  def send_mail(message_type, applicant_id)
     MerchantMailer.welcome(self.id).deliver if message_type == 'email_new'
-    MerchantMailer.get_application(self.id).deliver
+    MerchantMailer.get_application(self.id, applicant_id).deliver
   end
 
   private

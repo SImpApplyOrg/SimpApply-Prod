@@ -1,8 +1,10 @@
 class MessageResponse
 
-  def initialize(token, message_type)
-    @token = token
+  def initialize(message_type, merchant, applicant)
     @message_type = message_type
+
+    @merchant = merchant
+    @applicant = applicant
   end
 
   def get_message
@@ -38,34 +40,38 @@ class MessageResponse
 
   private
     def customize_message(message)
-      mailer_options = ResponseMessage::MARKUP_VARIABLES
-      {
-        sign_up_link: Rails.application.routes.url_helpers.new_user_registration_url(token: @token),
-        type_form_link: Rails.application.routes.url_helpers.get_type_form_type_form_web_hooks_url(token: @token),
-        applicant_position: '',
-        date_submitted: '',
-        merchant_first_name: '',
-        business_name: '',
-        applicant_first_name: '',
-        applicant_phone_number: '',
-        applicant_age: '',
-        applicant_city: '',
-        job_application_link: ''
-      }.each do |key, value|
-        message.gsub!(mailer_options[key], value) if message.include? mailer_options[key]
+      mailer_options = message.scan( /{{([^}}]*)}}/).flatten
+      mailer_options.each do |tag|
+        message.gsub!("{{#{tag}}}", get_tag_value(tag))
       end
-
       message
+    end
+
+    def get_tag_value(tag)
+      case tag
+      when 'sign_up_link'
+        Rails.application.routes.url_helpers.new_user_registration_url(token: @merchant.token) if @merchant
+      when 'type_form_link'
+        Rails.application.routes.url_helpers.get_type_form_type_form_web_hooks_url(token: @applicant.token) if @applicant
+      when 'job_application_link'
+        Rails.application.routes.url_helpers.applicants_url
+      when 'merchant_first_name'
+        @merchant.user.first_name if @merchant.present? && @merchant.user.present?
+      else
+        message_tag = MessageTag.where(tag_name: tag).first
+        job_application_question = message_tag.job_application_question
+        if job_application_question && @applicant
+          @applicant.get_message_tag_value(job_application_question.field_id)
+        else
+          message_tag.tag_value
+        end
+      end
     end
 
     def translated_message(response_message)
       if ['exist', 'new_application', 'view_application'].include? @message_type
-        merchant = if @message_type == "exist"
-          Applicant.where(token: @token).first.merchants.first
-        else
-          Merchant.where(token: @token).first
-        end
-        locale = merchant && merchant.user.present? ? merchant.user.locale : 'en'
+
+        locale = @merchant && @merchant.user.present? ? @merchant.user.locale : 'en'
         Globalize.with_locale(locale.to_sym) { response_message.message }
       else
         response_message.message

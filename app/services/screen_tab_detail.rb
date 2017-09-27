@@ -25,12 +25,19 @@ class ScreenTabDetail
             no_of_applications = @applicant.job_applications.where(merchant_id: @merchant.id).size
             answers[index] = {"question" => question.question_text, "answer" => no_of_applications }
           else
+            not_matched = true
             question_answers.each do |question_answer|
               if question_answer["question_id"] == question.field_id.to_s
-                question_answer["question"] = question.question_text
+                question_answer["question"] = question.question_title if question.question_title.present?
                 answers[index] = question_answer
+                not_matched = false
                 break
               end
+            end
+
+            if not_matched
+              puts "field_id ================ #{question.field_id}"
+              answers[index] = { "question" => question.question_text, "answer" => "" }
             end
           end
 

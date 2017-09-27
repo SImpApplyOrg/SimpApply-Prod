@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       get :suspend
     end
 
+    resources :applicants, only: [:index, :edit, :update, :destroy]
+
     resources :job_application_questions, only: [:index, :update] do
       collection do
         get :fetch_questions

@@ -1,0 +1,39 @@
+<%= form_for [:admins, @applicant], :html => { :class => "form-horizontal" } do |f| %>
+  <table class="table table-striped">
+    <colgroup>
+      <col width="1%">
+      <col width="30%">
+      <col width="30%">
+      <col width="39%">
+    </colgroup>
+    <thead>
+      <tr>
+        <th><%= 'No.' %></th>
+        <th><%= 'Question' %></th>
+        <th><%= 'Answer' %></th>
+        <th><%= 'Update Answer' %></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% JSON.parse(@applicant.question_answers).each_with_index do |question_answer, index| %>
+        <tr>
+          <td><%= index+1 %></td>
+          <td><%= question_answer["question"] %></td>
+          <td><%= question_answer["answer"] %></td>
+          <td>
+            <%= text_field_tag "applicant[#{question_answer['question_id']}][admin_answer]", question_answer['admin_answer'], class: "form-control table-input-width" %>
+          </td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                admins_applicants_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

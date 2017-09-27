@@ -42,15 +42,17 @@ class ParseTypeFormResponse
     end
 
     def format_question(question_title)
-      sub_string = question_title.scan( /{{([^}}]*)}}/).last
+      sub_strings = question_title.scan( /{{([^}}]*)}}/).flatten
 
-      if sub_string
-        question_id = sub_string.first.strip.split('_').last
-        answer_hash = get_answer_hash(question_id)
+      if sub_strings
+        sub_strings.each do |sub_string|
+          question_id = sub_string.strip.split('_').last
+          answer_hash = get_answer_hash(question_id)
 
-        answer = get_correct_answer(answer_hash)
+          answer = get_correct_answer(answer_hash)
 
-        question_title = question_title.gsub("{{answer_#{question_id}}}", answer)
+          question_title = question_title.gsub("{{answer_#{question_id}}}", answer)
+        end
       end
       question_title
     end

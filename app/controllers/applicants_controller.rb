@@ -25,7 +25,7 @@ class ApplicantsController < ApplicationController
     unless @applicant.is_reviewed?
       @applicant.update_attributes(is_reviewed: true)
 
-      message = MessageResponse.new('', 'view_application').get_message
+      message = MessageResponse.new('view_application', current_user.merchant, @applicant).get_message
       TwilioResponse.new(message, @applicant.mobile_no).send_response
     end
   end

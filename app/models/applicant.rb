@@ -35,6 +35,19 @@ class Applicant < ApplicationRecord
     job_applications.create(merchant_id: merchant.id)
   end
 
+  def get_message_tag_value(type_form_question_id)
+    tag_value = ""
+    if question_answers.present?
+      JSON.parse(question_answers).each do |question_answer|
+        if question_answer["question_id"] == type_form_question_id
+          tag_value = question_answer["admin_answer"].present? ? question_answer["admin_answer"] : question_answer["answer"]
+          break
+        end
+      end
+    end
+    tag_value
+  end
+
   private
 
     def assign_reminder_date

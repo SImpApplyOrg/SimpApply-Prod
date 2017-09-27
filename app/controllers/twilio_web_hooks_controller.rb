@@ -14,8 +14,8 @@ class TwilioWebHooksController < ApplicationController
       [merchant.token, merchant.mobile_no]
     end
 
-    merchant.send_mail(@mail_message_type) if ["email_exist", "email_new"].include?(@mail_message_type)
-    message = MessageResponse.new(token, @message_type).get_message
+    merchant.send_mail(@mail_message_type, @applicant.id) if ["email_exist", "email_new"].include?(@mail_message_type)
+    message = MessageResponse.new(@message_type, merchant, @applicant).get_message
 
     TwilioResponse.new(message, mobile_no).send_response
   end
@@ -26,15 +26,15 @@ class TwilioWebHooksController < ApplicationController
     end
 
     def get_applicant_token_and_mobile_no(merchant)
-      applicant = Applicant.find_or_create_by(mobile_no: get_params[:From])
-      if applicant.have_details?
-        applicant.create_job_application(merchant)
+      @applicant = Applicant.find_or_create_by(mobile_no: get_params[:From])
+      if @applicant.have_details?
+        @applicant.create_job_application(merchant)
         @message_type = 'applicant_exist'
-        return ['', applicant.mobile_no]
+        return ['', @applicant.mobile_no]
       else
-        applicant.generate_token_and_create_job_application(merchant)
+        @applicant.generate_token_and_create_job_application(merchant)
         @message_type = 'exist'
-        return [applicant.token, applicant.mobile_no]
+        return [@applicant.token, @applicant.mobile_no]
       end
     end
 end

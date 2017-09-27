@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
   $('.job_application_question').on('click', '.hover-edit', function(){
     $(this).siblings('.question-form').toggle();
     $(this).toggle();
@@ -12,8 +12,11 @@ $(document).ready(function() {
 
   $('.tag_links').on('click',function(){
     var link_value = $(this).text();
-    var msg_box = $("#response_message_message");
-    msg_box.val(msg_box.val() + " " + link_value);
+    var $txt = $("#response_message_message");
+    var caretPos = $txt[0].selectionStart;
+    var textAreaTxt = $txt.val();
+    var txtToAdd = " {{" + link_value + "}}";
+    $txt.val(textAreaTxt.substring(0, caretPos) + txtToAdd + textAreaTxt.substring(caretPos) );
   });
 
 });

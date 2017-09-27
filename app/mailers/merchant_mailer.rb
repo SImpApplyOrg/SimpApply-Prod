@@ -11,20 +11,21 @@ class MerchantMailer < ApplicationMailer
     subject = "Welcome to our awesome app!"
     merge_vars = {
       "EMAIL" => @merchant.email,
-      "MESSAGE_BODY" => MessageResponse.new(@merchant.token, 'new').get_message,
+      "MESSAGE_BODY" => MessageResponse.new('new', @merchant, nil).get_message,
     }
     body = mandrill_template(ENV["email_new_template"], merge_vars)
 
     send_mail(@merchant.email, subject, body)
   end
 
-  def get_application(merchant_id)
+  def get_application(merchant_id, applicant_id)
     find_merchant(merchant_id)
+    applicant = Applicant.find(applicant_id)
 
     subject = "You got a new application"
     merge_vars = {
       "EMAIL" => @merchant.email,
-      "MESSAGE_BODY" => MessageResponse.new('', 'new_application').get_message,
+      "MESSAGE_BODY" => MessageResponse.new('new_application', @merchant, applicant).get_message,
     }
     body = mandrill_template(ENV["email_new_template"], merge_vars)
 
