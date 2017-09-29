@@ -5,6 +5,7 @@ class Admins::JobApplicationQuestionsController < Admins::ApplicationController
   end
 
   def update
+    @field_type = params[:field_type]
     @job_application_question = JobApplicationQuestion.find(params[:id])
     @job_application_question.update_attributes(job_application_question_params)
   end
@@ -35,7 +36,7 @@ class Admins::JobApplicationQuestionsController < Admins::ApplicationController
 
   private
     def job_application_question_params
-      params.require(:job_application_question).permit(:question_title)
+      params.require(:job_application_question).permit(:question_title, :type_form_question_no)
     end
 end
 

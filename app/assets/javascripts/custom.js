@@ -1,13 +1,16 @@
 $(document).on('turbolinks:load', function() {
-  $('.job_application_question').on('click', '.hover-edit', function(){
+  $('.job_application_question, .job_application_question_no').on('click', '.hover-edit', function(){
     $(this).siblings('.question-form').toggle();
+    $(this).siblings('.question-form').find('input.table-input-width, select.table-input-width').focus();
     $(this).toggle();
   });
 
   $('.job_application_question').on('focusout', '.question-title', function() {
-    if ($(this).val() != "") {
-      $(this).parent().submit();
-    }
+    $(this).parent().submit();
+  });
+
+  $('.job_application_question_no').on('change', '.question-no', function() {
+    $(this).parent().submit();
   });
 
   $('.tag_links').on('click',function(){

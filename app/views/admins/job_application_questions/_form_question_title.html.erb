@@ -1,4 +1,5 @@
 <%= form_for [:admins, job_application_question], remote: true do |f| %>
+  <%= f.hidden_field_tag :field_type, 'question_title' %>
   <%= f.text_field :question_title, class: "form-control table-input-width question-title" %>
   <%= f.error_span(:question_title) %>
 <% end %>

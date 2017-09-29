@@ -9,6 +9,10 @@
   display: inline;
 }
 
+.hover-edit {
+  cursor: pointer;
+}
+
 .question-form {
   display: none;
 }
