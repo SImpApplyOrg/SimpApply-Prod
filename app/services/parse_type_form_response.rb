@@ -51,7 +51,7 @@ class ParseTypeFormResponse
 
           answer = get_correct_answer(answer_hash)
 
-          question_title = question_title.gsub("{{answer_#{question_id}}}", answer)
+          question_title = question_title.gsub("{{answer_#{question_id}}}", answer.to_s)
         end
       end
       question_title

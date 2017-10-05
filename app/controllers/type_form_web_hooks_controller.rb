@@ -35,7 +35,7 @@ class TypeFormWebHooksController < ApplicationController
       TwilioResponse.new(message, @applicant.mobile_no).send_response
     end
 
-    ApplicantMailer.send_resume(@applicant.id)
+    ApplicantMailer.send_resume(@applicant.id).deliver_now
 
     redirect_to root_path, notice: 'Job Application successfully updated'
   end
