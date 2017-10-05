@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Pdf Html</title>
+
+    <style type="text/css">
+
+      @font-face {
+        font-family: "Open Sans";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
+      }
+
+      @font-face {
+        font-family: "Raleway", sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        src: url("https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
+      }
+
+      .fa {
+        display: inline;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 1;
+        font-family: FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .fa-map-marker:before {content: "\f041";}
+      .fa-phone:before {content: "\f095";}
+      .fa-envelope-o:before {content: "\f003";}
+      .fa-calendar-o:before {content: "\f133";}
+
+
+      body{font-family: 'Open Sans', sans-serif !important;}
+      .green-dark{color: #44BCA9;}.mrl{margin-right: 20px;}.mbl{margin-bottom: 20px;}.mtl{margin-top: 20px;}.mll{margin-left: 20px;}.mrm{margin-right: 10px;}.mbm{margin-bottom: 10px;}.mtm{margin-top: 10px;}.mlm{margin-left: 10px;}.prl{padding-right: 20px;}.pbl{padding-bottom: 20px;}.ptl{padding-top: 20px;}.pll{padding-left: 20px;}.prm{padding-right: 10px;}.pbm{padding-bottom: 10px;}.ptm{padding-top: 10px;}.plm{padding-left: 10px;}.header h1{font-size: 48px;font-family: 'Raleway', sans-serif !important;}.header h1 span{font-weight: 200 !important;font-family: 'Raleway', sans-serif !important;color: #7ECBC1;}
+      .location{color: #666666;font-size: 16px;}.left-box-section h2{border-bottom: 1px solid #44bca9;color: #585e6f; font-size: 22px; font-weight: 500; padding-bottom: 5px; margin-top: 0;margin-bottom: 10px;}
+      .left-box-section span {color: #666666;display: block;font-size: 18px;padding-bottom: 10px; padding-top: 10px;}.left-box-section p {color: #666666;font-size: 16px;line-height: 1.5;}
+      .left-box-section-inner-list span{padding-bottom: 0;}.left-box-section-inner-list h4{font-weight: 700;margin-top: 5px;}.list-view{font-size: 16px;color: #666666;}
+      .left-box-section-inner-list ul{padding-left: 0;margin-top: 10px;}.left-box-section-inner-list ul li{color: #666666;font-size: 16px;line-height: 1.5;margin-left: 15px;}
+      .right-box-section h2{padding-left: 5px;border-bottom: 1px solid #44bca9;color: #585e6f;font-size: 22px;padding-bottom: 10px;margin-top: 0; font-weight: 500;}
+      .right-box-section span {color: #666666;display: block;font-size: 18px;padding-bottom: 20px;}.right-box-section p {color: #666666;font-size: 16px;line-height: 1.5;}
+      .right-box-section > ul {padding-left: 0;}.right-box-section > ul > li {border-bottom: 1px solid #ebebeb;list-style-image: none;margin-left: 25px;padding-bottom: 5px;
+        font-size: 20px;text-align: left;list-style-position: outside;}.right-box-section > ul > li > a {color: #585e6f;display: inline-block;font-size: 18px;font-weight: 700;line-height: 2;}.right-box-section table tr td{color: #585E6F;font-weight: 700;font-size: 18px;}.right-box-section table tr td a{color: #33337A;}
+      .bdr-left {border-left: 1px solid #44bca9;height: 100%;}
+      td#left-content-data {
+        border-width: 1px;
+        border-color: transparent #44BCA9 transparent transparent;
+        border-style: solid;}
+
+    </style>
+  </head>
+  <body>
+    <div style="width: 100%; max-width: 1170px; margin: 0 auto">
+      <div class="header mbl">
+        <h1 class="green-dark" style="font-weight: 400; font-family: 'Raleway', sans-serif !important; margin-bottom: 10px; text-transform: uppercase;">
+          <%= @applicant.get_question_value('1') %>
+          <span style="font-weight: 200 !important;font-family: 'Raleway', sans-serif !important; text-transform: uppercase;" class="green-dark">
+            <%= @applicant.get_question_value('2') %>
+          </span>
+        </h1>
+        <div class="clearfix"></div>
+        <div class="row">
+          <div style="width: 100%">
+            <% full_address = "" %>
+            <% full_address += @applicant.get_question_value('3') %>
+            <% full_address += ("#{', ' if full_address.present?}"+@applicant.get_question_value('4')) %>
+            <% full_address += ("#{', ' if full_address.present?}"+@applicant.get_question_value('5')) %>
+            <% full_address += ("#{' ' if full_address.present?}"+@applicant.get_question_value('6')) %>
+
+            <% unless full_address.blank? %>
+              <span class="location mrl" style="float: left; font-size: 14px; vertical-align: middle;">
+                <img style="font-size: 20px; color: #666666; float: left; width: 14px; padding-right: 5px;" src="https://image.flaticon.com/icons/png/512/64/64113.png">
+                <%= full_address %>
+              </span>
+            <% end %>
+
+            <% phone_no = @applicant.get_question_value('7') %>
+            <% unless phone_no.blank? %>
+              <span class="location mrl" style="float: left; font-size: 14px; vertical-align: middle;">
+                <img style="font-size: 20px; color: #666666; float: left; width: 14px; padding-right: 5px;" src="https://cdn1.iconfinder.com/data/icons/material-communication/18/call-128.png">
+                <%= phone_no %>
+              </span>
+            <% end %>
+            <% email = @applicant.get_question_value('8') %>
+            <% unless email.blank? %>
+              <span class="location" style="font-size: 14px; vertical-align: middle; float: left;">
+                <img style="font-size: 20px; color: #666666; float: left; width: 16px; padding-right: 5px;" src="http://simpleicon.com/wp-content/uploads/mail-5.svg">
+                <%= email %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix" style="clear: both;"></div>
+
+      <table style="margin-top: 20px;">
+        <tr>
+          <td id="left-content-data" style="width: 750px; vertical-align: top; margin-right: 2%;border-right: 1px solid #44bca9; padding-right: 2.5%;">
+            <div>
+              <% what_i_enjoy_doing = @applicant.get_question_value('22') %>
+              <% unless what_i_enjoy_doing.blank? %>
+                <div class="left-box-section">
+                  <h2>WHAT I ENJOY DOING</h2>
+                  <p>
+                    <%= what_i_enjoy_doing %>
+                  </p>
+                </div>
+              <% end %>
+
+              <div class="clearfix"></div>
+
+              <div class="left-box-section">
+                <h2>EXPERIENCE</h2>
+                <div class="left-box-section-inner-list mbl">
+                  <span><%= @applicant.get_question_value('18F') %></span>
+                  <h4 class="green-dark">
+                    <%= @applicant.get_question_value('18A') %>
+                  </h4>
+                  <div class="row list-view">
+                    <div style="width: 50%; float: left;">
+                      <img style="font-size: 20px; color: #666666; float: left; width: 14px; padding-right: 5px; vertical-align: middle;" src="https://maxcdn.icons8.com/Share/icon/p1em/Time_And_Date//calendar1600.png">
+                      <% start_at = @applicant.get_question_value('18B') %>
+                      <% end_at = @applicant.get_question_value('18C') %>
+                      <%= start_at.blank? ? 'N/A' : start_at %> – <%= end_at.blank? ? 'N/A' : end_at %>
+                    </div>
+                    <div style="width: 50%; float: left;;">
+                      <img style="font-size: 20px; color: #666666; float: left; width: 14px; padding-right: 5px; vertical-align: middle;" src="https://image.flaticon.com/icons/png/512/64/64113.png">
+                      N/A
+                    </div>
+                  </div>
+                  <ul style="display: inline-block; width: 100%;">
+                    <% desc = @applicant.get_question_value('18G') %>
+                    <% unless desc.blank? %>
+                      <li style="list-style-type: disc; line-height: 1.7;">
+                        <%= desc %>
+                      </li>
+                    <% end %>
+                    <% desc = @applicant.get_question_value('18L') %>
+                    <% unless desc.blank? %>
+                      <li style="list-style-type: disc; line-height: 1.7;">
+                        <%= desc %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+
+                <% another_experience = @applicant.get_question_value('19F') %>
+                <% unless another_experience.blank? %>
+                  <div class="left-box-section-inner-list mbl">
+                    <span><%= another_experience %></span>
+                    <h4 class="green-dark">
+                      <%= @applicant.get_question_value('19A') %>
+                    </h4>
+                    <div class="row list-view">
+                      <div style="width: 50%; float: left;">
+                        <img style="font-size: 20px; color: #666666; float: left; width: 14px; padding-right: 5px; vertical-align: middle;" src="https://maxcdn.icons8.com/Share/icon/p1em/Time_And_Date//calendar1600.png">
+                        <% start_at = @applicant.get_question_value('19B') %>
+                        <% end_at = @applicant.get_question_value('19C') %>
+                        <%= start_at.blank? ? 'N/A' : start_at %> – <%= end_at.blank? ? 'N/A' : end_at %>
+                      </div>
+                      <div style="width: 50%; float: left;">
+                        <img style="font-size: 20px; color: #666666; float: left; width: 14px; padding-right: 5px; vertical-align: middle;" src="https://image.flaticon.com/icons/png/512/64/64113.png">
+                        N/A
+                      </div>
+                    </div>
+                    <ul style="display: inline-block; width: 100%;">
+                      <% desc = @applicant.get_question_value('19G') %>
+                      <% unless desc.blank? %>
+                        <li style="list-style-type: disc; line-height: 1.7;">
+                          <%= desc %>
+                        </li>
+                      <% end %>
+                      <% desc = @applicant.get_question_value('19L') %>
+                      <% unless desc.blank? %>
+                        <li style="list-style-type: disc; line-height: 1.7;">
+                          <%= desc %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+                <% more_experience = @applicant.get_question_value('20F') %>
+                <% unless more_experience.blank? %>
+                  <div class="left-box-section-inner-list mbl">
+                    <span><%= more_experience %></span>
+                    <h4 class="green-dark">
+                      <%= @applicant.get_question_value('20A') %>
+                    </h4>
+                    <div class="row list-view">
+                      <div style="width: 50%; float: left;">
+                        <img style="font-size: 20px; color: #666666; float: left; width: 14px; padding-right: 5px; vertical-align: middle;" src="https://maxcdn.icons8.com/Share/icon/p1em/Time_And_Date//calendar1600.png">
+                        <% start_at = @applicant.get_question_value('20B') %>
+                        <% end_at = @applicant.get_question_value('20C') %>
+                        <%= start_at.blank? ? 'N/A' : start_at %> – <%= end_at.blank? ? 'N/A' : end_at %>
+                      </div>
+                      <div style="width: 50%; float: left;">
+                        <img style="font-size: 20px; color: #666666; float: left; width: 14px; padding-right: 5px; vertical-align: middle;" src="https://image.flaticon.com/icons/png/512/64/64113.png">
+                        N/A
+                      </div>
+                    </div>
+                    <ul style="display: inline-block; width: 100%;">
+                      <% desc = @applicant.get_question_value('20G') %>
+                      <% unless desc.blank? %>
+                        <li style="list-style-type: disc; line-height: 1.7;">
+                          <%= desc %>
+                        </li>
+                      <% end %>
+                      <% desc = @applicant.get_question_value('20L') %>
+                      <% unless desc.blank? %>
+                        <li style="list-style-type: disc; line-height: 1.7;">
+                          <%= desc %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- <div class="clearfix"></div> -->
+
+              <!-- <div class="left-box-section">
+                <h2>EDUCATION</h2>
+                <span>
+                  Currently In: City College of San Francisco <br>
+                  June 2012 - Present
+                </span>
+                <p>
+                  Graduated from: Westmoor High School <br>
+                  June 2008 - June 2012
+                </p>
+              </div> -->
+            </div>
+          </td>
+          <td id="right-content-data" style="width: 320px; padding-left: 30px;vertical-align: top; float: right; align: right">
+            <div>
+              <% languages = @applicant.get_question_value('23') %>
+              <% unless languages.blank? %>
+                <div class="right-box-section mbl pbm">
+                  <h2>LANGUAGES</h2>
+                  <ul>
+                    <% languages.each do |language| %>
+                      <li><a style="color: #585e6f;display: inline-block;font-size: 18px;font-weight: 700;line-height: 2; vertical-align: middle;"><%= language %></a></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <% strengths = @applicant.get_question_value('23') %>
+              <% unless strengths.blank? %>
+                <div class="right-box-section mbl pbm">
+                  <h2>STRENGTHS</h2>
+                  <ul>
+                    <% strengths.each do |strength| %>
+                      <li><a style="color: #585e6f;display: inline-block;font-size: 18px;font-weight: 700;line-height: 2; vertical-align: middle;"><%= strength %></a></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <% improving_ons = @applicant.get_question_value('24') %>
+              <% unless improving_ons.blank? %>
+                <div class="right-box-section mbl pbm">
+                  <h2>IMPROVING ON</h2>
+                  <ul>
+                    <% improving_ons.each do |improving_on| %>
+                      <li><a style="color: #585e6f;display: inline-block;font-size: 18px;font-weight: 700;line-height: 2; vertical-align: middle;"><%= improving_on %></a></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <div class="right-box-section mbl pbm">
+                <h2>REFERENCES</h2>
+                <% reference_name = @applicant.get_question_value('18D') %>
+                <% reference_relation = @applicant.get_question_value('18E') %>
+                <% reference_contact = @applicant.get_question_value('18F') %>
+                <% unless reference_name.blank? %>
+                  <table class="mbl">
+                    <tr>
+                      <td><%= reference_name %></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><%= reference_relation %></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><%= reference_contact %></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                <% end %>
+
+                <% reference_name = @applicant.get_question_value('19D') %>
+                <% reference_relation = @applicant.get_question_value('19E') %>
+                <% reference_contact = @applicant.get_question_value('19F') %>
+                <% unless reference_name.blank? %>
+                  <table class="mbl">
+                    <tr>
+                      <td><%= reference_name %></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><%= reference_relation %></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><%= reference_contact %></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                <% end %>
+
+                <% reference_name = @applicant.get_question_value('20D') %>
+                <% reference_relation = @applicant.get_question_value('20E') %>
+                <% reference_contact = @applicant.get_question_value('20F') %>
+                <% unless reference_name.blank? %>
+                  <table class="mbl">
+                    <tr>
+                      <td><%= reference_name %></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><%= reference_relation %></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><%= reference_contact %></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                <% end %>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+  (function() {
+    var left = document.getElementById("left-content-data").offsetHeight;
+    var right = document.getElementById("right-content-data").offsetHeight;
+    if(left < right){
+      document.getElementById("left-content-data").style.height = right + "px";
+    }
+  })();
+</script>

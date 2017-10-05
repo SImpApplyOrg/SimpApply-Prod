@@ -48,6 +48,22 @@ class Applicant < ApplicationRecord
     tag_value
   end
 
+  def generate_cv
+    resume_data = ApplicationController.render(template: "applicants/resume", layout: nil, assigns: { applicant: self })
+
+    # To merely print the contents of the file, use:
+    # WickedPdf.new.pdf_from_string(resume_data)
+    HyPDF.htmltopdf(
+      resume_data,
+      orientation: 'Landscape'
+    )
+  end
+
+  def get_question_value(question_no)
+    job_application_question = JobApplicationQuestion.where(type_form_question_no: question_no).last
+    (job_application_question ? get_message_tag_value(job_application_question.field_id.to_s) : "")
+  end
+
   private
 
     def assign_reminder_date
