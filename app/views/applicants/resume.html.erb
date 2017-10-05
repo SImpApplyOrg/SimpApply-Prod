@@ -339,6 +339,26 @@
                     </tr>
                   </table>
                 <% end %>
+
+                <% reference_name = @applicant.get_question_value('21A') %>
+                <% reference_relation = @applicant.get_question_value('21B') %>
+                <% reference_contact = @applicant.get_question_value('21C') %>
+                <% unless reference_name.blank? %>
+                  <table class="mbl">
+                    <tr>
+                      <td><%= reference_name %></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><%= reference_relation %></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><%= reference_contact %></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                <% end %>
               </div>
             </div>
           </td>
