@@ -61,7 +61,7 @@ class MessageResponse
         message_tag = MessageTag.where(tag_name: tag).first
         job_application_question = message_tag.job_application_question
         if job_application_question && @applicant
-          @applicant.get_message_tag_value(job_application_question.field_id)
+          @applicant.get_message_tag_value(job_application_question.field_id.to_s)
         else
           message_tag.tag_value
         end
