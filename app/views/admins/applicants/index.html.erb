@@ -8,6 +8,8 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:first_name) %></th>
+      <th><%= model_class.human_attribute_name(:application_filled?) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -15,7 +17,13 @@
   <tbody>
     <% @applicants.each do |applicant| %>
       <tr>
-        <td><%= link_to applicant.id, edit_admins_applicant_path(applicant) %></td>
+        <td>
+          <%= link_to applicant.id, edit_admins_applicant_path(applicant) %>
+        </td>
+        <td>
+          <%= MessageTag.get_tag_value('applicant_first_name', applicant) %>
+        </td>
+        <td><%= applicant.have_details? %></td>
         <td><%=l applicant.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

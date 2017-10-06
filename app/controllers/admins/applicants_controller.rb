@@ -1,5 +1,5 @@
 class Admins::ApplicantsController < Admins::ApplicationController
-  before_action :get_applicant, only: [:edit, :update]
+  before_action :get_applicant, only: [:edit, :update, :destroy]
 
   def index
     @applicants = Applicant.all
@@ -10,7 +10,12 @@ class Admins::ApplicantsController < Admins::ApplicationController
 
   def update
     @applicant.update_attribute(:question_answers, question_answers_hash.to_json.to_s)
-    redirect_to edit_admins_applicant_path(@applicant)
+    redirect_to edit_admins_applicant_path(@applicant), notice: "Updated successfully"
+  end
+
+  def destroy
+    @applicant.destroy
+    redirect_to admins_applicants_path, notice: "Destroyed successfully"
   end
 
   private

@@ -11,4 +11,18 @@ class MessageTag < ApplicationRecord
       errors.add(:base, 'At-least one tag_value or job_application_question should be present.')
     end
   end
+
+  def self.get_tag_value(tag_name, applicant)
+    message_tag = MessageTag.where(tag_name: tag_name).first
+
+    message_tag.blank? ? "" : message_tag.get_tag_value(applicant)
+  end
+
+  def get_tag_value(applicant)
+    if job_application_question && applicant
+      applicant.get_message_tag_value(job_application_question.field_id.to_s)
+    else
+      message_tag.tag_value || ''
+    end
+  end
 end
