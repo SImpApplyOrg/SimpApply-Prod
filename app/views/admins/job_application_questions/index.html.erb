@@ -5,12 +5,15 @@
 
 <%= link_to t('.fetch_questions', :default => t("helpers.links.fetch_questions")), fetch_questions_admins_job_application_questions_path, :class => 'btn btn-primary' %>
 
+<%= link_to t('.delete_all_questions', :default => t("helpers.links.delate_all_questions")), destroy_all_admins_job_application_questions_path, method: :delete, :class => 'btn btn-danger' %>
+
 <table class="table table-striped">
   <colgroup>
     <col width="1%">
     <col width="10%">
-    <col width="35%">
-    <col width="35%">
+    <col width="10%">
+    <col width="30%">
+    <col width="30%">
     <col width="10%">
     <col width="9%">
   </colgroup>
@@ -18,6 +21,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:field_id) %></th>
+      <th><%= model_class.human_attribute_name(:field_type) %></th>
       <th><%= model_class.human_attribute_name(:question) %></th>
       <th><%= model_class.human_attribute_name(:question_title) %></th>
       <th><%= model_class.human_attribute_name(:type_form_question_no) %></th>

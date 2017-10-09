@@ -13,7 +13,12 @@ class Admins::JobApplicationQuestionsController < Admins::ApplicationController
   def fetch_questions
     typeform = TYPE_FORM_CLIENT.typeform(ENV['typeform_uid'])
     questions = typeform.questions
-    all_questions = JSON.parse(questions.to_json(:only=> ["field_id", "question"]))
+    all_questions = JSON.parse(questions.to_json(:only=> ["id", "field_id", "question"]))
+
+    all_questions.map do |question|
+      field_type = question.delete("id")
+      question.merge!({ "field_type" => field_type.split('_').first })
+    end
 
     question_field_ids = JobApplicationQuestion.type_form_questions.pluck(:field_id)
     type_form_question_field_ids = []
@@ -32,6 +37,11 @@ class Admins::JobApplicationQuestionsController < Admins::ApplicationController
     end
 
     redirect_to admins_job_application_questions_path, notice: 'JobApplicationQuestion fetched successfully'
+  end
+
+  def destroy_all
+    JobApplicationQuestion.destroy_all
+    redirect_to admins_job_application_questions_path, notice: 'Destroyed successfully'
   end
 
   private

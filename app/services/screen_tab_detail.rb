@@ -29,21 +29,31 @@ class ScreenTabDetail
             question_answers.each do |question_answer|
               if question_answer["question_id"] == question.field_id.to_s
                 question_answer["question"] = question.question_title if question.question_title.present?
-                answers[index] = question_answer
+                answers[index] = modify_answer(question_answer, question)
                 not_matched = false
                 break
               end
             end
 
-            if not_matched
-              puts "field_id ================ #{question.field_id}"
-              answers[index] = { "question" => question.question_text, "answer" => "" }
-            end
+            # if not_matched
+            #   puts "field_id ================ #{question.field_id}"
+            #   answers[index] = { "question" => question.question_text, "answer" => "N/A" }
+            # end
           end
 
         end
       end
       answers
+    end
+
+    def modify_answer(question_answer, question)
+      case question.field_type
+      when 'list'
+        question_answer["answer"] = question_answer["answer"].join(", ") if question_answer["answer"].is_a? Array
+      else
+        question_answer
+      end
+      question_answer
     end
 
     def get_tab_field_questions(screen_tab)

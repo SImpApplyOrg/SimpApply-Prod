@@ -21,6 +21,7 @@ en:
       add_translation: 'Add Translation'
       show_application: 'Show Application'
       fetch_questions: 'Fetch Questions'
+      delate_all_questions: 'Delete all Questions'
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"

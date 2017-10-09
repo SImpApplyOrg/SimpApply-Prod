@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :job_application_questions, only: [:index, :update] do
       collection do
         get :fetch_questions
+        delete :destroy_all
       end
     end
 
