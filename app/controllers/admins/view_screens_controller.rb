@@ -9,7 +9,6 @@ class Admins::ViewScreensController < Admins::ApplicationController
     @view_screen = ViewScreen.new
     screen_tab = @view_screen.screen_tabs.build
     @tab_fields = screen_tab.tab_fields.build
-    @all_job_app = JobApplicationQuestion.all
     respond_to do |format|
       format.js
       format.html
@@ -39,7 +38,6 @@ class Admins::ViewScreensController < Admins::ApplicationController
       redirect_to admins_view_screens_path, notice: "Updated successfully"
     else
       @view_screen.screen_tabs.build if @view_screen.screen_tabs.blank?
-
       flash[:error] = "There was some error in update"
       render :edit
     end
@@ -58,6 +56,6 @@ class Admins::ViewScreensController < Admins::ApplicationController
     end
 
     def view_screen_params
-      params.require(:view_screen).permit(:screen_for, :is_active, screen_tabs_attributes: [:id, :name, :position, :is_active, :_destroy, tab_fields_attributes: [:id, :job_application_question_id, :_destroy]])
+      params.require(:view_screen).permit(:screen_for, :is_active, screen_tabs_attributes: [:id, :name, :position, :is_active, :_destroy, tab_fields_attributes: [:id, :position, :job_application_question_id, :_destroy]])
     end
 end

@@ -57,7 +57,7 @@ class ScreenTabDetail
     end
 
     def get_tab_field_questions(screen_tab)
-      screen_tab ? screen_tab.job_application_questions : []
+      screen_tab ? screen_tab.job_application_questions.order("position") : []
     end
 
 end

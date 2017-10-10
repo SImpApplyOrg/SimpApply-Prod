@@ -22,4 +22,16 @@ $(document).on('turbolinks:load', function() {
     $txt.val(textAreaTxt.substring(0, caretPos) + txtToAdd + textAreaTxt.substring(caretPos) );
   });
 
+  $( ".sortable" ).sortable({
+    stop: function(event, ui) {
+      $(this).find('.form-group').each(function(i, el){
+        $(this).find('input.tab_field_position').val(i+1);
+      });
+    }
+  });
+  $( ".sortable" ).disableSelection();
+
+  $(document).on('nested:fieldAdded', function(event) {
+    $(".sortable").sortable();
+  });
 });

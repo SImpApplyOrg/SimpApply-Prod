@@ -70,6 +70,7 @@ gem 'bootstrap-kaminari-views'
 gem 'hypdf'
 gem "wicked_pdf"
 gem "wkhtmltopdf-heroku", :git => 'git://github.com/camdez/wkhtmltopdf-heroku.git'
+gem 'jquery-ui-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

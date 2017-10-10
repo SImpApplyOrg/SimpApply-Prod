@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006165936) do
+ActiveRecord::Schema.define(version: 20171010113937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 20171006165936) do
     t.bigint "screen_tab_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["job_application_question_id"], name: "index_tab_fields_on_job_application_question_id"
     t.index ["screen_tab_id"], name: "index_tab_fields_on_screen_tab_id"
   end

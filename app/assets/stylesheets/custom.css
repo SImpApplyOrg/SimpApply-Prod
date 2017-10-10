@@ -26,3 +26,22 @@
   color: #555555 !important;
   text-decoration: none !important;
 }
+
+.sortable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sortable li {
+  margin: 3px 0;
+}
+
+.sortable li span {
+  position: absolute;
+}
+
+.ui-icon {
+  margin-top: 2.75em !important;
+}
+

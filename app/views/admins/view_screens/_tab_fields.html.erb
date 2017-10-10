@@ -1,12 +1,17 @@
+<ul class="sortable">
+  <%= screen_tab.fields_for :tab_fields do |tab_field| %>
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+      <div class="form-group">
+        <%= tab_field.label :job_application_question_id, :class => 'control-label col-lg-4' %>
+        <div class="col-lg-8">
+          <%= tab_field.collection_select :job_application_question_id, JobApplicationQuestion.order_by_no, :id, :question, { prompt: "Select Question"}, { class: 'form-control' } %>
+          <%= tab_field.hidden_field :position, class: 'tab_field_position' %>
+          <%= tab_field.link_to_remove "Remove", class: 'pull-right' %>
+        </div>
+        <%=tab_field.error_span(:job_application_question_id) %>
+      </div>
+    </li>
+  <% end %>
+</ul>
 
-<%= screen_tab.fields_for :tab_fields do |tab_field| %>
-  <div class="form-group">
-    <%= tab_field.label :job_application_question_id, :class => 'control-label col-lg-4' %>
-    <div class="col-lg-8">
-      <%= tab_field.collection_select :job_application_question_id, JobApplicationQuestion.order_by_no, :id, :question, { prompt: "Select Question"}, { class: 'form-control' } %>
-    </div>
-    <%=tab_field.error_span(:job_application_question_id) %>
-  </div>
-<% end %>
-
-<%= screen_tab.link_to_add "Add Field", :tab_fields, :class=> "btn btn-primary",:id => "add_field" %>
+<%= screen_tab.link_to_add "Add Field", :tab_fields, :class=> "btn btn-primary add_question_field",:id => "add_field" %>
