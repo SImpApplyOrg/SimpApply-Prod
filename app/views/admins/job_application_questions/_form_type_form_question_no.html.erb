@@ -1,5 +1,5 @@
 <%= form_for [:admins, job_application_question], remote: true do |f| %>
   <%= f.hidden_field_tag :field_type, 'type_form_question_no' %>
-  <%= f.select :type_form_question_no, JobApplicationQuestion::PDF_MAPPING, { include_blank: 'Select Any' }, { class: "form-control table-input-width question-no" } %>
+  <%= f.text_field :type_form_question_no, class: "form-control table-input-width question-no" %>
   <%= f.error_span(:type_form_question_no) %>
 <% end %>

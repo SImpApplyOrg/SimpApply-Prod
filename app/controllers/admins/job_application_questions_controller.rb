@@ -1,7 +1,8 @@
 class Admins::JobApplicationQuestionsController < Admins::ApplicationController
 
   def index
-    @job_application_questions = JobApplicationQuestion.all.order('field_id').page(params[:page])
+    job_application_questions = JobApplicationQuestion.order_by_no
+    @job_application_questions = Kaminari.paginate_array(job_application_questions).page(params[:page])
   end
 
   def update
@@ -30,7 +31,9 @@ class Admins::JobApplicationQuestionsController < Admins::ApplicationController
     all_questions.map do |ques|
       question = JobApplicationQuestion.where(field_id: ques["field_id"]).first
       if question
-        question.update_attributes(ques)
+        unless question.update_attributes(ques)
+          logger.debug question.errors.full_messages
+        end
       else
         JobApplicationQuestion.create(ques)
       end
