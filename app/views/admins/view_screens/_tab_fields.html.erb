@@ -4,7 +4,7 @@
       <div class="form-group">
         <%= tab_field.label :job_application_question_id, :class => 'control-label col-lg-4' %>
         <div class="col-lg-8">
-          <%= tab_field.collection_select :job_application_question_id, JobApplicationQuestion.order_by_no, :id, :question, { prompt: "Select Question"}, { class: 'form-control' } %>
+          <%= tab_field.collection_select :job_application_question_id, JobApplicationQuestion.not_hidden_field.order_by_no, :id, :question, { prompt: "Select Question"}, { class: 'form-control' } %>
           <%= tab_field.hidden_field :position, class: 'tab_field_position' %>
           <%= tab_field.link_to_remove "Remove", class: 'pull-right' %>
         </div>

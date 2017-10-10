@@ -8,6 +8,7 @@ class JobApplicationQuestion < ApplicationRecord
 
   scope :type_form_questions, -> { where("field_id IS NOT NULL") }
   scope :custom_questions, -> { where("field_id IS NULL") }
+  scope :not_hidden_field, -> { where("field_type != 'hidden'") }
 
   def self.order_by_no
     all.map {|i| i.type_form_question_no.blank? ? "" : i.type_form_question_no.gsub(/\d+/) {|s| "%08d" % s.to_i } }.zip(all).sort.map{|x,y| y}
