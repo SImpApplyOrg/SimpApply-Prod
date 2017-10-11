@@ -26,7 +26,7 @@ class Admins::JobApplicationQuestionsController < Admins::ApplicationController
     all_questions.map{ |q| type_form_question_field_ids << q["field_id"] }
 
     deletable_field_ids = question_field_ids - type_form_question_field_ids
-    JobApplicationQuestion.where("field_id in (?)", deletable_field_ids).destroy_all
+    JobApplicationQuestion.where("field_id in (?)", deletable_field_ids).update(archive: true, type_form_question_no: nil)
 
     all_questions.map do |ques|
       question = JobApplicationQuestion.where(field_id: ques["field_id"]).first
@@ -43,7 +43,7 @@ class Admins::JobApplicationQuestionsController < Admins::ApplicationController
   end
 
   def destroy_all
-    JobApplicationQuestion.destroy_all
+    JobApplicationQuestion.type_form_questions.destroy_all
     redirect_to admins_job_application_questions_path, notice: 'Destroyed successfully'
   end
 
