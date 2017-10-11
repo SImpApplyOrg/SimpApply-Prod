@@ -22,4 +22,12 @@ class JobApplicationQuestion < ApplicationRecord
   def modify_question_no
     self.type_form_question_no = self.type_form_question_no.delete(' ').upcase
   end
+
+  def with_archive_text
+    archive? ? "* #{question_text}" : question_text
+  end
+
+  def self.tab_field_questions
+    where("(field_type != 'hidden' OR is_custom_field = true) AND archive = false").order_by_no + where("archive = true").order_by_no
+  end
 end

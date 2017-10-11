@@ -1,4 +1,4 @@
-<tr>
+<tr class="<%= 'archive' if job_application_question.archive? %>">
   <td><%= job_application_question.id %></td>
   <td><%= job_application_question.field_id %></td>
   <td><%= job_application_question.field_type %></td>
@@ -11,10 +11,12 @@
     <% end %>
   </td>
   <td class="job_application_question_no", id="type_form_question_no-<%= job_application_question.id %>">
-    <% if job_application_question.type_form_question_no.blank? %>
-      <%= render 'form_type_form_question_no', job_application_question: job_application_question %>
-    <% else %>
-      <%= render 'type_form_question_no', job_application_question: job_application_question %>
+    <% unless job_application_question.archive? %>
+      <% if job_application_question.type_form_question_no.blank? %>
+        <%= render 'form_type_form_question_no', job_application_question: job_application_question %>
+      <% else %>
+        <%= render 'type_form_question_no', job_application_question: job_application_question %>
+      <% end %>
     <% end %>
   </td>
   <td><%=l job_application_question.created_at %></td>
