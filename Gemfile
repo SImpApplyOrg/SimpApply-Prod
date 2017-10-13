@@ -38,6 +38,7 @@ gem "twitter-bootstrap-rails"
 
 # Use active admin for provide admin feature
 gem 'devise'
+gem 'devise_invitable'
 
 # To send and receive sms
 gem 'twilio-ruby'

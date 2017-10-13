@@ -1,18 +1,21 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessor :token
 
-  after_initialize :assign_default_values
+  enum roles: { merchant: 'Merchant', manager: 'Manager', reviewer: 'Reviewer' }
+
+  after_initialize :assign_default_values, :assign_default_role
   before_create :assign_default_values
   after_create :assign_user_to_merchant
 
   has_one :merchant
   has_many :applicants, through: :merchant
   has_many :job_applications, through: :merchant
+  has_many :invite_users, -> { where(invited_by_type: 'User') }, class_name: "User", foreign_key: "invited_by_id"
 
   def active_for_authentication?
     #remember to call the super
@@ -21,14 +24,24 @@ class User < ApplicationRecord
     super && self.is_active?
   end
 
+  def full_name
+    "#{first_name} #{last_name}".humanize
+  end
+
+  def invite_status
+    invitation_accepted_at.blank? ? 'Pending' : 'Accepted'
+  end
+
   private
     def assign_user_to_merchant
-      merchant = Merchant.where(token: self.token).first
-      merchant.update_attributes(user_id: self.id, email: self.email, token: nil)
+      if !User.roles.reject{|role| role == 'merchant'}.keys.include?(self.role)
+        merchant = Merchant.where(token: self.token).first
+        merchant.update_attributes(user_id: self.id, email: self.email, token: nil)
+      end
     end
 
     def assign_default_values
-      if self.new_record?
+      if self.new_record? && !User.roles.reject{|role| role == 'merchant'}.keys.include?(self.role)
         merchant = Merchant.where(token: self.token).first
 
         if merchant
@@ -36,6 +49,10 @@ class User < ApplicationRecord
           self.email = merchant.email if merchant.email.present?
         end
       end
+    end
+
+    def assign_default_role
+      self.role ||= "merchant" if self.new_record?
     end
 
 end

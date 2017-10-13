@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, path: '/admins'
 
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations' }
 
   namespace :admins do
     resources :default_settings, only: :update
