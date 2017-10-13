@@ -20,13 +20,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
       devise_parameter_sanitizer.permit(:account_update, keys: [:locale, :token, :mobile_no, :first_name, :last_name])
     end
 
+    def after_sign_up_path_for(resource)
+      new_user_invitation_path
+    end
+
     def authenticate_merchant_token
       flash[:error] = if params[:token].blank?
         "You can't signup without token"
       else
-        @merchant = Merchant.where(token: params[:token]).first
+      @merchant = Merchant.where(token: params[:token]).first
         "Invalid token" if @merchant.blank?
       end
       redirect_to root_path if flash[:error]
     end
 end
+
+
