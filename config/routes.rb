@@ -44,6 +44,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :user_invitations, only: :nil do
+    collection do
+      get :check_accept
+    end
+  end
+
+
   resources :type_form_web_hooks, only: :nil do
     collection do
       get :get_type_form

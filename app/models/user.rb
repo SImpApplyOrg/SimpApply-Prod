@@ -11,11 +11,14 @@ class User < ApplicationRecord
   after_initialize :assign_default_values, :assign_default_role
   before_create :assign_default_values
   after_create :assign_user_to_merchant
+  after_create :create_user_invitation, :if => :invitation_token?
 
   has_one :merchant
   has_many :applicants, through: :merchant
   has_many :job_applications, through: :merchant
   has_many :invite_users, -> { where(invited_by_type: 'User') }, class_name: "User", foreign_key: "invited_by_id"
+  has_many :user_invitations, foreign_key: "sender_id", dependent: :destroy
+  has_many :reverse_user_invitations, foreign_key: "receiver_id", class_name: "UserInvitation", dependent: :destroy
 
   def active_for_authentication?
     #remember to call the super
@@ -40,6 +43,16 @@ class User < ApplicationRecord
       end
     end
 
+    def create_user_invitation
+      if user_inivitation = UserInvitation.create!(sender_id: invited_by_id, receiver_id: id, token: generate_user_invite_token)
+        UserInvitationMailer.send_invitation(user_inivitation).deliver
+      end
+    end
+
+    def generate_user_invite_token
+      token = SecureRandom.urlsafe_base64
+    end
+    
     def assign_default_values
       if self.new_record? && !User.roles.reject{|role| role == 'merchant'}.keys.include?(self.role)
         merchant = Merchant.where(token: self.token).first
