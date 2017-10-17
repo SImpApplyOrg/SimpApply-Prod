@@ -34,4 +34,8 @@ $(document).on('turbolinks:load', function() {
   $(document).on('nested:fieldAdded', function(event) {
     $(".sortable").sortable();
   });
+
+  $('#user_organization_name').on('focusout', function() {
+    $(this).parents('form.organization_name_form').submit();
+  })
 });

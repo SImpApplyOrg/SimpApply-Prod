@@ -1,3 +1,19 @@
+<%- model_class = User %>
+<div class="page-header">
+  <h1><%=t '.title', :default => "Organization Name" %></h1>
+</div>
+
+<%= form_for current_user, url: update_organization_name_path, remote: true, html: { class: 'form-horizontal organization_name_form' } do |f| %>
+  <div class="form-group">
+    <%= f.label :organization_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :organization_name, :class => 'form-control' %>
+    </div>
+  </div>
+<% end %>
+
+<br>
+
 <h2><%= t "devise.invitations.new.header" %></h2>
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post, class: 'form-horizontal'} do |f| %>
@@ -29,4 +45,4 @@
   </div>
 <% end %>
 
-<%= render 'invite_users', invite_users: @invite_users %>
+<%= render 'invite_users', invite_users: @user_invitations %>

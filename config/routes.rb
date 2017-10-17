@@ -44,12 +44,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_invitations, only: :nil do
+  resources :user_invites, only: [:destroy] do
     collection do
-      get :check_accept
+      get :update_token
     end
   end
 
+  resources :users, only: [:update]
 
   resources :type_form_web_hooks, only: :nil do
     collection do
@@ -59,6 +60,8 @@ Rails.application.routes.draw do
   end
 
   resources :applicants, only: [:index, :show]
+
+  patch '/update_organization_name', to: "welcome#update_organization_name"
 
   root "welcome#index"
 end

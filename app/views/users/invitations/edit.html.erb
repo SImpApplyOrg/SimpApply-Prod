@@ -1,16 +1,56 @@
 <h2><%= t 'devise.invitations.edit.header' %></h2>
 
-<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
+<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name, invitation_token: params[:invitation_token]), :html => { :method => :put, :class => "form-horizontal" } do |f| %>
   <%= devise_error_messages! %>
   <%= f.hidden_field :invitation_token %>
 
-  <% if f.object.class.require_password_on_accepting %>
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
+  <div class="form-group">
+    <%= f.label :first_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :first_name, :class => 'form-control' %>
+    </div>
+  </div>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
+  <div class="form-group">
+    <%= f.label :last_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :last_name, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mobile_no, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :mobile_no, :class => 'form-control', placeholder: '+147236587' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :locale, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select :locale, I18n.available_locales, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <% if f.object.class.require_password_on_accepting %>
+    <div class="form-group">
+      <%= f.label :password, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password_confirmation, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
+      </div>
+    </div>
   <% end %>
 
-  <p><%= f.submit t("devise.invitations.edit.submit_button") %></p>
+  <div class=" form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit t("devise.invitations.edit.submit_button"), :class => 'btn btn-primary' %>
+    </div>
+  </div>
 <% end %>

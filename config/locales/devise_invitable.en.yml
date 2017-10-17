@@ -9,6 +9,7 @@ en:
       updated_not_active: "Your password was set successfully."
       no_invitations_remaining: "No invitations remaining"
       invitation_removed: "Your invitation was removed."
+      one_invitation_accepted: 'It seems you already set your password before, please use your credentials and accept invitations'
       new:
         header: "Send invitation"
         submit_button: "Send an invitation"

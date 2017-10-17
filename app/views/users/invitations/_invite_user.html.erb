@@ -1,8 +1,15 @@
 <tr>
-  <td><%= invite_user.id %></td>
-  <td><%= invite_user.email %></td>
-  <td><%= invite_user.role %></td>
-  <td><%= invite_user.invitation_sent_at %></td>
-  <td><%= invite_user.invite_status %></td>
-  <td></td>
+  <td><%= invite_user.receiver.id %></td>
+  <td><%= invite_user.receiver.email %></td>
+  <td><%= invite_user.receiver.role %></td>
+  <td><%= invite_user.created_at %></td>
+  <td><%= invite_user.status %></td>
+
+  <td>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      user_invite_path(invite_user),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+  </td>
 </tr>
