@@ -32,9 +32,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :role, :class => 'control-label col-lg-2' %>
+    <%= f.label :user_role, 'Role', class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.select :role, User.roles.reject{|role| role == 'merchant'}.map{ |key, value| [value, key] }, :class => 'form-control' %>
+      <%= f.select :user_role, UserInvitation.roles.map{ |key, value| [value, key] }, :class => 'form-control' %>
     </div>
   </div>
 

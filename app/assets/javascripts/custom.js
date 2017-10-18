@@ -38,4 +38,22 @@ $(document).on('turbolinks:load', function() {
   $('#user_organization_name').on('focusout', function() {
     $(this).parents('form.organization_name_form').submit();
   })
+
+
+  if($('.organization-names').length > 0) {
+    set_organization_name($('.organization-names li:first a'));
+  }
+
+  $('.organization-names').on('click', 'a', function(){
+    set_organization_name($(this));
+  });
+
+  function set_organization_name(obj) {
+    var $link = $('.organization-name');
+    var $span = $link.find('span');
+    $link.html(obj.text()+ " ");
+    $link.append($span);
+    $.get('/set_organization', { merchant_id: obj.data('user_id') });
+  }
+  
 });

@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   end
 
   resources :user_invites, only: [:destroy] do
-    collection do
+    member do
       get :update_token
     end
   end
@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   resources :applicants, only: [:index, :show]
 
   patch '/update_organization_name', to: "welcome#update_organization_name"
+  get '/set_organization', to: 'welcome#set_organization'
 
   root "welcome#index"
 end

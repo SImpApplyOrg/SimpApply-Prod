@@ -51,7 +51,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_invite_params
-      devise_parameter_sanitizer.permit(:invite, keys: [:role])
+      devise_parameter_sanitizer.permit(:invite, keys: [:user_role] )
       devise_parameter_sanitizer.permit(:accept_invitation, keys: [:locale, :mobile_no, :first_name, :last_name, :temp_invitation_token])
     end
 
@@ -74,23 +74,36 @@ class Users::InvitationsController < Devise::InvitationsController
       # @user is an instance or nil
       if @user && @user.email != current_user.email
         # invite! instance method returns a Mail::Message instance
-        @user.invite!(current_user)
+        @user.invite!(current_user) do |u|
+          u.user_role = invite_params[:user_role]
+          u.skip_invitation = true
+        end
         # return the user instance to match expected return type
         @user
       else
         # invite! class method returns invitable var, which is a User instance
-        resource_class.invite!(invite_params, current_inviter, &block)
+        resource_class.invite!(invite_params, current_inviter) do |u|
+          u.skip_invitation = true
+        end
       end
+    end
+
+    def after_invite_path_for(current_inviter, resource)
+      new_user_invitation_path
+    end
+
+    def after_invite_path_for(current_inviter)
+      new_user_invitation_path
     end
 
   private
 
-    def invite_resource
-    ## skip sending emails on invite
-      super do |u|
-        u.skip_invitation = true
-      end
-    end
+    # def invite_resource
+    # ## skip sending emails on invite
+    #   super do |u|
+    #     u.skip_invitation = true
+    #   end
+    # end
 
     def set_user_invite
       @user_invite = UserInvitation.find_by_token(params[:invitation_token])

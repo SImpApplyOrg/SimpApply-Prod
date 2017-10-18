@@ -4,13 +4,11 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :token, :temp_invitation_token
+  attr_accessor :token, :temp_invitation_token, :user_role
 
-  enum roles: { merchant: 'Merchant', manager: 'Manager', reviewer: 'Reviewer' }
-
-  after_initialize :assign_default_values, :assign_default_role
-  before_create :assign_default_values
-  after_create :assign_user_to_merchant
+  after_initialize :assign_default_values, if: "invitation_created_at.blank?"   
+  before_create :assign_default_values, if: "invitation_created_at.blank?" 
+  after_create :assign_user_to_merchant, if: "invitation_created_at.blank?" 
   after_save :create_user_invitation, :if => :invitation_token?
   after_update :change_user_invite_status, if: "!temp_invitation_token.blank?"
 
@@ -20,6 +18,7 @@ class User < ApplicationRecord
 
   has_many :user_invitations, foreign_key: "sender_id", dependent: :destroy
   has_many :reverse_user_invitations, foreign_key: "receiver_id", class_name: "UserInvitation", dependent: :destroy
+
 
   def active_for_authentication?
     #remember to call the super
@@ -38,24 +37,14 @@ class User < ApplicationRecord
 
   private
     def assign_user_to_merchant
-      if !User.roles.reject{|role| role == 'merchant'}.keys.include?(self.role)
+      if self.invitation_created_at.blank?
         merchant = Merchant.where(token: self.token).first
         merchant.update_attributes(user_id: self.id, email: self.email, token: nil)
       end
     end
 
-    def create_user_invitation
-      if user_inivitation = UserInvitation.create!(sender_id: invited_by_id, receiver_id: id)
-        UserInvitationMailer.send_invitation(user_inivitation).deliver
-      end
-    end
-
-    def generate_user_invite_token
-      token = SecureRandom.urlsafe_base64
-    end
-
     def assign_default_values
-      if self.new_record? && !User.roles.reject{|role| role == 'merchant'}.keys.include?(self.role)
+      if self.new_record? && self.invitation_created_at.blank?
         merchant = Merchant.where(token: self.token).first
 
         if merchant
@@ -65,8 +54,14 @@ class User < ApplicationRecord
       end
     end
 
-    def assign_default_role
-      self.role ||= "merchant" if self.new_record?
+    def create_user_invitation
+      if user_inivitation = UserInvitation.create!(sender_id: invited_by_id, receiver_id: id, token: generate_user_invite_token, role: user_role)
+        UserInvitationMailer.send_invitation(user_inivitation).deliver
+      end
+    end
+
+    def generate_user_invite_token
+      token = SecureRandom.urlsafe_base64
     end
 
     def change_user_invite_status

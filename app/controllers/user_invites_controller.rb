@@ -3,12 +3,12 @@ class UserInvitesController < ApplicationController
 
   def update_token
     @user_invite.send("#{params[:status]}!") if params[:status]
-    redirect_to new_user_invitation_path
+    redirect_to root_url
   end
 
   def destroy
     @user_invite.destroy
-    redirect_to new_user_invitation_path, notice: 'User successfully removed from the organization.'
+    redirect_to root_url, notice: 'User successfully removed from the organization.'
   end
 
   private

@@ -21,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def after_sign_up_path_for(resource)
-      new_user_invitation_path
+      resource.merchant.present? ? new_user_invitation_path : super
     end
 
     def authenticate_merchant_token
