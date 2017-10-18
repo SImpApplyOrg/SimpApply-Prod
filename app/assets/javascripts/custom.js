@@ -46,6 +46,8 @@ $(document).on('turbolinks:load', function() {
 
   $('.organization-names').on('click', 'a', function(){
     set_organization_name($(this));
+
+    $.get('/set_organization', { merchant_id: $(this).data('user_id') });
   });
 
   function set_organization_name(obj) {
@@ -53,7 +55,6 @@ $(document).on('turbolinks:load', function() {
     var $span = $link.find('span');
     $link.html(obj.text()+ " ");
     $link.append($span);
-    $.get('/set_organization', { merchant_id: obj.data('user_id') });
   }
-  
+
 });
