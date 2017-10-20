@@ -66,23 +66,23 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # config.action_mailer.smtp_settings = {
-  #   address: ENV.fetch("SMTP_ADDRESS"),
-  #   authentication: :plain,
-  #   enable_starttls_auto: true,
-  #   port: "587",
-  #   user_name: ENV.fetch("SMTP_USERNAME"),
-  #   password: ENV.fetch("SMTP_PASSWORD")
-  # }
-
   config.action_mailer.smtp_settings = {
-    :user_name => ENV['MAILTRAP_USER_NAME'],
-    :password => ENV['MAILTRAP_PASSWORD'],
-    :address => 'smtp.mailtrap.io',
-    :domain => 'smtp.mailtrap.io',
-    :port => '2525',
-    :authentication => :cram_md5
+    address: ENV.fetch("SMTP_ADDRESS"),
+    authentication: :plain,
+    enable_starttls_auto: true,
+    port: "587",
+    user_name: ENV.fetch("SMTP_USERNAME"),
+    password: ENV.fetch("SMTP_PASSWORD")
   }
+
+  # config.action_mailer.smtp_settings = {
+  #   :user_name => ENV['MAILTRAP_USER_NAME'],
+  #   :password => ENV['MAILTRAP_PASSWORD'],
+  #   :address => 'smtp.mailtrap.io',
+  #   :domain => 'smtp.mailtrap.io',
+  #   :port => '2525',
+  #   :authentication => :cram_md5
+  # }
 
   config.action_mailer.default_url_options = { host: ENV["APPLICALTION_HOST"] }
   config.action_mailer.delivery_method = :smtp
