@@ -1,0 +1,5 @@
+<% if current_user.errors.any? %>
+  $('.modal-organization-name').html("<%= escape_javascript(render 'welcome/organization_name_form') %>");
+<% else %>
+  window.location.href = "<%= new_user_invitation_url %>"
+<% end %>

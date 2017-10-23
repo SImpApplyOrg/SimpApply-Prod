@@ -2,6 +2,7 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :configure_invite_params, only: [:create, :update]
   before_action :set_user_invite, only: [:edit, :update]
   before_action :get_user_invitations, only: [:new, :create]
+  before_action :check_organization, only: [:new]
   prepend_before_action :resource_from_invitation_token, :only => [:edit, :destroy]
 
 
@@ -109,5 +110,9 @@ class Users::InvitationsController < Devise::InvitationsController
 
     def get_user_invitations
       @user_invitations  = current_user.user_invitations
+    end
+
+    def check_organization
+      redirect_to root_path if current_user.organization_name.blank?
     end
 end

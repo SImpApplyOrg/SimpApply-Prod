@@ -1,16 +1,10 @@
 <%- model_class = User %>
 <div class="page-header">
-  <h1><%=t '.title', :default => "Organization Name" %></h1>
+  <h1 id="organization_name">
+    <%= current_user.organization_name %>
+    <a href="javascript:;" class="edit-organization-name"><i class="glyphicon glyphicon-pencil"></i></a>
+  </h1>
 </div>
-
-<%= form_for current_user, url: update_organization_name_path, remote: true, html: { class: 'form-horizontal organization_name_form' } do |f| %>
-  <div class="form-group">
-    <%= f.label :organization_name, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :organization_name, :class => 'form-control' %>
-    </div>
-  </div>
-<% end %>
 
 <br>
 
@@ -46,3 +40,20 @@
 <% end %>
 
 <%= render 'invite_users', invite_users: @user_invitations %>
+
+
+<div id="organization_modal" class="modal out" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Organization</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-organization-name">
+          <%= render 'welcome/organization_name_form' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<% if (current_user.merchant.present?) && (current_user.sign_in_count == 1  ||  current_user.organization_name.blank? ) %>
+  <div id="organization_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Manage Account</h4>
+        </div>
+        <div class="modal-body">
+          <p> Is there anyone else who is reviewing applications with you?</p>
+
+          <div class="modal-organization-name">
+            <%= render 'welcome/organization_name_form' %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="show_organization_model" >Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

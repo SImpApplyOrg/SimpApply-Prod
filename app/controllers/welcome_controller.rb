@@ -14,6 +14,6 @@ class WelcomeController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:organization_name)
+      params.require(:user).permit(:organization_name, :edit_organization)
     end
 end

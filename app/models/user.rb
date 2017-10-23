@@ -4,13 +4,15 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :token, :temp_invitation_token, :user_role
+  attr_accessor :token, :temp_invitation_token, :user_role, :edit_organization
 
   after_initialize :assign_default_values, if: "invitation_created_at.blank?"
   before_create :assign_default_values, if: "invitation_created_at.blank?"
   after_create :assign_user_to_merchant, if: "invitation_created_at.blank?"
   after_save :create_user_invitation, :if => :invitation_token?
   after_update :change_user_invite_status, if: "!temp_invitation_token.blank?"
+
+  validates_presence_of :organization_name, if: "edit_organization"
 
   has_one :merchant
   has_many :applicants, through: :merchant
