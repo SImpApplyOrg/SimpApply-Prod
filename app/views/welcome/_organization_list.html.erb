@@ -1,0 +1,10 @@
+<% if current_user.merchant %>
+  <li data-user_id="<%=current_user.id%>">
+    <%= link_to current_user.organization_name, "javascript:;", :'data-user_id' => current_user.id, is_active: organization_id == current_user.id.to_s %>
+  </li>
+<% end %>
+<% invitations.map(&:sender).each do |user| %>
+  <li data-user_id="<%=user.id%>">
+    <%= link_to user.organization_name, "javascript:;", :'data-user_id' => user.id, is_active: organization_id == user.id.to_s %>
+  </li>
+<% end %>

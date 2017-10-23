@@ -41,7 +41,11 @@ $(document).on('turbolinks:load', function() {
 
 
   if($('.organization-names').length > 0) {
-    set_organization_name($('.organization-names li:first a'));
+    if($('.organization-names li a[is_active=true]').length == 0){
+      set_organization_name($('.organization-names li:first a'));
+    } else {
+      set_organization_name($('.organization-names li a[is_active=true]').first());
+    }
   }
 
   $('.organization-names').on('click', 'a', function(){

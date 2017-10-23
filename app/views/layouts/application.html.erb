@@ -61,16 +61,7 @@
                     <span class="caret"></span>
                   <% end %>
                   <ul class="dropdown-menu organization-names">
-                    <% if current_user.merchant %>
-                      <li data-user_id="<%=current_user.id%>">
-                        <%= link_to current_user.organization_name, "javascript:;", :'data-user_id' => current_user.id %>
-                      </li>
-                    <% end %>
-                    <% invitations.map(&:sender).each do |user| %>
-                      <li data-user_id="<%=user.id%>">
-                        <%= link_to user.organization_name, "javascript:;", :'data-user_id' => user.id %>
-                      </li>
-                    <% end %>
+                    <%= render 'welcome/organization_list', organization_id: session[:merchant_id], invitations: invitations %>
                   </ul>
                 </li>
               <% end %>

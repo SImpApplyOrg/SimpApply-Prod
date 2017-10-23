@@ -1,3 +1,7 @@
 if(window.location.href.indexOf('applicants') != -1) {
-  $.get('/applicants')
+  if($('.applicants-list').length == 0) {
+    window.location.href = "<%= applicants_url %>"
+  }else {
+    $.get('/applicants')
+  }
 }
