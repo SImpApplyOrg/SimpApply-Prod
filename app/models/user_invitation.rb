@@ -4,8 +4,18 @@ class UserInvitation < ApplicationRecord
 
   enum role: { manager: 'Manager', reviewer: 'Reviewer' }
   enum status: { pending: 'pending', accept: 'accept', reject: 'reject' }
-  
+
   validates :sender_id, :receiver_id, :token, presence: true
 
-  scope :by_receiver, ->(id){ where(receiver_id:  id) }
+  after_create :send_invitation
+  after_initialize :generate_user_invite_token
+
+  private
+    def send_invitation
+      UserInvitationMailer.send_invitation(self).deliver
+    end
+
+    def generate_user_invite_token
+      self.token = SecureRandom.urlsafe_base64
+    end
 end

@@ -6,9 +6,9 @@ class User < ApplicationRecord
 
   attr_accessor :token, :temp_invitation_token, :user_role
 
-  after_initialize :assign_default_values, if: "invitation_created_at.blank?"   
-  before_create :assign_default_values, if: "invitation_created_at.blank?" 
-  after_create :assign_user_to_merchant, if: "invitation_created_at.blank?" 
+  after_initialize :assign_default_values, if: "invitation_created_at.blank?"
+  before_create :assign_default_values, if: "invitation_created_at.blank?"
+  after_create :assign_user_to_merchant, if: "invitation_created_at.blank?"
   after_save :create_user_invitation, :if => :invitation_token?
   after_update :change_user_invite_status, if: "!temp_invitation_token.blank?"
 
@@ -55,14 +55,13 @@ class User < ApplicationRecord
     end
 
     def create_user_invitation
-      if user_inivitation = UserInvitation.create!(sender_id: invited_by_id, receiver_id: id, token: generate_user_invite_token, role: user_role)
-        UserInvitationMailer.send_invitation(user_inivitation).deliver
+      user_inivitation = UserInvitation.where(sender_id: invited_by_id, receiver_id: id).first
+      unless user_inivitation
+        UserInvitation.create(sender_id: invited_by_id, receiver_id: id, role: user_role)
       end
     end
 
-    def generate_user_invite_token
-      token = SecureRandom.urlsafe_base64
-    end
+
 
     def change_user_invite_status
       user_invitation = UserInvitation.where(token: temp_invitation_token).first

@@ -1,15 +1,9 @@
 class Users::InvitationsController < Devise::InvitationsController
   before_action :configure_invite_params, only: [:create, :update]
   before_action :set_user_invite, only: [:edit, :update]
+  before_action :get_user_invitations, only: [:new, :create]
   prepend_before_action :resource_from_invitation_token, :only => [:edit, :destroy]
 
-
-  def new
-    self.resource = resource_class.new
-
-    @user_invitations  = current_user.user_invitations
-    render :new
-  end
 
   def edit
     sign_out send("current_#{resource_name}") if send("#{resource_name}_signed_in?")
@@ -72,13 +66,17 @@ class Users::InvitationsController < Devise::InvitationsController
     def invite_resource(&block)
       @user = User.find_by(email: invite_params[:email])
       # @user is an instance or nil
-      if @user && @user.email != current_user.email
-        # invite! instance method returns a Mail::Message instance
-        @user.invite!(current_user) do |u|
-          u.user_role = invite_params[:user_role]
-          u.skip_invitation = true
+      if @user
+        if @user.email == current_user.email
+          @user.errors.add(:base, :not_invite_yourself)
+        else
+          user_inivitation = UserInvitation.where(sender_id: current_user.id, receiver_id: @user.id).first
+          unless user_inivitation
+            UserInvitation.create(sender_id: current_user.id, receiver_id: @user.id, role: invite_params[:user_role])
+          else
+            @user.errors.add(:base, :already_sent_invitation)
+          end
         end
-        # return the user instance to match expected return type
         @user
       else
         # invite! class method returns invitable var, which is a User instance
@@ -107,5 +105,9 @@ class Users::InvitationsController < Devise::InvitationsController
 
     def set_user_invite
       @user_invite = UserInvitation.find_by_token(params[:invitation_token])
+    end
+
+    def get_user_invitations
+      @user_invitations  = current_user.user_invitations
     end
 end

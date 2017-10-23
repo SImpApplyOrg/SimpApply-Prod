@@ -30,3 +30,12 @@ en:
         mailer:
           invitation_instructions:
             accept_until_format: "%B %d, %Y %I:%M %p"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            base:
+              already_sent_invitation: 'You have alredy sent invitation to this user.'
+              not_invite_yourself: "You can't invite yourself."
