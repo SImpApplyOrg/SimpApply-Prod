@@ -16,6 +16,6 @@ class UserInvitation < ApplicationRecord
     end
 
     def generate_user_invite_token
-      self.token = SecureRandom.urlsafe_base64
+      self.token = SecureRandom.urlsafe_base64 if new_record?
     end
 end
