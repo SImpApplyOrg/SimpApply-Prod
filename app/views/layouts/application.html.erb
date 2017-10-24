@@ -67,7 +67,7 @@
               <% end %>
               <li class="dropdown">
                 <%= link_to '#', class: "dropdown-toggle", :'data-toggle' => "dropdown", role: "button", :'aria-haspopup' => "true", :'aria-expanded' => "false" do %>
-                  <%= current_user.full_name %>
+                  <%= (current_user.full_name.blank? ? current_user.email : current_user.full_name) %>
                   <span class="caret"></span>
                 <% end %>
 
@@ -80,10 +80,14 @@
                   <li>
                     <%= link_to t('.profile', default: t('top_menus.links.profile')), edit_user_registration_path %>
                   </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+                  </li>
                 </ul>
               </li>
 
-              <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+
             <% else %>
               <li><%= link_to 'Sign In', new_user_session_path %></li>
             <% end %>

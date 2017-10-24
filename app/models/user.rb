@@ -13,6 +13,7 @@ class User < ApplicationRecord
   after_update :change_user_invite_status, if: "!temp_invitation_token.blank?"
 
   validates_presence_of :organization_name, if: "edit_organization"
+  validates_format_of :organization_name, with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/, if: "organization_name.present?"
 
   has_one :merchant
   has_many :applicants, through: :merchant
