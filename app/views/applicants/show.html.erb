@@ -1,7 +1,7 @@
 <%- model_class = Applicant -%>
 
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= @applicant.first_name %></h1>
 </div>
 
 <% screen_tabs = @view_screen.screen_tabs.offset(1) %>

@@ -64,6 +64,10 @@ class Applicant < ApplicationRecord
     (job_application_question ? get_message_tag_value(job_application_question.field_id.to_s) : "")
   end
 
+  def first_name
+    self.get_question_value('1')
+  end
+
   private
 
     def assign_reminder_date

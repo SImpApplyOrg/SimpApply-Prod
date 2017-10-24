@@ -21,7 +21,7 @@
           <%= link_to applicant.id, edit_admins_applicant_path(applicant) %>
         </td>
         <td>
-          <%= MessageTag.get_tag_value('applicant_first_name', applicant) %>
+          <%= applicant.first_name %>
         </td>
         <td><%= applicant.have_details? %></td>
         <td><%=l applicant.created_at %></td>
