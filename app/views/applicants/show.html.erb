@@ -16,11 +16,11 @@
         <% applicant_details.each do |index, answer|%>
           <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingTwo">
-              <h4 class="panel-title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#<%= answer['question_id']%>-<%= index %>" aria-expanded="<%= index == 0 %>" aria-controls="<%= answer['question_id']%>-<%= index %>">
+              <h4 class="panel-title" role="button" data-parent="#accordion" href="#<%= answer['question_id']%>-<%= index %>" aria-expanded="<%= index == 0 %>" aria-controls="<%= answer['question_id']%>-<%= index %>">
                 <%= answer["question"] %>
               </h4>
             </div>
-            <div id="<%= answer['question_id']%>-<%= index %>" class="panel-collapse collapse <%= 'in' if index == 0 %>" role="tabpanel" aria-labelledby="headingTwo">
+            <div id="<%= answer['question_id']%>-<%= index %>" class="panel-collapse in" role="tabpanel" aria-labelledby="headingTwo">
               <div class="panel-body">
                 <%= answer["answer"] %>
               </div>
