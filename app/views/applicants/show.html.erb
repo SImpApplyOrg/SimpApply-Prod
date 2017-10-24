@@ -10,6 +10,8 @@
     <div role="tabpanel" class="tab-pane <%='active' if tab_index==0 %>" id="screen_tab-<%=tab_index%>">
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <% applicant_details = get_details(@view_screen, @applicant, screen_tab) %>
+        <%= render 'previous_next_button', tab_index: tab_index, screen_tabs_size: screen_tabs.size-1 %>
+        <hr>
 
         <% applicant_details.each do |index, answer|%>
           <div class="panel panel-default">
@@ -27,19 +29,7 @@
         <% end %>
 
         <hr>
-        <div class="row">
-          <div class="col-sm-12 mbl">
-            <% if tab_index == 0 %>
-              <a href="<%= applicants_path %>" class="btn btn-primary btn-sm pull-left"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Previous</a>
-            <% else %>
-              <a href="#screen_tab-<%= tab_index-1 %>" aria-controls="screen_tab-<%= tab_index-1 %>" role="tab" data-toggle="tab" class="btn btn-primary btn-sm pull-left"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Previous</a>
-            <% end %>
-
-            <% if tab_index < screen_tabs.size-1 %>
-              <a href="#screen_tab-<%= tab_index+1 %>" aria-controls="screen_tab-<%= tab_index+1 %>" role="tab" data-toggle="tab" class="btn btn-primary btn-sm pull-right">Next <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-            <% end %>
-          </div>
-        </div>
+        <%= render 'previous_next_button', tab_index: tab_index, screen_tabs_size: screen_tabs.size-1 %>
       </div>
     </div>
   <% end %>
