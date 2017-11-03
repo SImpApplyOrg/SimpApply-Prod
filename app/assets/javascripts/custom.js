@@ -49,8 +49,6 @@ $(document).on('turbolinks:load', function() {
 
   $('.organization-names').on('click', 'a', function(){
     set_organization_name($(this));
-
-    $.get('/set_organization', { merchant_id: $(this).data('user_id') });
   });
 
   function set_organization_name(obj) {
@@ -58,6 +56,16 @@ $(document).on('turbolinks:load', function() {
     var $span = $link.find('span');
     $link.html(obj.text()+ " ");
     $link.append($span);
+
+    if(obj.attr('is_active') != "true") {
+      $.get('/set_organization', { organization_user_id: obj.data('user_id') });
+    }
+
+    $('.organization-names li a').each(function(){
+      $(this).attr('is_active', 'false');
+    });
+
+    obj.attr('is_active', 'true')
   }
 
   $('#show_organization_model').on('click',function(){

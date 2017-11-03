@@ -47,7 +47,7 @@ class Users::InvitationsController < Devise::InvitationsController
     # If you have extra params to permit, append them to the sanitizer.
     def configure_invite_params
       devise_parameter_sanitizer.permit(:invite, keys: [:user_role] )
-      devise_parameter_sanitizer.permit(:accept_invitation, keys: [:locale, :mobile_no, :first_name, :last_name, :temp_invitation_token])
+      devise_parameter_sanitizer.permit(:accept_invitation, keys: [:locale, :mobile_no, :first_name, :last_name, :temp_invitation_token, :is_merchant])
     end
 
     def resource_from_invitation_token

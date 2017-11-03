@@ -4,15 +4,15 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :token, :temp_invitation_token, :user_role, :edit_organization
+  attr_accessor :token, :temp_invitation_token, :user_role, :is_merchant
 
-  after_initialize :assign_default_values, if: "invitation_created_at.blank?"
-  before_create :assign_default_values, if: "invitation_created_at.blank?"
-  after_create :assign_user_to_merchant, if: "invitation_created_at.blank?"
+  after_initialize :assign_default_values, if: "user_role.blank?"
+  before_create :assign_default_values, if: "user_role.blank?"
+  after_create :assign_user_to_merchant, if: "user_role.blank?"
   after_save :create_user_invitation, :if => :invitation_token?
   after_update :change_user_invite_status, if: "!temp_invitation_token.blank?"
 
-  validates_presence_of :organization_name, if: "edit_organization"
+  validates_presence_of :organization_name, if: "is_merchant == 'true'"
   validates_format_of :organization_name, with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/, if: "organization_name.present?"
 
   has_one :merchant
@@ -38,16 +38,20 @@ class User < ApplicationRecord
     invitation_accepted_at.blank? ? 'Pending' : 'Accepted'
   end
 
+  def merchant?
+    merchant.present?
+  end
+
   private
     def assign_user_to_merchant
-      if self.invitation_created_at.blank?
+      if self.user_role.blank?
         merchant = Merchant.where(token: self.token).first
         merchant.update_attributes(user_id: self.id, email: self.email, token: nil)
       end
     end
 
     def assign_default_values
-      if self.new_record? && self.invitation_created_at.blank?
+      if self.new_record? && self.user_role.blank?
         merchant = Merchant.where(token: self.token).first
 
         if merchant
@@ -63,8 +67,6 @@ class User < ApplicationRecord
         UserInvitation.create(sender_id: invited_by_id, receiver_id: id, role: user_role)
       end
     end
-
-
 
     def change_user_invite_status
       user_invitation = UserInvitation.where(token: temp_invitation_token).first

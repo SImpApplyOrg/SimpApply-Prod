@@ -4,6 +4,7 @@
   <%= devise_error_messages! %>
 
   <%= f.hidden_field :token, value: params[:token] || resource.token %>
+  <%= f.hidden_field :is_merchant, value: true %>
 
   <div class="form-group">
     <%= f.label :email, :class => 'control-label col-lg-2' %>
@@ -30,6 +31,13 @@
     <%= f.label :mobile_no, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.text_field :mobile_no, :class => 'form-control', readonly: @merchant.mobile_no.present?, placeholder: '+147236587' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :organization_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :organization_name, :class => 'form-control' %>
     </div>
   </div>
 

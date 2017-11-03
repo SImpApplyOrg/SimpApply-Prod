@@ -1,7 +1,9 @@
-if(window.location.href.indexOf('applicants') != -1) {
-  if($('.applicants-list').length == 0) {
-    window.location.href = "<%= applicants_url %>"
-  }else {
-    $.get('/applicants')
-  }
-}
+// if(window.location.href.indexOf('applicants') != -1) {
+//   if($('.applicants-list').length == 0) {
+//     window.location.href = "<%= applicants_url %>"
+//   }else {
+//     $.get('/applicants')
+//   }
+// }
+
+window.location.href = "<%= root_url %>"

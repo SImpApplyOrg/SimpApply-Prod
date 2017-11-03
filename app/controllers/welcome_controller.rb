@@ -9,7 +9,7 @@ class WelcomeController < ApplicationController
   end
 
   def set_organization
-    session[:merchant_id] = params[:merchant_id]
+    session[:organization_user_id] = params[:organization_user_id]
   end
 
   private

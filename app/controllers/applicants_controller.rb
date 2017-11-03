@@ -42,8 +42,8 @@ class ApplicantsController < ApplicationController
     end
 
     def get_organization_user
-      if session[:merchant_id].present?
-        @user = User.find(session[:merchant_id])
+      if session[:organization_user_id].present?
+        @user = User.find(session[:organization_user_id])
       else
         @user = current_user
       end
