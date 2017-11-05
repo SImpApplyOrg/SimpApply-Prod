@@ -12,7 +12,9 @@ class UserInvitation < ApplicationRecord
 
   private
     def send_invitation
-      UserInvitationMailer.send_invitation(self).deliver
+      # UserInvitationMailer.send_invitation(self).deliver
+      message_response = MessageResponse.new("invite_#{role}", self.sender.merchant, nil, self.token)
+      TwilioResponse.new(message_response.get_message, self.receiver.mobile_no).send_response
     end
 
     def generate_user_invite_token

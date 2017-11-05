@@ -11,7 +11,9 @@ class ResponseMessage < ApplicationRecord
     view_application_form: "Response for merchant reviewed application form",
     applicant_exist: 'Response for applicant present',
     error_in_email: "Response for email not in proper format",
-    error_in_submit_applicant: 'Response for not submit applicant information'
+    error_in_submit_applicant: 'Response for not submit applicant information',
+    invite_manager: 'Response for Manager',
+    invite_reviewer: 'Response for Reviewer'
   }
 
   validates_presence_of :message_type, :message

@@ -2,7 +2,6 @@
 <div class="page-header">
   <h1 id="organization_name">
     <%= current_user.organization_name %>
-    <a href="javascript:;" class="edit-organization-name"><i class="glyphicon glyphicon-pencil"></i></a>
   </h1>
 </div>
 
@@ -19,10 +18,22 @@
       <%#= f.text_field field %></p>
     <%# end -%> -->
 
-    <div class="form-group">
-      <%= f.label :email, :class => 'control-label col-lg-2' %>
+    <!-- <div class="form-group">
+      <%#= f.label :email, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.email_field :email, autofocus: true, :class => 'form-control' %>
+        <%#= f.email_field :email, autofocus: true, :class => 'form-control' %>
+      </div>
+    </div> -->
+
+    <div class="form-group">
+      <%= f.label :mobile_no, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <div class="col-lg-5 no-padding-left">
+          <%= f.select :country_code, options_for_select(get_country_code_options, selected: f.object.country_code), :class => 'form-control' %>
+        </div>
+        <div class="col-lg-6">
+          <%= f.text_field :mobile_no, autofocus: true, :class => 'form-control' %>
+        </div>
       </div>
     </div>
 

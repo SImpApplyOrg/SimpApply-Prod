@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :token, :temp_invitation_token, :user_role, :is_merchant
+  attr_accessor :token, :temp_invitation_token, :user_role, :is_merchant, :country_code
 
   after_initialize :assign_default_values, if: "user_role.blank?"
   before_create :assign_default_values, if: "user_role.blank?"
@@ -12,8 +12,12 @@ class User < ApplicationRecord
   after_save :create_user_invitation, :if => :invitation_token?
   after_update :change_user_invite_status, if: "!temp_invitation_token.blank?"
 
+  before_create :full_mobile_no
+
   validates_presence_of :organization_name, if: "is_merchant == 'true'"
   validates_format_of :organization_name, with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/, if: "organization_name.present?"
+  validates_plausible_phone :mobile_no, country_number: :country_code, presence: true, with: /\A\+\d+/
+  validate :validate_mobile_number
 
   has_one :merchant
   has_many :applicants, through: :merchant
@@ -40,6 +44,14 @@ class User < ApplicationRecord
 
   def merchant?
     merchant.present?
+  end
+
+  def temp_email?
+    email.include?('xyz.com')
+  end
+
+  def full_mobile_no
+    self.mobile_no = "#{self.country_code}#{self.mobile_no}"
   end
 
   private
@@ -71,5 +83,9 @@ class User < ApplicationRecord
     def change_user_invite_status
       user_invitation = UserInvitation.where(token: temp_invitation_token).first
       user_invitation.accept!
+    end
+
+    def validate_mobile_number
+      errors.add(:mobile_no, "is not a valid number.") if self.mobile_no.present? && !Phonie::Phone.parse(self.mobile_no)
     end
 end

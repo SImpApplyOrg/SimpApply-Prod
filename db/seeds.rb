@@ -27,9 +27,15 @@ ResponseMessage.where(message_type: 'error_in_email').first_or_create(message: "
 
 ResponseMessage.where(message_type: 'error_in_submit_applicant').first_or_create(message: "Hi, we got your application but there was some error to submit to hiring manager, Please contact to administrator.")
 
+ResponseMessage.where(message_type: 'invite_manager').first_or_create(message: "Hi, {{merchant_first_name}} has invited you to thier organization {{organization_name}} as a Manager, you can accept it via clicking on this link. {{invitation_accept_link}}. Or if you have already have credentials login with them and accept the invitation. If you don't want to accept the invitation, please ignore this email or click on Reject button from your dashboard page. Your account won't be created until you access the link above and set your password.")
+
+ResponseMessage.where(message_type: 'invite_reviewer').first_or_create(message: "Hi, {{merchant_first_name}} has invited you to thier organization {{organization_name}} as a Reviewer, you can accept it via clicking on this link. {{invitation_accept_link}}. Or if you have already have credentials login with them and accept the invitation. If you don't want to accept the invitation, please ignore this email or click on Reject button from your dashboard page. Your account won't be created until you access the link above and set your password.")
+
 JobApplicationQuestion.where(is_custom_field: true, question: "No of job applications").first_or_create(question_title: 'Total no of job applications for this applicant')
 
 MessageTag.where(tag_name: 'sign_up_link').first_or_create(is_editable: false)
 MessageTag.where(tag_name: 'type_form_link').first_or_create(is_editable: false)
 MessageTag.where(tag_name: 'job_application_link').first_or_create(is_editable: false)
 MessageTag.where(tag_name: 'merchant_first_name').first_or_create(is_editable: false)
+MessageTag.where(tag_name: 'invitation_accept_link').first_or_create(is_editable: false)
+MessageTag.where(tag_name: 'organization_name').first_or_create(is_editable: false)

@@ -1,10 +1,11 @@
 class MessageResponse
 
-  def initialize(message_type, merchant, applicant)
+  def initialize(message_type, merchant, applicant, token=nil)
     @message_type = message_type
 
     @merchant = merchant
     @applicant = applicant
+    @token = token
   end
 
   def get_message
@@ -27,6 +28,10 @@ class MessageResponse
       "error_in_email"
     when "error_in_submit_applicant"
       "error_in_submit_applicant"
+    when 'invite_manager'
+      'invite_manager'
+    when 'invite_reviewer'
+      'invite_reviewer'
     end
 
     response_message = ResponseMessage.where(message_type: message_type).first
@@ -55,8 +60,12 @@ class MessageResponse
         Rails.application.routes.url_helpers.get_type_form_type_form_web_hooks_url(token: @applicant.token) if @applicant
       when 'job_application_link'
         Rails.application.routes.url_helpers.applicants_url
+      when 'invitation_accept_link'
+        Rails.application.routes.url_helpers.accept_user_invitation_url(token: @token)
       when 'merchant_first_name'
         @merchant.user.first_name if @merchant.present? && @merchant.user.present?
+      when 'organization_name'
+        @merchant.user.organization_name if @merchant.present? && @merchant.user.present?
       else
         MessageTag.get_tag_value(tag, @applicant)
       end

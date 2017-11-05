@@ -5,6 +5,10 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :check_organization, only: [:new]
   prepend_before_action :resource_from_invitation_token, :only => [:edit, :destroy]
 
+  def new
+    self.resource = resource_class.new(user_role: 'manager')
+    render :new
+  end
 
   def edit
     sign_out send("current_#{resource_name}") if send("#{resource_name}_signed_in?")
@@ -46,7 +50,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_invite_params
-      devise_parameter_sanitizer.permit(:invite, keys: [:user_role] )
+      devise_parameter_sanitizer.permit(:invite, keys: [:user_role, :mobile_no, :country_code] )
       devise_parameter_sanitizer.permit(:accept_invitation, keys: [:locale, :mobile_no, :first_name, :last_name, :temp_invitation_token, :is_merchant])
     end
 
@@ -65,10 +69,10 @@ class Users::InvitationsController < Devise::InvitationsController
     end
 
     def invite_resource(&block)
-      @user = User.find_by(email: invite_params[:email])
+      @user = User.find_by(mobile_no: full_mobile_no)
       # @user is an instance or nil
       if @user
-        if @user.email == current_user.email
+        if @user.mobile_no == current_user.mobile_no
           @user.errors.add(:base, :not_invite_yourself)
         else
           user_inivitation = UserInvitation.where(sender_id: current_user.id, receiver_id: @user.id).first
@@ -78,11 +82,20 @@ class Users::InvitationsController < Devise::InvitationsController
             @user.errors.add(:base, :already_sent_invitation)
           end
         end
+        @user.country_code = invite_params[:country_code]
+        @user.mobile_no = invite_params[:mobile_no]
         @user
       else
         # invite! class method returns invitable var, which is a User instance
-        resource_class.invite!(invite_params, current_inviter) do |u|
-          u.skip_invitation = true
+        if !Phonie::Phone.parse(full_mobile_no)
+          @user = User.new(invite_params)
+          @user.errors.add(:mobile_no, "is not a valid number.")
+          @user
+        else
+          invite_params.merge!(email: "#{SecureRandom.hex(5)}@xyz.com")
+          resource_class.invite!(invite_params, current_inviter) do |u|
+            u.skip_invitation = true
+          end
         end
       end
     end
@@ -114,5 +127,9 @@ class Users::InvitationsController < Devise::InvitationsController
 
     def check_organization
       redirect_to root_path if current_user.organization_name.blank?
+    end
+
+    def full_mobile_no
+      "#{invite_params[:country_code]}#{invite_params[:mobile_no]}"
     end
 end
