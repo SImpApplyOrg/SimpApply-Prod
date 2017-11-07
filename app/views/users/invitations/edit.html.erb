@@ -8,7 +8,7 @@
   <div class="form-group">
     <%= f.label :email, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.email_field :email, (resource.temp_email? ? nil : resource.email), autofocus: true, :class => 'form-control' %>
+      <%= f.email_field :email, value: (resource.temp_email? ? nil : resource.email), autofocus: true, :class => 'form-control' %>
     </div>
   </div>
 

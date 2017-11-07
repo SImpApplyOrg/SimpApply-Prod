@@ -84,20 +84,20 @@ class Users::InvitationsController < Devise::InvitationsController
         end
         @user.country_code = invite_params[:country_code]
         @user.mobile_no = invite_params[:mobile_no]
-        @user
       else
         # invite! class method returns invitable var, which is a User instance
         if !Phonie::Phone.parse(full_mobile_no)
           @user = User.new(invite_params)
           @user.errors.add(:mobile_no, "is not a valid number.")
-          @user
         else
-          invite_params.merge!(email: "#{SecureRandom.hex(5)}@xyz.com")
-          resource_class.invite!(invite_params, current_inviter) do |u|
+          invite_parameters = invite_params.merge!(email: "#{SecureRandom.hex(5)}@xyz.com")
+          resource = resource_class.invite!(invite_parameters, current_inviter) do |u|
             u.skip_invitation = true
           end
+          flash[:notice] = "Invitation sent to mobile_no #{full_mobile_no}"
         end
       end
+      @user || resource
     end
 
     def after_invite_path_for(current_inviter, resource)
@@ -126,7 +126,13 @@ class Users::InvitationsController < Devise::InvitationsController
     end
 
     def check_organization
-      redirect_to root_path if current_user.organization_name.blank?
+      if current_user.merchant? && current_user.organization_name.blank?
+        flash[:error] = "Please set your organization name before invite users."
+        redirect_to root_path
+      elsif !current_user.merchant?
+        flash[:error] = "Right now you are not able to access Manage Account page, working under progress"
+        redirect_to root_path
+      end
     end
 
     def full_mobile_no
