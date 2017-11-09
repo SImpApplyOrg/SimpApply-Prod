@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
 
   def index
-    @invitations = current_user.reverse_user_invitations if current_user
+    @invitations = current_user.reverse_user_invitations.pending if current_user
   end
 
   def update_organization_name

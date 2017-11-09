@@ -4,11 +4,13 @@
   <td><%= invite_user.created_at %></td>
   <td><%= invite_user.status %></td>
 
-  <td>
-    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      user_invite_path(invite_user),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-  </td>
+  <% if current_user.organization_name == current_organization_name %>
+    <td>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        user_invite_path(invite_user),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
+                        :class => 'btn btn-xs btn-danger' %>
+    </td>
+  <% end %>
 </tr>

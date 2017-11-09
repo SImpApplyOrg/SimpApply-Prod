@@ -6,4 +6,6 @@
 //   }
 // }
 
-window.location.href = "<%= root_url %>"
+if($('.organization-names').length > 0) {
+  window.location.href = "<%= root_url %>"
+}

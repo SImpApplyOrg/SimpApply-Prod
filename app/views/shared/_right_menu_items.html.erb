@@ -10,17 +10,21 @@
         <%= render 'welcome/organization_list', organization_user_id: session[:organization_user_id], invitations: invitations %>
       </ul>
     </li>
+  <% elsif current_user.merchant? %>
+    <div class="current_organization" id="<%=current_user.id%>"></div>
   <% end %>
   <li class="dropdown">
     <%= link_to '#', class: "dropdown-toggle", :'data-toggle' => "dropdown", role: "button", :'aria-haspopup' => "true", :'aria-expanded' => "false" do %>
-      <%= (current_user.full_name.blank? ? current_user.email : current_user.full_name) %>
+      <%= user_name(current_user) %>
       <span class="caret"></span>
     <% end %>
 
     <ul class="dropdown-menu">
-      <li>
-        <%= link_to t('.manage_account', default: t('top_menus.links.manage_account')), new_user_invitation_path %>
-      </li>
+      <% if current_user.merchant? || (current_organization_user.present? && (current_user.manager?(current_organization_user) || current_user.reviewer?(current_organization_user))) %>
+        <li>
+          <%= link_to t('.manage_account', default: t('top_menus.links.manage_account')), new_user_invitation_path %>
+        </li>
+      <% end %>
       <li>
         <%= link_to t('.profile', default: t('top_menus.links.profile')), edit_user_registration_path %>
       </li>

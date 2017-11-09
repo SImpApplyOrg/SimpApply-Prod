@@ -1,13 +1,13 @@
 <%- model_class = User %>
 <div class="page-header">
   <h1 id="organization_name">
-    <%= current_user.organization_name %>
+    <%= current_organization_name || current_user.organization_name %>
   </h1>
 </div>
 
 <br>
 
-<%# if current_user.merchant || current_user. %>
+<% if current_user.merchant? || current_user.manager?(current_organization_user) %>
   <h2><%= t "devise.invitations.new.header" %></h2>
 
   <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post, class: 'form-horizontal'} do |f| %>
@@ -50,5 +50,6 @@
       </div>
     </div>
   <% end %>
+<% end %>
 
 <%= render 'invite_users', invite_users: @user_invitations %>

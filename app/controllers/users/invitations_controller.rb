@@ -69,15 +69,17 @@ class Users::InvitationsController < Devise::InvitationsController
     end
 
     def invite_resource(&block)
+      invite_for = current_organization_user || current_user
       @user = User.find_by(mobile_no: full_mobile_no)
       # @user is an instance or nil
       if @user
         if @user.mobile_no == current_user.mobile_no
           @user.errors.add(:base, :not_invite_yourself)
         else
-          user_inivitation = UserInvitation.where(sender_id: current_user.id, receiver_id: @user.id).first
+          user_inivitation = UserInvitation.where(sender_id: invite_for.id, receiver_id: @user.id).first
           unless user_inivitation
-            UserInvitation.create(sender_id: current_user.id, receiver_id: @user.id, role: invite_params[:user_role])
+            UserInvitation.create(sender_id: invite_for.id, receiver_id: @user.id, role: invite_params[:user_role])
+            flash[:notice] = "Invitation sent to mobile_no #{full_mobile_no}"
           else
             @user.errors.add(:base, :already_sent_invitation)
           end
@@ -92,6 +94,7 @@ class Users::InvitationsController < Devise::InvitationsController
         else
           invite_parameters = invite_params.merge!(email: "#{SecureRandom.hex(5)}@xyz.com")
           resource = resource_class.invite!(invite_parameters, current_inviter) do |u|
+            u.invite_for_id = invite_for.id
             u.skip_invitation = true
           end
           flash[:notice] = "Invitation sent to mobile_no #{full_mobile_no}"
@@ -122,15 +125,16 @@ class Users::InvitationsController < Devise::InvitationsController
     end
 
     def get_user_invitations
-      @user_invitations  = current_user.user_invitations
+      user = current_organization_user || current_user
+      @user_invitations  = user.user_invitations
     end
 
     def check_organization
       if current_user.merchant? && current_user.organization_name.blank?
         flash[:error] = "Please set your organization name before invite users."
         redirect_to root_path
-      elsif !current_user.merchant?
-        flash[:error] = "Right now you are not able to access Manage Account page, working under progress"
+      elsif !current_user.merchant? && !(current_organization_user.present? && (current_user.manager?(current_organization_user) || current_user.reviewer?(current_organization_user)))
+        flash[:error] = "You are not athorize to access the Manage Account page."
         redirect_to root_path
       end
     end

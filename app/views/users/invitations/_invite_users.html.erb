@@ -10,7 +10,9 @@
       <th><%= model_class.human_attribute_name(:role) %></th>
       <th><%= model_class.human_attribute_name(:invite_sent_at) %></th>
       <th><%= model_class.human_attribute_name(:invite_status) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <% if current_user.organization_name == current_organization_name %>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>

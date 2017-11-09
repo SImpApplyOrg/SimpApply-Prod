@@ -9,11 +9,11 @@
   display: inline;
 }
 
-.hover-edit, #organization_name {
+.hover-edit {
   cursor: pointer;
 }
 
-.question-form, .modal-organization-name, #organization_name a {
+.question-form {
   display: none;
 }
 

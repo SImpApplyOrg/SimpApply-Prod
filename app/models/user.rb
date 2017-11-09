@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :token, :temp_invitation_token, :user_role, :is_merchant, :country_code
+  attr_accessor :token, :temp_invitation_token, :user_role, :is_merchant, :country_code, :invite_for_id
 
   after_initialize :assign_default_values, if: "user_role.blank?"
   before_create :assign_default_values, if: "user_role.blank?"
@@ -46,6 +46,14 @@ class User < ApplicationRecord
     merchant.present?
   end
 
+  def manager?(current_organization_user)
+    reverse_user_invitations.where(sender_id: current_organization_user.id).first.try(:manager?)
+  end
+
+  def reviewer?(current_organization_user)
+    reverse_user_invitations.where(sender_id: current_organization_user.id).first.try(:reviewer?)
+  end
+
   def temp_email?
     email.include?('xyz.com')
   end
@@ -74,9 +82,9 @@ class User < ApplicationRecord
     end
 
     def create_user_invitation
-      user_inivitation = UserInvitation.where(sender_id: invited_by_id, receiver_id: id).first
+      user_inivitation = UserInvitation.where(sender_id: invite_for_id, receiver_id: id).first
       unless user_inivitation
-        UserInvitation.create(sender_id: invited_by_id, receiver_id: id, role: user_role)
+        UserInvitation.create(sender_id: invite_for_id, receiver_id: id, role: user_role)
       end
     end
 
