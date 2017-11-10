@@ -3,6 +3,8 @@ class TypeFormWebHooksController < ApplicationController
   before_action :check_application_token, only: [:create_application]
 
   def get_type_form
+    sign_out current_user
+
     applicant_token = params[:token] || ""
     @applicant = Applicant.where(token: applicant_token).first
     flash.now[:error] = "Invalid Token, Please try again with valid token" unless @applicant
