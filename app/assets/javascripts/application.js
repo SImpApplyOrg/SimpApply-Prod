@@ -17,6 +17,7 @@
 //= require twitter/bootstrap
 //= require jquery_nested_form
 //= require jquery-ui
+//= require autocomplete_map
 //= require custom
 // require_tree .
 

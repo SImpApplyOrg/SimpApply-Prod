@@ -52,3 +52,7 @@
 .no-padding-left {
   padding-left: 0;
 }
+
+#map {
+  height: 350px;
+}

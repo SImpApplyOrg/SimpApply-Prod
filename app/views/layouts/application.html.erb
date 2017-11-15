@@ -37,7 +37,6 @@
     <![endif]-->
   </head>
   <body>
-
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -59,6 +58,7 @@
     </div>
 
     <div class="container">
+
       <div class="row">
         <div class="col-lg-12">
           <%= bootstrap_flash %>
@@ -68,5 +68,7 @@
 
     </div> <!-- /container -->
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_PLACE_API_KEY']%>&libraries=places&callback=initMap"
+        async defer></script>
   </body>
 </html>
