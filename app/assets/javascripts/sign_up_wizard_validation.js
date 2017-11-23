@@ -55,7 +55,7 @@ $(document).on('turbolinks:load', function() {
                             max: 10
                         },
                         regexp: {
-                            message: 'Merchant code must be alphanumeric'
+                            message: 'Merchant code must be alphanumeric',
                             regexp: /^[a-z0-9]+$/i
                         }
                     }

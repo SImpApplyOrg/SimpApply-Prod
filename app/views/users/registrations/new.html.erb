@@ -9,58 +9,29 @@
       <%= f.hidden_field :is_merchant, value: true %>
 
       <ul class="nav nav-pills hide">
-        <li class="active"><a href="#mobile-no" data-toggle="tab">mobile-no</a></li>
-        <li><a href="#mobile-code" data-toggle="tab">mobile-code</a></li>
-        <li><a href="#merchant-code" data-toggle="tab">merchant-code</a></li>
+        <li cla><a href="#merchant-code" data-toggle="tab">merchant-code</a></li>
         <li><a href="#user-info" data-toggle="tab">user-info</a></li>
+        <li><a href="#mobile-code" data-toggle="tab">mobile-code</a></li>
+        <li><a href="#business-info" data-toggle="tab">business-info</a></li>
       </ul>
 
       <div class="tab-content">
         <!-- First tab -->
-        <div class="tab-pane active" id="mobile-no">
+        <div class="tab-pane <%= has_token? ? '' : 'active' %>" id="merchant-code">
           <div class="form-group">
-            <%= f.label :mobile_no, :class => 'control-label col-lg-2' %>
+            <%= f.label :merchant_code, :class => 'control-label col-lg-2' %>
             <div class="col-lg-10">
-              <%= f.text_field :mobile_no, :class => 'form-control', placeholder: '+147236587' %>
+              <%= f.text_field :merchant_code, autofocus: true, :class => 'form-control' %>
             </div>
           </div>
         </div>
 
         <!-- Second tab -->
-        <div class="tab-pane" id="mobile-code">
-          <div class="form-group">
-            <%= label_tag :mobile_code, nil, :class => 'control-label col-lg-2' %>
-            <div class="col-lg-10">
-              <%= text_field_tag :mobile_code, '', :class => 'form-control' %>
-            </div>
-          </div>
-
-          <%= link_to "did't get the code?", new_user_registration_path %>
-        </div>
-
-        <!-- Third tab -->
-        <div class="tab-pane" id="merchant-code">
-          <div class="form-group">
-            <%= f.label :merchant_code, :class => 'control-label col-lg-2' %>
-            <div class="col-lg-10">
-              <%= f.text_field :merchant_code, :class => 'form-control' %>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fourth tab -->
-        <div class="tab-pane" id="user-info">
-          <div class="form-group">
-            <%= f.label :email, :class => 'control-label col-lg-2' %>
-            <div class="col-lg-10">
-              <%= f.email_field :email, autofocus: true, :class => 'form-control', readonly: @merchant && @merchant.email.present? %>
-            </div>
-          </div>
-
+        <div class="tab-pane <%= has_token? ? 'active' : '' %>" id="user-info">
           <div class="form-group">
             <%= f.label :first_name, :class => 'control-label col-lg-2' %>
             <div class="col-lg-10">
-              <%= f.text_field :first_name, :class => 'form-control' %>
+              <%= f.text_field :first_name, autofocus: true, :class => 'form-control' %>
             </div>
           </div>
 
@@ -72,25 +43,45 @@
           </div>
 
           <div class="form-group">
-            <%= f.label :organization_name, :class => 'control-label col-lg-2' %>
+            <%= f.label :email, :class => 'control-label col-lg-2' %>
             <div class="col-lg-10">
-              <%= f.text_field :organization_name, :class => 'form-control' %>
+              <%= f.email_field :email, :class => 'form-control', readonly: @merchant && @merchant.email.present? %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label :address, :class => 'control-label col-lg-2' %>
+            <%= f.label :mobile_no, :class => 'control-label col-lg-2' %>
             <div class="col-lg-10">
-              <%= f.text_field :address, :class => 'form-control' %>
-              <%= f.hidden_field :lat, :class => 'form-control' %>
-              <%= f.hidden_field :lng, :class => 'form-control' %>
+              <%= f.text_field :mobile_no, :class => 'form-control', placeholder: '+147236587', disabled: has_token? %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Third tab -->
+        <div class="tab-pane" id="mobile-code">
+          <div class="form-group">
+            <%= label_tag :mobile_code, nil, :class => 'control-label col-lg-2' %>
+            <div class="col-lg-10">
+              <%= text_field_tag :mobile_code, '', :class => 'form-control' %>
+            </div>
+          </div>
+
+          <%= link_to "did't get the code?", new_user_registration_path %>
+        </div>
+
+        <!-- Fourth tab -->
+        <div class="tab-pane" id="business-info">
+          <div class="form-group">
+            <%= label_tag :organization_name, "Business name", :class => 'control-label col-lg-2' %>
+            <div class="col-lg-10">
+              <%= text_field_tag :organization_name, '', :class => 'form-control' %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label :locale, :class => 'control-label col-lg-2' %>
+            <%= label_tag :address, "Business address", :class => 'control-label col-lg-2' %>
             <div class="col-lg-10">
-              <%= f.select :locale, I18n.available_locales, :class => 'form-control' %>
+              <%= text_field_tag :address, '', :class => 'form-control' %>
             </div>
           </div>
 
@@ -112,22 +103,13 @@
           </div>
         </div>
 
+
         <!-- Next buttons -->
         <ul class="pager wizard">
           <!-- <li class="previous"><a href="javascript: void(0);">Previous</a></li> -->
           <li class="next"><a href="javascript:void(0);">Process</a></li>
         </ul>
       </div>
-
-      <!-- <div class=" form-group">
-        <div class="col-lg-offset-2 col-lg-10">
-          <%#= f.submit "Sign up", :class => 'btn btn-primary' %>
-          <%#= render "users/shared/links" %>
-        </div>
-      </div> -->
     <% end %>
-  </div>
-  <div class="col-lg-4">
-    <div id="map" data-lat-lng-present="<%= resource.lat.present? && resource.lng.present? %>"></div>
   </div>
 </div>
