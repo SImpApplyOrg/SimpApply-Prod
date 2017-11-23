@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :token, :temp_invitation_token, :user_role, :is_merchant, :country_code, :invite_for_id
+  attr_accessor :token, :temp_invitation_token, :user_role, :is_merchant, :country_code, :invite_for_id, :mobile_code, :merchant_code
 
   after_initialize :assign_default_values, if: "user_role.blank?"
   before_create :assign_default_values, if: "user_role.blank?"

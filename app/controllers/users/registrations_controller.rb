@@ -4,13 +4,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    build_resource({token: @merchant.token})
-
-    # resource.mobile_no = @merchant.mobile_no
-    # resource.email = @merchant.email
-
-    yield resource if block_given?
-    respond_with resource
+    if @merchant
+      build_resource({token: @merchant.token, email: @merchant.email, mobile_no: @merchant.mobile_no})
+      yield resource if block_given?
+      respond_with resource
+    else
+      super
+    end
   end
   protected
 
@@ -25,11 +25,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def authenticate_merchant_token
-      flash[:error] = if params[:token].blank?
-        "You can't signup without token"
-      else
-      @merchant = Merchant.where(token: params[:token]).first
-        "Invalid token" if @merchant.blank?
+      unless params[:token].blank?
+        @merchant = Merchant.where(token: params[:token]).first
+        flash[:error] = "Invalid token" if @merchant.blank?
       end
       redirect_to root_path if flash[:error]
     end

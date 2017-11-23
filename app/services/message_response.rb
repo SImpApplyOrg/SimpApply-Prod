@@ -32,6 +32,8 @@ class MessageResponse
       'invite_manager'
     when 'invite_reviewer'
       'invite_reviewer'
+    when 'verification_code'
+      'mobile_verification_code_message'
     end
 
     response_message = ResponseMessage.where(message_type: message_type).first
@@ -66,6 +68,8 @@ class MessageResponse
         @merchant.user.first_name if @merchant.present? && @merchant.user.present?
       when 'organization_name'
         @merchant.user.organization_name if @merchant.present? && @merchant.user.present?
+      when 'mobile_verification_code'
+        @token
       else
         MessageTag.get_tag_value(tag, @applicant)
       end

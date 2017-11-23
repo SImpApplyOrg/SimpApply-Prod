@@ -13,6 +13,7 @@
  *= require bootstrap_and_overrides
  *= require custom
  *= require jquery-ui
+ *= require formValidation.min
  * require_tree .
  *= require_self
  */

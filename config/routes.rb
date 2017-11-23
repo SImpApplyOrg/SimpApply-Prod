@@ -50,7 +50,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:update]
+  resources :users, only: nil do
+    collection do
+      post :check_mobile_no
+      post :send_verification_code
+      post :check_verfication_code
+    end
+  end
 
   resources :type_form_web_hooks, only: :nil do
     collection do

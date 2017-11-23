@@ -13,7 +13,8 @@ class ResponseMessage < ApplicationRecord
     error_in_email: "Response for email not in proper format",
     error_in_submit_applicant: 'Response for not submit applicant information',
     invite_manager: 'Response for Manager',
-    invite_reviewer: 'Response for Reviewer'
+    invite_reviewer: 'Response for Reviewer',
+    mobile_verification_code_message: 'Message for send mobile verification code'
   }
 
   validates_presence_of :message_type, :message
