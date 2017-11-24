@@ -18,6 +18,7 @@
 //= require jquery_nested_form
 //= require jquery-ui
 //= require autocomplete_map
+//= require autocomplete_address
 //= require jquery.bootstrap.wizard.min
 //= require formValidation.min
 //= require formValidationBootstrapFramework.min
