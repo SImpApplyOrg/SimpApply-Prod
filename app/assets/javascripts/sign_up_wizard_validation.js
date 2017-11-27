@@ -57,6 +57,11 @@ $(document).on('turbolinks:load', function() {
             regexp: {
               message: 'Merchant code must be alphanumeric',
               regexp: /^[a-z0-9]+$/i
+            },
+            remote: {
+              message: "Merchant code already exist",
+              url: '/users/check_merchant_code',
+              type: 'POST'
             }
           }
         },
@@ -67,6 +72,11 @@ $(document).on('turbolinks:load', function() {
             },
             emailAddress: {
               message: 'Email address is not valid'
+            },
+            remote: {
+              message: "Email already exist",
+              url: '/users/check_email',
+              type: 'POST'
             }
           }
         },
@@ -111,28 +121,22 @@ $(document).on('turbolinks:load', function() {
         //     return validateTab(index);
         // },
         onNext: function(tab, navigation, index) {
-            var numTabs    = $('#installationForm').find('.tab-pane').length,
-                isValidTab = validateTab(index - 1);
-            if (!isValidTab) {
-              return false;
-            }
+          var isValidTab = validateTab(index - 1);
+          if (!isValidTab) {
+            return false;
+          }
 
-            return true;
+          return true;
         },
         // onPrevious: function(tab, navigation, index) {
         //     return validateTab(index + 1);
         // },
         onTabShow: function(tab, navigation, index) {
-          var numTabs = $('#installationForm').find('.tab-pane').length;
-          // if (index == 1) {
-          //     $('.did_not_get_code').hide();
-
-          //     $.post('/users/send_verification_code', { user: { mobile_no: $('#user_mobile_no').val() } }).done(function(){
-          //         setTimeout(function(){
-          //             $('.did_not_get_code').show();
-          //         }, 2000);
-          //     });
-          // }
+          var tabs = $('#installationForm').find('.tab-pane');
+          var numTabs = tabs.length;
+          
+          sendVerificationCode(index, numTabs);
+          
           if (index == (numTabs - 1)){
             $('.wizard li.finish').removeClass('hide');
             $('.wizard li.next').addClass('hide');
@@ -141,19 +145,39 @@ $(document).on('turbolinks:load', function() {
     });
 
   function validateTab(index) {
-      var fv   = $('#installationForm').data('formValidation'), // FormValidation instance
-          // The current tab
-          $tab = $('#installationForm').find('.tab-pane').eq(index);
+    var fv   = $('#installationForm').data('formValidation'), // FormValidation instance
+      // The current tab
+      $tab = $('#installationForm').find('.tab-pane').eq(index);
 
-      // Validate the container
-      fv.validateContainer($tab);
+    // Validate the container
+    fv.validateContainer($tab);
 
-      var isValidStep = fv.isValidContainer($tab);
-      if (isValidStep === false || isValidStep === null) {
-          // Do not jump to the target tab
-          return false;
-      }
+    var isValidStep = fv.isValidContainer($tab);
+    if (isValidStep === false || isValidStep === null) {
+      // Do not jump to the target tab
+      return false;
+    }
 
-      return true;
+    return true;
+  }
+
+  function sendVerificationCode(index, numTabs) {
+    if (numTabs < 4) {
+      return;
+    }
+
+    if (index == 2) {
+      $('.did_not_get_code').hide();
+      var mobileNo = $('#user_mobile_no').val();
+      
+      $.post('/users/send_verification_code',
+          { user: { mobile_no: mobileNo } }
+        ).done(function(){
+          setTimeout(function(){
+            $('.did_not_get_code').show();
+          }, 2000
+        );
+      });
+    }
   }
 });

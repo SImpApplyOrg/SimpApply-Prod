@@ -1,6 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create, :update]
   before_action :authenticate_merchant_token, only: [:new, :create]
+  before_action :bypass_token, only: :create
 
   # GET /resource/sign_up
   def new
@@ -29,8 +30,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
       unless params[:token].blank?
         @merchant = Merchant.where(token: params[:token]).first
         flash[:error] = "Invalid token" if @merchant.blank?
+        redirect_to root_path if flash[:error]
       end
-      redirect_to root_path if flash[:error]
+    end
+
+    def bypass_token
+      if params[:token].blank?
+        merchant = Merchant.create(uuid: params[:user][:merchant_code])
+        params[:user][:token] = merchant.token
+      end
     end
 end
 

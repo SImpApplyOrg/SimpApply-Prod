@@ -15,6 +15,19 @@ class UsersController < ApplicationController
   end
 
   def check_verfication_code
-    render json: { valid: true } #session[:verification_code] == params[:mobile_code]
+    valid = session[:verification_code] == params[:mobile_code]
+    # TODO: Remove puts after completing the feature successfully
+    puts session[:verification_code]
+    render json: { valid: valid }
+  end
+
+  def check_merchant_code
+    valid = Merchant.where(uuid: params[:user][:merchant_code]).any?
+    render json: { valid: !valid }
+  end
+
+  def check_email
+    valid = User.where(email: params[:user][:email]).any?
+    render json: { valid: !valid }
   end
 end
