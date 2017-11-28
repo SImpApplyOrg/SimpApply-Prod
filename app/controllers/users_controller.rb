@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def check_mobile_no
-    success = Phonie::Phone.parse(params[:user][:mobile_no])
+    success = Phonie::Phone.parse(get_mobile_no)
     render json: { valid: !!success }
   end
 
@@ -29,5 +29,15 @@ class UsersController < ApplicationController
   def check_email
     valid = User.where(email: params[:user][:email]).any?
     render json: { valid: !valid }
+  end
+
+  private
+
+  def get_mobile_no
+    if params[:user][:mobile_no].include?('+')
+      params[:user][:mobile_no]
+    else
+      "#{params[:user][:country_code]}#{params[:user][:mobile_no]}"
+    end
   end
 end

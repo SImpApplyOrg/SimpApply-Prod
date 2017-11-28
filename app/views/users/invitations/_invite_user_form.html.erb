@@ -1,0 +1,41 @@
+<% if current_user.merchant? || current_user.manager?(current_organization_user) %>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post, class: 'form-horizontal', id: 'addCollaboratorForm'} do |f| %>
+        <%= devise_error_messages! %>
+
+        <ul class="nav nav-pills hide">
+          <li class="active"><a href="#add-collaborator" data-toggle="tab">add-collaborator</a></li>
+          <li><a href="#more-collaborator" data-toggle="tab">more-collaborator</a></li>
+        </ul>
+        
+        <div class="tab-content">
+          <!-- First tab -->
+          <div class="tab-pane active" id="add-collaborator">
+            <h2><%= t "devise.invitations.add_collaborator.header" %></h2>
+            <div class="form-group">
+              <%= f.label :mobile_no, :class => 'control-label col-lg-2' %>
+              <div class="col-lg-10">
+                <%= f.select :country_code, options_for_select(get_country_code_options, selected: f.object.country_code) %>
+                <%= f.text_field :mobile_no, autofocus: true, :class => 'form-control' %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Second tab -->
+          <div class="tab-pane" id="more-collaborator">
+            <h2><%= t "devise.invitations.add_collaborator.is_anyone_else" %></h2>
+          </div>
+        </div>
+
+        <!-- Next buttons -->
+        <ul class="pager wizard">
+          <li><a href="/">Skip</a></li>
+          <li class="next"><a href="javascript:;">Add</a></li>
+          <li class="previous"><a href="javascript:;">Add Else</a></li>
+        </ul>
+      </div>
+    </div>
+<% end %>
+    <% end %>

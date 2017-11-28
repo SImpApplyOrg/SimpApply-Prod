@@ -23,6 +23,7 @@
 //= require formValidation.min
 //= require formValidationBootstrapFramework.min
 //= require sign_up_wizard_validation
+//= require add_collaborator_wizard
 //= require custom
 // require_tree .
 
