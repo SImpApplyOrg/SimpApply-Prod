@@ -18,12 +18,13 @@
 //= require jquery_nested_form
 //= require jquery-ui
 //= require autocomplete_map
-//= require autocomplete_address
 //= require jquery.bootstrap.wizard.min
 //= require formValidation.min
 //= require formValidationBootstrapFramework.min
 //= require sign_up_wizard_validation
 //= require add_collaborator_wizard
+//= require intlTelInput.min
+//= require utils
 //= require custom
 // require_tree .
 

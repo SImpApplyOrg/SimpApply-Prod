@@ -71,7 +71,7 @@ class User < ApplicationRecord
     end
 
     def assign_default_values
-      if self.new_record? && self.user_role.blank?
+      if self.new_record? && !self.token.blank?
         merchant = Merchant.where(token: self.token).first
 
         if merchant

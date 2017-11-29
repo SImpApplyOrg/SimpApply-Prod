@@ -89,8 +89,17 @@
             <%= f.label :address, "Business address", :class => 'control-label col-lg-2' %>
             <div class="col-lg-10">
               <%= f.text_field :address, :class => 'form-control' %>
+              <%= f.hidden_field :lat, :class => 'form-control' %>
+              <%= f.hidden_field :lng, :class => 'form-control' %>
             </div>
           </div>
+
+          <div class="form-group">
+            <%= f.label :locale, :class => 'control-label col-lg-2' %>
+             <div class="col-lg-10">
+              <%= f.select :locale, I18n.available_locales, :class => 'form-control' %>
+             </div>
+           </div>
 
           <div class="form-group">
             <%= f.label :password, :class => 'control-label col-lg-2' %>
