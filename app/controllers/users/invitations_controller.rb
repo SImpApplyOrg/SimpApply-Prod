@@ -17,6 +17,29 @@ class Users::InvitationsController < Devise::InvitationsController
     render :edit
   end
 
+  def create
+    self.resource = invite_resource
+    resource_invited = resource.errors.empty?
+
+    yield resource if block_given?
+
+    if resource_invited
+      if is_flashing_format? && self.resource.invitation_sent_at
+        set_flash_message :notice, :send_instructions, :email => self.resource.email
+      end
+      respond_to do |format|
+        format.json { render json: resource, status: :created  }
+        format.html { respond_with resource, :location => new_user_invitation_path }
+      end
+    else
+      flash[:error] = resource.errors.full_messages
+      respond_to do |format|
+        format.json { render json: resource.errors, status: :unprocessable_entity  }
+        format.html { respond_with_navigational(resource) { render :new } }
+      end
+      
+    end
+  end
 
   def update
     raw_invitation_token = update_resource_params[:invitation_token]
@@ -50,7 +73,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_invite_params
-      devise_parameter_sanitizer.permit(:invite, keys: [:user_role, :mobile_no, :country_code] )
+      devise_parameter_sanitizer.permit(:invite, keys: [:user_role, :mobile_no] )
       devise_parameter_sanitizer.permit(:accept_invitation, keys: [:locale, :mobile_no, :first_name, :last_name, :temp_invitation_token, :is_merchant])
     end
 
@@ -70,7 +93,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
     def invite_resource(&block)
       invite_for = current_organization_user || current_user
-      @user = User.find_by(mobile_no: full_mobile_no)
+      @user = User.find_by(mobile_no: invite_params[:mobile_no])
       # @user is an instance or nil
       if @user
         if @user.mobile_no == current_user.mobile_no
@@ -79,16 +102,14 @@ class Users::InvitationsController < Devise::InvitationsController
           user_inivitation = UserInvitation.where(sender_id: invite_for.id, receiver_id: @user.id).first
           unless user_inivitation
             UserInvitation.create(sender_id: invite_for.id, receiver_id: @user.id, role: invite_params[:user_role])
-            flash[:notice] = "Invitation sent to mobile_no #{full_mobile_no}"
+            flash[:notice] = "Invitation sent to mobile: #{invite_params[:mobile_no]}"
           else
             @user.errors.add(:base, :already_sent_invitation)
           end
         end
-        @user.country_code = invite_params[:country_code]
-        @user.mobile_no = invite_params[:mobile_no]
       else
         # invite! class method returns invitable var, which is a User instance
-        if !Phonie::Phone.parse(full_mobile_no)
+        if !Phonie::Phone.parse(invite_params[:mobile_no])
           @user = User.new(invite_params)
           @user.errors.add(:mobile_no, "is not a valid number.")
         else
@@ -97,7 +118,7 @@ class Users::InvitationsController < Devise::InvitationsController
             u.invite_for_id = invite_for.id
             u.skip_invitation = true
           end
-          flash[:notice] = "Invitation sent to mobile_no #{full_mobile_no}"
+          flash[:notice] = "Invitation sent to mobile: #{invite_params[:mobile_no]}"
         end
       end
       @user || resource
@@ -137,9 +158,5 @@ class Users::InvitationsController < Devise::InvitationsController
         flash[:error] = "You are not athorize to access the Manage Account page."
         redirect_to root_path
       end
-    end
-
-    def full_mobile_no
-      "#{invite_params[:country_code]}#{invite_params[:mobile_no]}"
     end
 end

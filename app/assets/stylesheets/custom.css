@@ -56,3 +56,7 @@
 #map {
   height: 350px;
 }
+
+.wizard-buttons {
+  float: left;
+}

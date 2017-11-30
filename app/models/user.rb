@@ -12,8 +12,6 @@ class User < ApplicationRecord
   after_save :create_user_invitation, :if => :invitation_token?
   after_update :change_user_invite_status, if: "!temp_invitation_token.blank?"
 
-  before_create :full_mobile_no
-
   validates_presence_of :organization_name, :address, if: "is_merchant == 'true'"
   validates_format_of :organization_name, with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/, if: "organization_name.present?"
   validates_plausible_phone :mobile_no, country_number: :country_code, presence: true, with: /\A\+\d+/
@@ -56,10 +54,6 @@ class User < ApplicationRecord
 
   def temp_email?
     email.include?('xyz.com')
-  end
-
-  def full_mobile_no
-    self.mobile_no = "#{self.country_code}#{self.mobile_no}"
   end
 
   private

@@ -1,4 +1,7 @@
+var countryCode = "+1";
+
 $(document).on('turbolinks:load', function() {
+
   $('#addCollaboratorForm')
     .formValidation({
       framework: 'bootstrap',
@@ -18,12 +21,7 @@ $(document).on('turbolinks:load', function() {
             remote: {
               message: 'Mobile no is not valid',
               url: '/users/check_mobile_no',
-              type: 'POST',
-              data: function(validator, field, value) {
-                return {
-                  'user[country_code]': $('#user_country_code').val()
-                };
-              }
+              type: 'POST'
             }
           }
         }
@@ -41,14 +39,26 @@ $(document).on('turbolinks:load', function() {
           }
 
           sendInvitation(index);
+
+          return true;
+        },
+        onPrevious: function(tab, navigation, index) {
+          $('#user_mobile_no').val(countryCode);
+          $('#addCollaboratorForm').formValidation('revalidateField', 'user[mobile_no]');
           
           return true;
         },
-        // onPrevious: function(tab, navigation, index) {
-        //     return validateTab(index + 1);
-        // },
-        // onTabShow: function(tab, navigation, index) {
-        // }
+        onTabShow: function(tab, navigation, index) {
+          if (index == 0){
+            $('.wizard li.previous').addClass('hide');
+            $('.wizard li.next').removeClass('hide');
+          } else if (index = 1) {
+            $('.wizard li.next').addClass('hide');
+            $('.wizard li.previous').removeClass('hide');
+          }
+
+          return true;
+        }
     });
 
   function validateTab(index) {
@@ -70,6 +80,22 @@ $(document).on('turbolinks:load', function() {
 
   function sendInvitation(index) {
     var data = $('#addCollaboratorForm').serialize();
-    $.post('/users/invitation', data);
+    $.post('/users/invitation', data)
+      .fail(function() {
+        window.location.reload();
+      });
   }
+
+  $("#user_mobile_no").on("countrychange", function(e, countryData) {
+    $('#addCollaboratorForm').formValidation('revalidateField', 'user[mobile_no]');
+    countryCode = "+" + countryData.dialCode;
+    // $("#user_mobile_no").val($(this).val());
+  });
+
+
+  $("#user_mobile_no").intlTelInput({
+    autoHideDialCode: false,
+    nationalMode: false,
+    initialCountry: "US"
+  });
 });
