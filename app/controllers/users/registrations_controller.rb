@@ -1,4 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  layout :resolve_layout
+
   before_action :configure_sign_up_params, only: [:create, :update]
   before_action :authenticate_merchant_token, only: [:new, :create]
   before_action :bypass_token, only: :create
@@ -38,6 +40,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if params[:token].blank?
         merchant = Merchant.create(uuid: params[:user][:merchant_code])
         params[:user][:token] = merchant.token
+      end
+    end
+
+  private
+
+    def resolve_layout
+      if action_name == "new"
+        'signup_wizard_application'
+      else
+        'application'
       end
     end
 end

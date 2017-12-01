@@ -142,8 +142,8 @@ $(document).on('turbolinks:load', function() {
             sendVerificationCode(index, numTabs);
 
             if (index == (numTabs - 1)){
-                $('.wizard li.finish').removeClass('hide');
-                $('.wizard li.next').addClass('hide');
+                // $('.wizard li.finish').removeClass('hide');
+                // $('.wizard li.next').addClass('hide');
             }
         }
     });
