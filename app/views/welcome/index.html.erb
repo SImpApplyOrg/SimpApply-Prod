@@ -1,11 +1,5 @@
 <%- model_class = User %>
 
-<div class="well">
-  <center>
-    <h1>Welcome to SimpApply</h1>
-  </center>
-</div>
-
 <% if current_user %>
   <div class="page-header">
     <h1><%=t '.title', :default => "Invitations" %></h1>
@@ -51,4 +45,26 @@
       <% end %>
     </tbody>
   </table>
+<% else %>
+  <div class="sign-up-steps">
+    <div class="container inner-main"> 
+      <div class="light_shadow_bg step_data text-center">     
+        <div class="flex-container">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+            <h3>simp<span>apply</span></h3>
+            <h4>Nice to see you!</h4>          
+            <p>Do you need a new employer? Create<br /> a new job here!</p>
+            <div class="col-sm-12">
+              <%= link_to 'Give me My Sign', new_user_registration_path, class: 'btn btn-start btn-custom btn-block', method: :get %>
+            </div>
+            <div class="clearfix"></div>
+            <span class="already_text">
+              Already registered?
+              <%= link_to 'Sign in', new_user_session_path, method: :get %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
