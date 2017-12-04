@@ -1,0 +1,15 @@
+<% if current_user.merchant? || current_user.manager?(current_organization_user) %>
+  <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post, class: 'form-horizontal', id: 'addCollaboratorForm'} do |f| %>
+    <%= devise_error_messages! %>
+
+    <ul class="nav nav-pills hide">
+      <li class="active"><a href="#add-collaborator" data-toggle="tab">add-collaborator</a></li>
+      <li><a href="#more-collaborator" data-toggle="tab">more-collaborator</a></li>
+    </ul>
+    
+    <div class="tab-content">
+      <%= render 'add_collaborator_step', f: f %>
+      <%= render 'more_collaborator_step', f: f %>
+    </div>
+  <% end %>
+<% end %>

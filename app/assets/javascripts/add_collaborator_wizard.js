@@ -45,20 +45,14 @@ $(document).on('turbolinks:load', function() {
         onPrevious: function(tab, navigation, index) {
           $('#user_mobile_no').val(countryCode);
           $('#addCollaboratorForm').formValidation('revalidateField', 'user[mobile_no]');
+          $('#header1').addClass('hide');
+          $('#header2').removeClass('hide');
           
           return true;
-        },
-        onTabShow: function(tab, navigation, index) {
-          if (index == 0){
-            $('.wizard li.previous').addClass('hide');
-            $('.wizard li.next').removeClass('hide');
-          } else if (index = 1) {
-            $('.wizard li.next').addClass('hide');
-            $('.wizard li.previous').removeClass('hide');
-          }
-
-          return true;
         }
+        // onTabShow: function(tab, navigation, index) {
+        //   return true;
+        // }
     });
 
   function validateTab(index) {

@@ -10,8 +10,9 @@ en:
       no_invitations_remaining: "No invitations remaining"
       invitation_removed: "Your invitation was removed."
       one_invitation_accepted: 'It seems you already set your password before, please use your credentials and accept invitations'
-      add_collaborator:
-        header: "Add Collaborators"
+      collaborators:
+        header1: "Is anyone else reviewing apps with you?"
+        header2: "Great! add anyone else?"
         is_anyone_else: "Is anyone else?"
       new:
         header: "Send invitation"
@@ -41,5 +42,5 @@ en:
         user:
           attributes:
             base:
-              already_sent_invitation: 'You have alredy sent invitation to this user.'
+              already_sent_invitation: 'You have already sent invitation to this user.'
               not_invite_yourself: "You can't invite yourself."

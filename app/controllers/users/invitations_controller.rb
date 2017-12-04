@@ -7,7 +7,11 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def new
     self.resource = resource_class.new(user_role: 'manager')
-    render :new
+    if params[:wizard]
+      render :new_by_wizard, layout: 'signup_wizard_application'
+    else
+      render :new
+    end
   end
 
   def edit
