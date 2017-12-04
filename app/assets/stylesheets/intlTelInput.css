@@ -14,7 +14,8 @@
  */
 .intl-tel-input {
   position: relative;
-  display: inline-flex; }
+  display: inline-flex;
+  width: 100%; }
   .intl-tel-input * {
     box-sizing: border-box;
     -moz-box-sizing: border-box; }

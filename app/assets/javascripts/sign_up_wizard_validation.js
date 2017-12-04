@@ -94,7 +94,7 @@ $(document).on('turbolinks:load', function() {
             'user[address]': {
                 validators: {
                     notEmpty: {
-                        message: 'address is required'
+                        message: 'Address is required'
                     }
                 }
             },
@@ -140,11 +140,6 @@ $(document).on('turbolinks:load', function() {
             var numTabs = tabs.length;
 
             sendVerificationCode(index, numTabs);
-
-            if (index == (numTabs - 1)){
-                // $('.wizard li.finish').removeClass('hide');
-                // $('.wizard li.next').addClass('hide');
-            }
         }
     });
 

@@ -18,7 +18,7 @@
 
                 <div class="form-group text-sms col-sm-12">
                   <%= image_tag "sms-img.png", class: "img-responsive pull-left" %>
-                  <label class="control-label text-right pull-left" for="email">TEXT:</label>
+                  <%= f.label :merchant_code, 'TEXT:', class: 'text-right pull-left' %>
                   <div class="pull-left">
                     <%= f.text_field :merchant_code, autofocus: true, :class => 'form-control', placeholder: "Enter SMS Text" %>
                   </div>
@@ -35,7 +35,7 @@
       <ul class="step-bottom-btn-wrap wizard">
         <li><a href="javascript:;" class="orng-btn col-sm-6 col-xs-6 col-md-6 col-lg-6">Print</a></li>
         <li class="next"><a href="javascript:;" class="light-gray-btn col-sm-6 col-xs-6 col-md-6 col-lg-6">Continue</a></li>
-      </div>
+      </ul>
     </div>
   </div>
 <% end %>
