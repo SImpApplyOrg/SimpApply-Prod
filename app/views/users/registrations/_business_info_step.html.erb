@@ -5,25 +5,25 @@
       <div class="light_shadow_bg step_data text-center">     
         <div class="flex-container">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="step_jobName_form stepThree_form form-horizontal">
-              <div class="form-group col-sm-12 clearfix">
+            <div class="step_jobName_form stepThree_form">
+              <div class="form-group col-sm-12">
                 <%= f.label :organization_name, "Business name", :class => 'control-label' %>
                 <%= f.text_field :organization_name, :class => 'form-control', placeholder: 'Company name' %>
                 <span class="line-bdr"></span>
               </div>
-              <div class="form-group col-sm-12 clearfix">
+              <div class="form-group col-sm-12">
                 <%= f.label :address, "Business address", :class => 'control-label' %>
                 <%= f.text_field :address, :class => 'form-control', autocomplete: 'off', placeholder: 'Company address' %>
                 <%= f.hidden_field :lat, :class => 'form-control' %>
                 <%= f.hidden_field :lng, :class => 'form-control' %>
                 <span class="line-bdr"></span>
               </div>
-              <div class="form-group col-sm-12 clearfix">
+              <div class="form-group col-sm-12">
                 <%= f.label :locale, "Business address", :class => 'control-label' %>
                 <%= f.select :locale, I18n.available_locales, {}, :class => 'form-control' %>
                 <span class="line-bdr"></span>
               </div>
-              <div class="form-group col-sm-12 clearfix">
+              <div class="form-group col-sm-12">
                 <%= f.label :password, :class => 'control-label' %>
                 <% if @minimum_password_length %>
                 <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -31,8 +31,8 @@
                 <%= f.password_field :password, autocomplete: 'off', :class => 'form-control', placeholder: 'Your password' %>
                 <span class="line-bdr"></span>
               </div>
-              <div class="form-group col-sm-12 clearfix">
-                <%= f.label :password_confirmation, :class => 'control-label col-lg-2' %>
+              <div class="form-group col-sm-12">
+                <%= f.label :password_confirmation, :class => 'control-label' %>
                 <%= f.password_field :password_confirmation, autocomplete: 'off', :class => 'form-control', placeholder: 'Confirm your password' %>
                 <span class="line-bdr"></span>
               </div>

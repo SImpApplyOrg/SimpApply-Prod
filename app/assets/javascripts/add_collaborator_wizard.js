@@ -6,9 +6,9 @@ $(document).on('turbolinks:load', function() {
     .formValidation({
       framework: 'bootstrap',
       icon: {
-        valid: 'glyphicon glyphicon-ok',
-        invalid: 'glyphicon glyphicon-remove',
-        validating: 'glyphicon glyphicon-refresh'
+        valid: 'fa fa-check',
+            invalid: 'fa fa-question',
+            validating: 'fa fa-refresh'
       },
       // This option will not ignore invisible fields which belong to inactive panels
       excluded: ':disabled',

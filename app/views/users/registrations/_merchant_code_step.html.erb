@@ -11,7 +11,7 @@
               <h3>Now Hiring</h3>
               
               <div class="step_jobName_form">
-                <div class="form-group col-sm-12 clearfix">
+                <div class="form-group col-sm-12">
                   <input type="text" class="form-control" id="jobName" placeholder="Enter job name">
                   <span class="doted-bdr"></span>
                 </div>
@@ -19,7 +19,7 @@
                 <div class="form-group text-sms col-sm-12">
                   <%= image_tag "sms-img.png", class: "img-responsive pull-left" %>
                   <%= f.label :merchant_code, 'TEXT:', class: 'text-right pull-left' %>
-                  <div class="pull-left">
+                  <div class="pull-left merchant-code-input">
                     <%= f.text_field :merchant_code, autofocus: true, :class => 'form-control', placeholder: "Enter SMS Text" %>
                   </div>
                   <div class="clearfix"></div>

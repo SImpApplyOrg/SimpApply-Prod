@@ -272,6 +272,13 @@ a {
     color: #565656;
     font-weight: normal;
 }
+.form-group.text-sms .merchant-code-input {
+    position: relative;
+}
+.merchant-code-input .form-control-feedback {
+    position: absolute;
+    right: 0 !important;
+}
 .form-group.text-sms #smsText {
     width: 130px;
     padding: 0 9px;
@@ -392,7 +399,7 @@ a {
     padding-bottom: 40px;
     background-color: rgba(255, 255, 255, 0.88);
 }
-.sign-up-steps .form-horizontal .form-group {
+.sign-up-steps .form-group {
     margin-left: 0;
     margin-right: 0;
 }
@@ -652,6 +659,12 @@ a.light-parpal-bg:active {
 .p-nill {
     padding: 0;
 }
+.p-nill-left {
+    padding-left: 0;
+}
+.p-nill-right {
+    padding-right: 0;
+}
 .applicant-box {
     padding: 12px 15px;
     margin: 3px 0 0;
@@ -873,7 +886,7 @@ a.light-parpal-bg:active {
     color: #fff;
 }
 .tab-pane {
-    padding: 15px 0;
+    padding: 0;
 }
 .invitation-tabs {
     padding: 20px 20px 0;
@@ -957,6 +970,13 @@ a.light-parpal-bg:active {
     text-align: center;
     margin: auto;
 }
+.sign-up-steps .has-feedback .form-control-feedback {
+    right: 15px;
+}
+#add-collaborator .has-feedback .form-control-feedback {
+    right: 0;
+}
+
 /*--Media--*/
 
 @media screen and (max-width: 767px) {
