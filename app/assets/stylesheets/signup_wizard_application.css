@@ -15,7 +15,7 @@
  *= require jquery-ui
  *= require formValidation.min
  *= require intlTelInput
- *= require signup_wizard_custom
+ *= require style
  * require_tree .
  *= require_self
  */
