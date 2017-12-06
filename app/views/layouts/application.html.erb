@@ -37,34 +37,16 @@
     <![endif]-->
   </head>
   <body>
-    <div class="main-container">
-      <div class="dashboard-wrapper">
-        <div class="container width-full">
-          <div class="row bg-white">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div class="row top-header-title">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                  <h3>
-                    <%= link_to root_path do %>
-                      simp<span>apply</span>
-                    <% end %>
-                  </h3>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                  <ul class="nav pull-right">
-                    <%= render 'shared/right_menu_items' %>
-                  </ul>
-                </div>
-              </div>
+    <div class="applicants-wrapper dashboard-wrapper <%= yield :top_div_class %>">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <%= bootstrap_flash %>
             </div>
-            <div class="divider-bdr"></div>
-            <div class="col-lg-12">
-              <div class="row">
-                <%= bootstrap_flash %>
-              </div>
-            </div>
-            <%= yield %>
           </div>
+          <%= render 'shared/header' if current_user %>
+          <%= yield %>
         </div>
       </div>
     </div>

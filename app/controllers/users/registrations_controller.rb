@@ -38,7 +38,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def bypass_token
       if params[:token].blank?
-        merchant = Merchant.create(uuid: params[:user][:merchant_code])
+        merchant = Merchant.create(
+              uuid: params[:user][:merchant_code],
+              mobile_no: params[:user][:mobile_no])
         params[:user][:token] = merchant.token
       end
     end

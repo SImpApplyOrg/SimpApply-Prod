@@ -1,0 +1,26 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="row top-header-title">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <h3>simp<span>apply</span></h3>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+      <% invitations = current_user.reverse_user_invitations.accept %>
+      <% if invitations.present? %>
+        <li class="dropdown">
+          <%= link_to '#', class: "dropdown-toggle organization-name", :'data-toggle' => "dropdown", role: "button", :'aria-haspopup' => "true", :'aria-expanded' => "false" do %>
+
+            <span class="caret"></span>
+          <% end %>
+          <ul class="dropdown-menu organization-names">
+            <%= render 'welcome/organization_list', organization_user_id: session[:organization_user_id], invitations: invitations %>
+          </ul>
+        </li>
+      <% elsif current_user.merchant? %>
+        <div class="current_organization" id="<%=current_user.id%>"></div>
+      <% end %>
+
+      <p><%= user_name(current_user) %></p>
+    </div>
+  </div>
+</div>
+<div class="divider-bdr"></div>
