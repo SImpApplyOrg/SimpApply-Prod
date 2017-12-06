@@ -44,3 +44,4 @@ en:
             base:
               already_sent_invitation: 'You have already sent invitation to this user.'
               not_invite_yourself: "You can't invite yourself."
+              not_invite_organisation_owner: "You can't invite organization owner."

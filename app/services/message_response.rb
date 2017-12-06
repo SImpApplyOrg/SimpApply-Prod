@@ -63,7 +63,7 @@ class MessageResponse
       when 'job_application_link'
         Rails.application.routes.url_helpers.applicants_url
       when 'invitation_accept_link'
-        Rails.application.routes.url_helpers.accept_user_invitation_url(token: @token)
+        Rails.application.routes.url_helpers.accept_user_invitation_url(invitation_token: @token)
       when 'merchant_first_name'
         @merchant.user.first_name if @merchant.present? && @merchant.user.present?
       when 'organization_name'

@@ -100,6 +100,10 @@ class Users::InvitationsController < Devise::InvitationsController
       @user = User.find_by(mobile_no: invite_params[:mobile_no])
       # @user is an instance or nil
       if @user
+        if !current_user.merchant? && @user.mobile_no == current_organization_user.mobile_no
+          @user.errors.add(:base, :not_invite_organisation_owner)
+          return @user
+        end
         if @user.mobile_no == current_user.mobile_no
           @user.errors.add(:base, :not_invite_yourself)
         else
