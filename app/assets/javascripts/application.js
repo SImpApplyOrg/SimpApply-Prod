@@ -24,5 +24,10 @@
 //= require intlTelInput.min
 //= require utils
 //= require custom
+//= require intlTelInput.min
+//= require utils
+//= require add_collaborator_wizard
+//= require sign_up_wizard_validation
+
 // require_tree .
 

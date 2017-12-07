@@ -1,9 +1,14 @@
 <%- model_class = Applicant -%>
 
-<!-- <div class="page-header">
-  <h1><%#=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+<%= content_for :top_div_class, 'dashApplicant dashboard-profile-wrapper step_bg' %>
+
+<div class="dashApplicant-header light-red-bg clearfix">
+  <span class="light-bg-org pull-left"><a href="/applicants"><i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i></a></span>
+  <h2 class="text-center">Applicants</h2>
 </div>
- -->
-<div class="applicants-list">
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <%= render 'shared/custom_flash' %>
   <%= render 'applicant_list' %>
 </div>

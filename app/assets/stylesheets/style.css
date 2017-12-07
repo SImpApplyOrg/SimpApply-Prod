@@ -976,6 +976,12 @@ a.light-parpal-bg:active {
 #add-collaborator .has-feedback .form-control-feedback {
     right: 0;
 }
+.step_fill .inner-main {
+    height: calc(100vh - 47px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 /*--Media--*/
 

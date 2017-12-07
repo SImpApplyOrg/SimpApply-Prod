@@ -1,20 +1,6 @@
 <%- model_class = User %>
-<div class="page-header">
-  <h1><%=t '.title', :default => "Invite " + model_class.model_name.human.pluralize.titleize %></h1>
-</div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:mobile_no) %></th>
-      <th><%= model_class.human_attribute_name(:role) %></th>
-      <th><%= model_class.human_attribute_name(:invite_sent_at) %></th>
-      <th><%= model_class.human_attribute_name(:invite_status) %></th>
-      <% if current_user.organization_name == current_organization_name %>
-        <th><%=t '.actions', :default => t("helpers.actions") %></th>
-      <% end %>
-    </tr>
-  </thead>
+<table class="table table-hover">
   <tbody>
     <%= render partial: 'invite_user', collection: @user_invitations, as: :invite_user %>
   </tbody>

@@ -1,5 +1,4 @@
 var countryCode = "+1";
-
 $(document).on('turbolinks:load', function() {
 
   $('#addCollaboratorForm')

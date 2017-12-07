@@ -3,6 +3,7 @@
 <% if current_user %>
   <div class="dash-blog clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <%= render 'shared/custom_flash' %>
       <div class="row">
         <div class="pull-left">
           <%= link_to image_tag("applicant_icon.png", class: "img-responsive"), applicants_path, class: "applicant-blog-first light-red-bg text-center paxl" %>

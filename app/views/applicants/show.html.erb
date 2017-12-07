@@ -1,36 +1,26 @@
 <%- model_class = Applicant -%>
 
-<div class="page-header">
-  <h1><%= @applicant.first_name %></h1>
+<%= content_for :top_div_class, 'dashApplicant dashboard-profile-wrapper step_bg' %>
+
+<div class="dashApplicant-header light-red-bg clearfix">
+  <span class="light-bg-org pull-left"><a href="dashboardapplicant.html"><i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i></a></span>
+  <h2 class="text-center">Abagael</h2>
 </div>
 
 <% screen_tabs = @view_screen.screen_tabs.offset(1) %>
-<div class="tab-content">
-  <% screen_tabs.each_with_index do |screen_tab, tab_index| %>
-    <div role="tabpanel" class="tab-pane <%='active' if tab_index==0 %>" id="screen_tab-<%=tab_index%>">
-      <div class="panel-group" id="accordion">
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-nill">
+  <%= render 'shared/custom_flash' %>
+  
+  <div class="applicantitem-list">
+    <ul>
+      <% screen_tabs.each_with_index do |screen_tab, tab_index| %>
         <% applicant_details = get_details(@view_screen, @applicant, screen_tab) %>
-        <%= render 'previous_next_button', tab_index: tab_index, screen_tabs_size: screen_tabs.size-1 %>
-        <hr>
-
         <% applicant_details.each do |index, answer|%>
-          <div class="panel panel-default" id="panel-<%=index%>">
-            <div class="panel-heading">
-              <h4 class="panel-title collapsed" data-toggle="collapse" href="#<%= answer['question_id']%>-<%= index %>">
-                <%= answer["question"] %>
-              </h4>
-            </div>
-            <div id="<%= answer['question_id']%>-<%= index %>" class="panel-collapse collapse in">
-              <div class="panel-body">
-                <%= answer["answer"] %>
-              </div>
-            </div>
-          </div>
+          <li><%= answer["question"].html_safe %></li>
+          <li><%= answer["answer"] %></li>
         <% end %>
-
-        <hr>
-        <%= render 'previous_next_button', tab_index: tab_index, screen_tabs_size: screen_tabs.size-1 %>
-      </div>
-    </div>
-  <% end %>
+      <% end %>
+    </ul>
+  </div>
 </div>

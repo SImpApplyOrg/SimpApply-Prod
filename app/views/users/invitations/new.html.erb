@@ -1,53 +1,51 @@
-<%- model_class = User %>
+<%= content_for :top_div_class, 'dashboard-wrapper dashApplicant dashboard-profile-wrapper dashboard-tab-wrapper' %>
 
-<div class="page-header">
-  <h1 id="organization_name">
-    <%= current_organization_name || current_user.organization_name %>
-  </h1>
+<div class="dashApplicant-header light-meru-bg clearfix">
+  <span class="light-meru-lightbg pull-left"><a href="dashboard.html"><i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i></a></span>
+  <h2 class="text-center">Collaborators</h2>
 </div>
-
-<br>
-
 <% if current_user.merchant? || current_user.manager?(current_organization_user) %>
-  <h2><%= t "devise.invitations.new.header" %></h2>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mtl">
+    <%= render 'shared/custom_flash' %>
+    <div class="row">
+      <div class="">
+      <!-- Nav tabs -->
+        <div class="card">
+          <div class="col-md-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#invitation" aria-controls="invitation" role="tab" data-toggle="tab">Send invitation</a></li>
+            <li role="presentation"><a href="#invited" aria-controls="invited" role="tab" data-toggle="tab">Invited Users</a></li>
+        </ul></div>
 
-  <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post, class: 'form-horizontal'} do |f| %>
-    <%= devise_error_messages! %>
+        <!-- Tab panes -->
+        <div class="tab-content invitation-tabs">
+          <div role="tabpanel" class="tab-pane active" id="invitation">
+            <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post, id: "addCollaboratorForm"} do |f| %>
+              <div class="form-group">
+                <%= f.label :mobile_no, 'Mobile Phone', :class => 'control-label' %>
+                <%= f.text_field :mobile_no, autofocus: true, :class => 'form-control', placeholder: "Mobile Phone Number" %>
+              </div>
 
-    <!-- <%# resource.class.invite_key_fields.each do |field| -%>
-      <p><%#= f.label field %><br />
-      <%#= f.text_field field %></p>
-    <%# end -%> -->
+              <div class="form-group">
+                <%= f.label :user_role, 'Role', class: 'control-label' %>
+                <%= f.select :user_role, UserInvitation.roles.map{ |key, value| [value, key] }, {}, :class => 'form-control' %>
+              </div>
 
-    <!-- <div class="form-group">
-      <%#= f.label :email, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%#= f.email_field :email, autofocus: true, :class => 'form-control' %>
-      </div>
-    </div> -->
-
-    <div class="form-group">
-      <%= f.label :mobile_no, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <div class="col-lg-6">
-          <%= f.text_field :mobile_no, autofocus: true, :class => 'form-control' %>
+              <div class="skip-add-btn">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <%= f.submit t("devise.invitations.new.submit_button"), :class => 'btn btn-start light-meru-bg btn-block text-center' %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="invited">
+            <%= render 'invite_users', invite_users: @user_invitations %>
+          </div>
+        </div>
         </div>
       </div>
     </div>
-
-    <div class="form-group">
-      <%= f.label :user_role, 'Role', class: 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.select :user_role, UserInvitation.roles.map{ |key, value| [value, key] }, :class => 'form-control' %>
-      </div>
-    </div>
-
-    <div class=" form-group">
-      <div class="col-lg-offset-2 col-lg-10">
-        <%= f.submit t("devise.invitations.new.submit_button"), :class => 'btn btn-primary' %>
-      </div>
-    </div>
-  <% end %>
+  </div>
 <% end %>
-
-<%= render 'invite_users', invite_users: @user_invitations %>

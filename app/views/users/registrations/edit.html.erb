@@ -7,7 +7,9 @@
 </div>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mtl">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { method: :put}) do |f| %>
+  <%= render 'shared/custom_flash' %>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { method: :put}, :html => { id: 'installationForm' }) do |f| %>
     <%= f.hidden_field :is_merchant, value: resource.merchant? %>
 
       <%= devise_error_messages! %>
@@ -32,7 +34,7 @@
 
       <div class="form-group">
         <%= f.label :mobile_no, :class => 'control-label' %>
-        <%= f.text_field :mobile_no, :class => 'form-control', placeholder: '+147236587' %>
+        <%= f.text_field :mobile_no, :class => 'form-control' %>
       </div>
 
       <% if resource.merchant? %>
@@ -77,7 +79,7 @@
 
     <div class="skip-add-btn">
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="#" class="btn btn-gray-light light-parpal-bg btn-block text-center">Cancel </a></div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="/" class="btn btn-gray-light light-parpal-bg btn-block text-center">Cancel </a></div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <%= f.submit "Update", :class => 'btn btn-start light-parpal-bg btn-block text-center' %>
         </div>
