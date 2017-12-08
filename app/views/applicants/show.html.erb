@@ -14,17 +14,24 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-nill">
   <%= render 'shared/custom_flash' %>
 
-  <div class="applicantitem-list">
-    <ul>
-      <% screen_tabs.each_with_index do |screen_tab, tab_index| %>
-        <% applicant_details = get_details(@view_screen, @applicant, screen_tab) %>
-        <% applicant_details.each do |index, answer|%>
-          <li>
-            <%= answer["question"].html_safe %><br>
-            <%= answer["answer"] %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
+  <div class="applicantitem-list tab-content">
+    
+    <% screen_tabs.each_with_index do |screen_tab, tab_index| %>
+      <div role="tabpanel" class="tab-pane <%='active' if tab_index==0 %>" id="screen_tab-<%=tab_index%>">
+        <div class="panel-group" id="accordion">
+          <%= render 'previous_next_button', tab_index: tab_index, screen_tabs_size: screen_tabs.size-1 %>
+          <hr>
+          <% applicant_details = get_details(@view_screen, @applicant, screen_tab) %>
+          <% applicant_details.each do |index, answer|%>
+            <ul id="panel-<%=index%>">
+              <li>
+                <%= answer["question"].html_safe %><br>
+                <%= answer["answer"] %>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

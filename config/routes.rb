@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       post :check_verfication_code
       post :check_merchant_code
       post :check_email
+      get  :invitations
     end
   end
 

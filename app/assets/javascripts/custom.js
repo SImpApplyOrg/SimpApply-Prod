@@ -36,10 +36,10 @@ $(document).on('turbolinks:load', function() {
   });
 
   if($('.organization-names').length > 0) {
-    if($('.organization-names li a[is_active=true]').length == 0){
-      set_organization_name($('.organization-names li:first a'));
+    if($('.organization-names td a[is_active=true]').length == 0){
+      set_organization_name($('.organization-names td:first a'));
     } else {
-      set_organization_name($('.organization-names li a[is_active=true]').first());
+      set_organization_name($('.organization-names td a[is_active=true]').first());
     }
   } else if($('.current_organization').length > 0) {
     $.get('/set_organization', { organization_user_id: $('.current_organization').attr('id') });
@@ -59,7 +59,7 @@ $(document).on('turbolinks:load', function() {
       $.get('/set_organization', { organization_user_id: obj.data('user_id') });
     }
 
-    $('.organization-names li a').each(function(){
+    $('.organization-names td a').each(function(){
       $(this).attr('is_active', 'false');
     });
 

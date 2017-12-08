@@ -1,26 +1,30 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  <div class="row top-header-title">
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <h3>simp<span>apply</span></h3>
+<div class="navbar navbar-default custom-navbar">
+  <div class="container">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <div class="top-header-title pull-left">
+      <%= link_to "<h3>simp<span>apply</span></h3>".html_safe, root_path %>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-      <% invitations = current_user.reverse_user_invitations.accept %>
-      <% if invitations.present? %>
-        <li class="dropdown">
-          <%= link_to '#', class: "dropdown-toggle organization-name", :'data-toggle' => "dropdown", role: "button", :'aria-haspopup' => "true", :'aria-expanded' => "false" do %>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+      <ul class="nav navbar-nav pull-right">
+        <% if current_user %>
+          <li class="dropdown">
+            <%= link_to '#', class: "dropdown-toggle", :'data-toggle' => "dropdown", role: "button", :'aria-haspopup' => "true", :'aria-expanded' => "false" do %>
+              <%= user_name(current_user) %>
+              <span class="caret"></span>
+            <% end %>
 
-            <span class="caret"></span>
-          <% end %>
-          <ul class="dropdown-menu organization-names">
-            <%= render 'welcome/organization_list', organization_user_id: session[:organization_user_id], invitations: invitations %>
-          </ul>
-        </li>
-      <% elsif current_user.merchant? %>
-        <div class="current_organization" id="<%=current_user.id%>"></div>
-      <% end %>
-
-      <p><%= user_name(current_user) %></p>
-      <%= link_to 'Sign-out', destroy_user_session_path, method: :delete %>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+              </li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>

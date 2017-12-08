@@ -513,12 +513,12 @@ a {
 }
 .top-header-title {
     padding: 30px 0 10px;
+    font-family: 'Quicksand', sans-serif;
 }
 .top-header-title h3 {
     margin-top: 0;
     color: #746f87;
     letter-spacing: 1px;
-    font-family: 'Quicksand', sans-serif;
     font-weight: 600;
 }
 .top-header-title h3 span {
@@ -986,6 +986,17 @@ a.light-parpal-bg:active {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+.custom-navbar {
+    background-color: transparent;
+    border-color: transparent;
+    margin-bottom: 0;
+}
+.custom-navbar .navbar-nav {
+    margin-top: 20px;
+}
+.top-header-title a {
+    text-decoration: none;
 }
 
 /*--Media--*/

@@ -30,4 +30,9 @@ class UsersController < ApplicationController
     valid = User.where(email: params[:user][:email]).any?
     render json: { valid: !valid }
   end
+
+  def invitations
+    @invitations = current_user.reverse_user_invitations.pending if current_user
+  end
+
 end

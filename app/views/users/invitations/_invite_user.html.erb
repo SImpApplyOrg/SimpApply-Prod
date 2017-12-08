@@ -1,19 +1,19 @@
-<tr>     
+<tr>
   <th scope="row">Mobile Phome No</th>
   <td><%= invite_user.receiver.mobile_no %></td>
-</tr>  
-<tr> 
-  <th scope="row">Role</th> 
+</tr>
+<tr>
+  <th scope="row">Role</th>
   <td><%= invite_user.role %></td>
-</tr> 
-<tr>  
+</tr>
+<tr> 
   <th scope="row">Invite sent at</th>
   <td><%= invite_user.created_at %></td>
-</tr> 
-<tr> 
+</tr>
+<tr>
   <th scope="row">Invite status</th>
   <td><%= invite_user.status %></td>
-</tr> 
+</tr>
 <tr>
   <th scope="row">Action</th>
   <% if current_user.organization_name == current_organization_name %>
