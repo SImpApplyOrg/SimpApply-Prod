@@ -1,24 +1,28 @@
 <%- model_class = Applicant -%>
 
-<%= content_for :top_div_class, 'dashApplicant dashboard-profile-wrapper step_bg' %>
+<%= content_for :top_div_class, 'applicants-wrapper dashboard-wrapper dashApplicant' %>
 
 <div class="dashApplicant-header light-red-bg clearfix">
-  <span class="light-bg-org pull-left"><a href="dashboardapplicant.html"><i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i></a></span>
-  <h2 class="text-center">Abagael</h2>
+  <span class="light-bg-org pull-left">
+    <%= link_to '<i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i>'.html_safe, root_path %>
+  </span>
+  <h2 class="text-center"><%= @applicant.first_name %></h2>
 </div>
 
 <% screen_tabs = @view_screen.screen_tabs.offset(1) %>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-nill">
   <%= render 'shared/custom_flash' %>
-  
+
   <div class="applicantitem-list">
     <ul>
       <% screen_tabs.each_with_index do |screen_tab, tab_index| %>
         <% applicant_details = get_details(@view_screen, @applicant, screen_tab) %>
         <% applicant_details.each do |index, answer|%>
-          <li><%= answer["question"].html_safe %></li>
-          <li><%= answer["answer"] %></li>
+          <li>
+            <%= answer["question"].html_safe %><br>
+            <%= answer["answer"] %>
+          </li>
         <% end %>
       <% end %>
     </ul>

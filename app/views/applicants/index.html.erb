@@ -1,9 +1,11 @@
 <%- model_class = Applicant -%>
 
-<%= content_for :top_div_class, 'dashApplicant dashboard-profile-wrapper step_bg' %>
+<%= content_for :top_div_class, 'dashApplicant dashboard-wrapper' %>
 
 <div class="dashApplicant-header light-red-bg clearfix">
-  <span class="light-bg-org pull-left"><a href="/applicants"><i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i></a></span>
+  <span class="light-bg-org pull-left">
+    <%= link_to '<i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i>'.html_safe, root_path %>
+  </span>
   <h2 class="text-center">Applicants</h2>
 </div>
 

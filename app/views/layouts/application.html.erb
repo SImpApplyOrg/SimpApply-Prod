@@ -37,11 +37,13 @@
     <![endif]-->
   </head>
   <body>
-    <div class="applicants-wrapper dashboard-wrapper <%= yield :top_div_class %>">
-      <div class="container">
-        <div class="row">
-          <%= render 'shared/header' if current_user %>
-          <%= yield %>
+    <div class="main-container">
+      <div class="<%= yield :top_div_class %>">
+        <div class="container width-full">
+          <div class="row <%= yield :row_class %>">
+            <%= render 'shared/header' if current_user %>
+            <%= yield %>
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
-<%= content_for :top_div_class, 'dashApplicant dashboard-profile-wrapper step_bg' %>
+<%= content_for :top_div_class, 'dashApplicant dashboard-profile-wrapper step_bg fill_bg' %>
+<%= content_for :row_class, 'bg-white' %>
+
 <div class="dashApplicant-header light-parpal-bg clearfix">
   <span class="light-bg-purpallight pull-left">
-    <a href="/users/edit"><i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i></a>
+    <%= link_to '<i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i>'.html_safe, root_path %>
   </span>
   <h2 class="text-center">Edit Profile</h2>
 </div>

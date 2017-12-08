@@ -1,9 +1,12 @@
 <%= content_for :top_div_class, 'dashboard-wrapper dashApplicant dashboard-profile-wrapper dashboard-tab-wrapper' %>
 
 <div class="dashApplicant-header light-meru-bg clearfix">
-  <span class="light-meru-lightbg pull-left"><a href="dashboard.html"><i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i></a></span>
+  <span class="light-meru-lightbg pull-left">
+    <%= link_to '<i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i>'.html_safe, root_path %>
+  </span>
   <h2 class="text-center">Collaborators</h2>
 </div>
+
 <% if current_user.merchant? || current_user.manager?(current_organization_user) %>
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mtl">
     <%= render 'shared/custom_flash' %>

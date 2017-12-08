@@ -170,6 +170,11 @@ a {
     flex-direction: column;
     justify-content: center;
 }
+.main-container{
+   background-image: url(/assets/background-image.png);
+    background-position: center top;
+    background-color: transparent;
+}
 .inner-step2{
     height: calc(100vh - 46px);
 }
