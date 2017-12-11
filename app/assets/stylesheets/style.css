@@ -675,6 +675,9 @@ a.light-parpal-bg:active {
     margin: 3px 0 0;
     box-sizing: border-box;
 }
+.dashApplicant {
+    min-height: 100vh;
+}
 .dashApplicant .applicant-box h2 {
     margin: 0;
     font-size: 16px;
@@ -787,16 +790,7 @@ a.light-parpal-bg:active {
     color: #81bdae;
     font-weight: 100;
 }
-.has-error .form-control,
-.help-block {
-    border-color: #d15663 !important;
-}
-.has-error .help-block {
-    color: #d15663 !important;
-}
-.has-error .form-control-feedback {
-    color: #d15663 !important;
-}
+
 .notification-msg-box {
     background-color: #f9f9f9;
     border-bottom: 2px solid #df8587;
@@ -980,6 +974,9 @@ a.light-parpal-bg:active {
 }
 #add-collaborator .has-feedback .form-control-feedback {
     right: 0;
+}
+.has-feedback .help-block {
+    float: left;
 }
 .step_fill .inner-main {
     height: calc(100vh - 47px);

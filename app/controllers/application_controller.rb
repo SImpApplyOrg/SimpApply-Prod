@@ -2,7 +2,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_organization_user
-    User.find(session[:organization_user_id]) rescue nil
+    if session[:organization_user_id].present?
+      User.find(session[:organization_user_id])
+    else
+      user = current_user.merchant? ? current_user : current_user.reverse_user_invitations.accept.first.sender
+      session[:organization_user_id] = user.id
+      user
+    end
   end
   helper_method :current_organization_user
 
