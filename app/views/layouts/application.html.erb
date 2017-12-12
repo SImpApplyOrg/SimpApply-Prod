@@ -37,7 +37,7 @@
     <![endif]-->
   </head>
   <body>
-    <div class="main-container">
+    <div class="main-container <%= yield :main_container_class %>">
       <div class="<%= yield :top_div_class %>">
         <div class="container width-full">
           <div class="row <%= yield :row_class %>">

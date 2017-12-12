@@ -11,6 +11,7 @@ class WelcomeController < ApplicationController
 
   def set_organization
     session[:organization_user_id] = params[:organization_user_id]
+    render json: { message: 'Your current organization has been changed' }, status: 200
   end
 
   private

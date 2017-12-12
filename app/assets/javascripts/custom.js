@@ -35,35 +35,13 @@ $(document).on('turbolinks:load', function() {
     $(".sortable").sortable();
   });
 
-  if($('.organization-names').length > 0) {
-    if($('.organization-names td a[is_active=true]').length == 0){
-      set_organization_name($('.organization-names td:first a'));
-    } else {
-      set_organization_name($('.organization-names td a[is_active=true]').first());
-    }
-  } else if($('.current_organization').length > 0) {
-    $.get('/set_organization', { organization_user_id: $('.current_organization').attr('id') });
-  }
-
-  $('.organization-names').on('click', 'a', function(){
+  $('.organization-names').on('change', '.organization-radio', function(){
     set_organization_name($(this));
   });
 
   function set_organization_name(obj) {
-    var $link = $('.organization-name');
-    var $span = $link.find('span');
-    $link.html(obj.text()+ " ");
-    $link.append($span);
-
-    if(obj.attr('is_active') != "true" && obj.data('user_id') != undefined && obj.data('user_id') != '') {
-      $.get('/set_organization', { organization_user_id: obj.data('user_id') });
-    }
-
-    $('.organization-names td a').each(function(){
-      $(this).attr('is_active', 'false');
+    $.get('/set_organization', { organization_user_id: obj.data('user_id') }, function(response) {
+      alert(response["message"]);
     });
-
-    obj.attr('is_active', 'true')
   }
-
 });

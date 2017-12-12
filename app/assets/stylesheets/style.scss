@@ -371,9 +371,7 @@ a {
     text-align: left;
     font-weight: normal;
 }
-.step3 .stepThree_form input {
-    height: 36px;
-}
+
 .step3 .step_data .flex-container {
     padding-bottom: 0;
 }
@@ -888,7 +886,7 @@ a.light-parpal-bg:active {
     padding: 0;
 }
 .invitation-tabs {
-    padding: 20px 20px 0;
+    padding: 20px 20px 4px;
     background-color: #f5f5f5;
     margin-bottom: 30px;
     clear: both;
@@ -994,6 +992,18 @@ a.light-parpal-bg:active {
 }
 .top-header-title a {
     text-decoration: none;
+}
+.admin-container {
+    background: none;
+}
+
+.seprat-line {
+    border-bottom: 1px solid #BABABA;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+.table-horizontal {
+    background-color: #fdfdfd;
 }
 
 /*--Media--*/

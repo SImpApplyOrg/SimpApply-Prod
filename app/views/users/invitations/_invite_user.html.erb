@@ -1,28 +1,32 @@
-<tr>
-  <th scope="row">Mobile Phome No</th>
-  <td><%= invite_user.receiver.mobile_no %></td>
-</tr>
-<tr>
-  <th scope="row">Role</th>
-  <td><%= invite_user.role %></td>
-</tr>
-<tr> 
-  <th scope="row">Invite sent at</th>
-  <td><%= invite_user.created_at %></td>
-</tr>
-<tr>
-  <th scope="row">Invite status</th>
-  <td><%= invite_user.status %></td>
-</tr>
-<tr>
-  <th scope="row">Action</th>
-  <% if current_user.organization_name == current_organization_name %>
-    <td>
-      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                        user_invite_path(invite_user),
-                        :method => :delete,
-                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
-                        :class => 'btn btn-danger btn-sm' %>
-    </td>
-  <% end %>
-</tr>
+<table class="table table-hover table-horizontal">
+  <tbody>
+    <tr>
+      <th scope="row">Mobile Phome No</th>
+      <td><%= invite_user.receiver.mobile_no %></td>
+    </tr>
+    <tr>
+      <th scope="row">Role</th>
+      <td><%= invite_user.role %></td>
+    </tr>
+    <tr> 
+      <th scope="row">Invite sent at</th>
+      <td><%= invite_user.created_at %></td>
+    </tr>
+    <tr>
+      <th scope="row">Invite status</th>
+      <td><%= invite_user.status %></td>
+    </tr>
+    <tr>
+      <th scope="row">Action</th>
+      <td>
+        <% if current_user.organization_name == current_organization_name %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                            user_invite_path(invite_user),
+                            :method => :delete,
+                            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
+                            :class => 'btn btn-danger btn-sm' %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>

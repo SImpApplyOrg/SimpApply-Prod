@@ -2,19 +2,15 @@
   <tbody>
     <% if current_user.merchant? %>
       <tr>
-        <th scope="row">Organization</th>
-        <td data-user_id="<%=current_user.id%>">
-          <%= link_to current_user.organization_name, "javascript:;", :'data-user_id' => current_user.id, is_active: organization_user_id == current_user.id.to_s %>
-        </td>
+        <td><%= radio_button_tag :organization, current_user.id, organization_user_id == current_user.id, class: 'organization-radio' %></td>
+        <td><label for="organization_<%= current_user.id %>"><%= current_user.organization_name %></label></td>
       </tr>
     <% end %>
 
     <% invitations.map(&:sender).each do |user| %>
       <tr>
-        <th scope="row">Organization</th>
-        <td data-user_id="<%=user.id%>">
-          <%= link_to user.organization_name, "javascript:;", :'data-user_id' => user.id, is_active: organization_user_id == user.id.to_s %>
-        </td>
+        <td><%= radio_button_tag :organization, user.id, organization_user_id == user.id, class: 'organization-radio' %></td>
+        <td><label for="organization_<%= user.id %>"><%= user.organization_name %></label></td>
       </tr>
     <% end %>
   </tbody>

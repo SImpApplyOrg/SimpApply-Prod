@@ -1,7 +1,3 @@
 <%- model_class = User %>
 
-<table class="table table-hover">
-  <tbody>
-    <%= render partial: 'invite_user', collection: @user_invitations, as: :invite_user %>
-  </tbody>
-</table>
+<%= render partial: 'invite_user', collection: @user_invitations, as: :invite_user %>
