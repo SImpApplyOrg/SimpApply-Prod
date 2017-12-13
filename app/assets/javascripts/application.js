@@ -28,6 +28,7 @@
 //= require utils
 //= require add_collaborator_wizard
 //= require sign_up_wizard_validation
+//= require edit_user_validation
 
 // require_tree .
 
