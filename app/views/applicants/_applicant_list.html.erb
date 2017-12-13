@@ -1,11 +1,14 @@
 <% unless @no_view_screen_available_message %>
-  <%#= @upgrade_account_message %>
-  
+  <%= @upgrade_account_message %>
+
   <% @applicants.each_with_index do |applicant, index| %>
 
-    <% url = @view_screen.screen_tabs.active.count == 1 ? "javascript:;" : applicant_path(applicant) %>
-    <% applicant_details = get_details(@view_screen, applicant) %>
-    
+    <% screen_tabs = get_screen_tabs_for_applicant(@view_screen, applicant) %>
+
+    <% url =  screen_tabs.count <= 1 ? "javascript:;" : applicant_path(applicant) %>
+
+    <% applicant_details = get_details(@view_screen, applicant, screen_tabs.first) %>
+
     <div class="row">
       <%= link_to url, class: "#{'even' if index%2 == 0 }" do %>
         <div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 p-nill">

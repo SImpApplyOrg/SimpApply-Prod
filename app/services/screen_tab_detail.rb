@@ -1,16 +1,27 @@
 class ScreenTabDetail
 
-  def initialize(view_screen, applicant, merchant)
+  def initialize(view_screen, applicant, merchant, screen_tab=nil)
     @view_screen = view_screen
     @applicant = applicant
     @merchant = merchant
+    @screen_tabs = @view_screen.screen_tabs.active
+    @screen_tab = screen_tab
   end
 
-  def get_details(screen_tab=nil)
-    screen_tab ||= @view_screen.screen_tabs.active.first
-    tab_questions = get_tab_field_questions(screen_tab)
+  def get_details
+    tab_questions = get_tab_field_questions(@screen_tab)
 
     build_question_answer_hash(tab_questions)
+  end
+
+  def get_screen_tabs_for_applicant
+    _screen_tabs = []
+    @screen_tabs.each do |screen_tab|
+      @screen_tab = screen_tab
+      next if answer_present(get_details) < 1
+      _screen_tabs << screen_tab
+    end
+    _screen_tabs
   end
 
   private
@@ -58,6 +69,16 @@ class ScreenTabDetail
 
     def get_tab_field_questions(screen_tab)
       screen_tab ? screen_tab.job_application_questions.order("position") : []
+    end
+
+    def answer_present(applicant_details)
+      count = 0
+      applicant_details.each  do |index, answer|
+        if answer["answer"].present?
+          count += 1
+        end
+      end
+      count
     end
 
 end

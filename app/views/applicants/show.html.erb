@@ -9,27 +9,28 @@
   <h2 class="text-center"><%= @applicant.first_name %></h2>
 </div>
 
-<% screen_tabs = @view_screen.screen_tabs.offset(1) %>
+<% screen_tabs = get_screen_tabs_for_applicant(@view_screen, @applicant) %>
+<% screen_tabs.shift %>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-nill">
   <%= render 'shared/custom_flash' %>
 
   <div class="applicantitem-list tab-content">
-    
+
     <% screen_tabs.each_with_index do |screen_tab, tab_index| %>
       <div role="tabpanel" class="tab-pane <%='active' if tab_index==0 %>" id="screen_tab-<%=tab_index%>">
         <div class="panel-group" id="accordion">
           <%= render 'previous_next_button', tab_index: tab_index, screen_tabs_size: screen_tabs.size-1 %>
           <hr>
           <% applicant_details = get_details(@view_screen, @applicant, screen_tab) %>
-          <% applicant_details.each do |index, answer|%>
-            <ul id="panel-<%=index%>">
+          <ul>
+            <% applicant_details.each do |index, answer|%>
               <li>
                 <%= answer["question"].html_safe %><br>
                 <%= answer["answer"] %>
               </li>
-            </ul>
-          <% end %>
+            <% end %>
+          </ul>
         </div>
       </div>
     <% end %>
