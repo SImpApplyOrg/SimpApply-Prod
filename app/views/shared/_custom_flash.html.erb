@@ -6,7 +6,7 @@
       <% flash.each do |type, message| %>
         <div class="row">
           <i class="fa fa-question-circle-o pull-left" aria-hidden="true"></i>
-          <div class="pull-left"><%= message %></div>
+          <div class="pull-left"><%= message.html_safe %></div>
         </div>
       <% end %>
     </div>

@@ -207,12 +207,12 @@ a {
     font-size: 16px;
     margin-bottom: 35px;
 }
-.step_data span.already_text {
+.step_data span.shared-links {
     color: #666666;
     font-size: 16px;
     font-weight: 300;
 }
-.step_data span.already_text a {
+.step_data span.shared-links a {
     color: #e15030;
 }
 /*.applicants-wrapper.sign-up-steps {height: 100%;}*/
@@ -996,7 +996,6 @@ a.light-parpal-bg:active {
 .admin-container {
     background: none;
 }
-
 .seprat-line {
     border-bottom: 1px solid #BABABA;
     padding-bottom: 5px;
@@ -1004,6 +1003,17 @@ a.light-parpal-bg:active {
 }
 .table-horizontal {
     background-color: #fdfdfd;
+}
+.shared-links:last-child {
+    border: none;
+}
+.shared-links:first-child {
+    padding-left: 0;
+}
+.shared-links {
+    margin-right: 0;
+    border-right: 2px solid #ee6142;
+    padding: 0 8px 0 10px;
 }
 
 /*--Media--*/
@@ -1017,6 +1027,13 @@ a.light-parpal-bg:active {
     }*/
     .width-full {
         width: 100%;
+    }
+    span.shared-links {
+    margin-right: 0;
+    display: block;
+    padding: 0;
+    text-align: center;
+    border: none;
     }
 }
 @media screen and (max-width: 420px) {

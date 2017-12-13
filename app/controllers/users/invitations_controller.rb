@@ -36,7 +36,7 @@ class Users::InvitationsController < Devise::InvitationsController
         format.html { respond_with resource, :location => new_user_invitation_path }
       end
     else
-      flash[:error] = resource.errors.full_messages
+      flash[:error] = resource.errors.full_messages.join('<br>')
       respond_to do |format|
         format.json { render json: resource.errors, status: :unprocessable_entity  }
         format.html { respond_with_navigational(resource) { render :new } }
