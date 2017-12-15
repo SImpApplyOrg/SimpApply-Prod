@@ -14,31 +14,31 @@ body {
 }
 @font-face {
     font-family: 'helveticaneuecyrmedium';
-    src:url('/assets/helveticaneuecyr-medium-webfont.woff2') format('fontswoff2'), url('/assets/helveticaneuecyr-medium-webfont.woff') format('fontswoff');
+    src:image-url('helveticaneuecyr-medium-webfont.woff2') format('fontswoff2'), image-url('helveticaneuecyr-medium-webfont.woff') format('fontswoff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'helveticaneuecyrlight';
-    src:url('/assets/helveticaneuecyr-light-webfont.woff2') format('fontswoff2'), url('/assets/helveticaneuecyr-light-webfont.woff') format('fontswoff');
+    src:image-url('helveticaneuecyr-light-webfont.woff2') format('fontswoff2'), /*image-url*/('helveticaneuecyr-light-webfont.woff') format('fontswoff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'helveticaneuecyrbold';
-    src:url('/assets/helveticaneuecyr-bold-webfont.woff2') format('fontswoff2'), url('/assets/helveticaneuecyr-bold-webfont.woff') format('fontswoff');
+    src:image-url('helveticaneuecyr-bold-webfont.woff2') format('fontswoff2'), image-url('helveticaneuecyr-bold-webfont.woff') format('fontswoff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'helveticaneuecyrlight';
-    src:url('/assets/helveticaneuecyr-light-webfont.woff2') format('fontswoff2'), url('/assets/helveticaneuecyr-light-webfont.woff') format('fontswoff');
+    src:image-url('helveticaneuecyr-light-webfont.woff2') format('fontswoff2'), image-url('helveticaneuecyr-light-webfont.woff') format('fontswoff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'helveticaneuecyrroman';
-    src:url('/assets/helveticaneuecyr-roman-webfont.woff2') format('fontswoff2'), url('/assets/helveticaneuecyr-roman-webfont.woff') format('fontswoff');
+    src:image-url('helveticaneuecyr-roman-webfont.woff2') format('fontswoff2'), image-url('helveticaneuecyr-roman-webfont.woff') format('fontswoff');
     font-weight: normal;
     font-style: normal;
 }
@@ -151,7 +151,7 @@ a {
     text-align: center;
 }
 .steps-container {
-    background-image: url(/assets/background-image.png);
+    background-image: image-url('background-image.png');
     background-position: center top;
     background-color: transparent;
     object-fit: cover;
@@ -171,7 +171,7 @@ a {
     justify-content: center;
 }
 .main-container{
-   background-image: url(/assets/background-image.png);
+    background-image: image-url('background-image.png');
     background-position: center top;
     background-color: transparent;
 }
@@ -730,7 +730,7 @@ a.light-parpal-bg:active {
     padding: 0;
 }
 .applicantitem-list ul li:nth-child(2n+1) {
-    background-image: url(/assets/question-icon.png);
+    background-image: image-url('question-icon.png');
     background-repeat: no-repeat;
     background-position: 15px 15px;
 }
@@ -747,7 +747,7 @@ a.light-parpal-bg:active {
     font-size: 13px;
 }
 .applicantitem-list ul li:nth-child(2n) {
-    background-image: url(/assets/ans-icon.png);
+    background-image: image-url('ans-icon.png');
     background-repeat: no-repeat;
     background-position: 15px 15px;
 }
