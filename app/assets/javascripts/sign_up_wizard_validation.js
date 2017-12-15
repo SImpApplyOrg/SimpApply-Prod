@@ -127,14 +127,18 @@ $(document).on('turbolinks:load', function() {
         // onTabClick: function(tab, navigation, index) {
         //     return validateTab(index);
         // },
+        
+        'previousSelector': '.button-previous',
+
         onNext: function(tab, navigation, index) {
             var isValidTab = validateTab(index - 1);
-
             return isValidTab;
         },
+
         // onPrevious: function(tab, navigation, index) {
         //     return validateTab(index + 1);
         // },
+        
         onTabShow: function(tab, navigation, index) {
             var tabs = $('#installationForm').find('.tab-pane');
             var numTabs = tabs.length;
