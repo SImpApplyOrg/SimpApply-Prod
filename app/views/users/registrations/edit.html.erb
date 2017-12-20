@@ -16,7 +16,7 @@
 
       <%= devise_error_messages! %>
 
-      <div class="form-group col-sm-12">
+      <div class="form-group clearfix">
         <%= f.label :email, :class => 'control-label' %>
         <%= f.email_field :email, autofocus: true, :class => 'form-control' %>
       </div>
@@ -24,59 +24,59 @@
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
 
-      <div class="form-group col-sm-12">
+      <div class="form-group clearfix">
         <%= f.label :first_name, :class => 'control-label' %>
         <%= f.text_field :first_name, :class => 'form-control' %>
       </div>
 
-      <div class="form-group col-sm-12">
+      <div class="form-group clearfix">
         <%= f.label :last_name, :class => 'control-label' %>
         <%= f.text_field :last_name, :class => 'form-control' %>
       </div>
 
-      <div class="form-group col-sm-12">
+      <div class="form-group clearfix">
         <%= f.label :mobile_no, :class => 'control-label' %>
         <%= f.text_field :mobile_no, :class => 'form-control' %>
       </div>
 
       <% if resource.merchant? %>
-        <div class="form-group col-sm-12">
+        <div class="form-group clearfix">
           <%= f.label :organization_name, 'Business name', :class => 'control-label' %>
           <%= f.text_field :organization_name, :class => 'form-control' %>
         </div>
       <% end %>
 
-      <div class="form-group col-sm-12">
+      <div class="form-group clearfix">
         <%= f.label :locale, :class => 'control-label' %>
         <div class="clearfix"></div>
         <%= f.select :locale, I18n.available_locales, {}, :class => 'form-control' %>
       </div>
 
-      <div class="form-group col-sm-12">
-        <%= f.label :address, :class => 'control-label' %>
+      <div class="form-group clearfix">
+        <%= f.label :address, 'Business Address', :class => 'control-label' %>
         <%= f.text_field :address, :class => 'form-control' %>
         <%= f.hidden_field :lat, :class => 'form-control' %>
         <%= f.hidden_field :lng, :class => 'form-control' %>
       </div>
 
-      <div class="form-group col-sm-12">
+      <div class="form-group clearfix">
         <%= f.label :password, :class => 'control-label' %>
-          <i>(leave blank if you don't want to change it)</i>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %>
-          <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
+        <i>(leave blank if you don't want to change it)</i>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
       </div>
 
-      <div class="form-group col-sm-12">
+      <div class="form-group clearfix">
         <%= f.label :password_confirmation, :class => 'control-label' %>
         <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
       </div>
 
-      <div class="form-group col-sm-12">
+      <div class="form-group clearfix">
         <%= f.label :current_password, :class => 'control-label' %>
-          <i>(we need your current password to confirm your changes)</i>
-          <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
+        <i>(we need your current password to confirm your changes)</i>
+        <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
       </div>
 
     <div class="skip-add-btn">

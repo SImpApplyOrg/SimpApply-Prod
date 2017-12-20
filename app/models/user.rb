@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates_format_of :organization_name, with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/, if: "organization_name.present?"
   validates_plausible_phone :mobile_no, country_number: :country_code, presence: true, with: /\A\+\d+/
   validate :validate_mobile_number
+  validates_uniqueness_of :mobile_no
 
   has_one :merchant
   has_many :applicants, through: :merchant
@@ -56,6 +57,15 @@ class User < ApplicationRecord
     email.include?('xyz.com')
   end
 
+  def send_reset_password_instructions
+    tmp_password = generate_random_password
+    user = User.find_by_mobile_no(mobile_no)
+    return false if user.blank?
+    message_response = MessageResponse.new("tmp_password_reset", merchant, nil, token)
+    TwilioResponse.new("#{message_response.get_message} #{tmp_password}", mobile_no).send_response 
+    user.update_attributes(password: tmp_password, tmp_pasword_status: true) 
+  end
+
   private
     def assign_user_to_merchant
       if self.user_role.blank?
@@ -89,5 +99,9 @@ class User < ApplicationRecord
 
     def validate_mobile_number
       errors.add(:mobile_no, "is not a valid number.") if self.mobile_no.present? && !Phonie::Phone.parse(self.mobile_no)
+    end
+
+    def generate_random_password
+      5.times.map{rand(10)}.join
     end
 end

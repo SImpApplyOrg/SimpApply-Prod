@@ -70,6 +70,14 @@ Rails.application.routes.draw do
 
   resources :applicants, only: [:index, :show]
 
+  resources :reset_passwords, only: :nil do
+    collection do
+      get :edit
+      patch :update_password
+    end
+  end
+
+
   patch '/update_organization_name', to: "welcome#update_organization_name"
   get '/set_organization', to: 'welcome#set_organization'
 

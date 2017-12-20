@@ -104,7 +104,7 @@ $(document).on('turbolinks:load', function() {
                         message: 'Password is required'
                     },
                     stringLength: {
-                        min: 6,
+                        min: 5,
                         message: 'Password is not valid'
                     }
                 }
@@ -196,4 +196,6 @@ $(document).on('turbolinks:load', function() {
         initialCountry: "US"
     });
 
+
+  
 });

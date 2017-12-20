@@ -174,6 +174,18 @@ a {
     background-image: image-url('background-image.png');
     background-position: center top;
     background-color: transparent;
+    object-fit: cover;
+}
+
+.reset_password_form_length{
+    display: flex;
+    -moz-display: flex;
+    -webkit-display: flex;
+    -o-display: flex;
+    -ms-display: flex;
+    height: 100%;
+    flex-direction: column;
+
 }
 .inner-step2{
     height: calc(100vh - 46px);
@@ -371,7 +383,9 @@ a {
     text-align: left;
     font-weight: normal;
 }
-
+.step3 .stepThree_form input {
+    /*height: 36px;*/
+}
 .step3 .step_data .flex-container {
     padding-bottom: 0;
 }

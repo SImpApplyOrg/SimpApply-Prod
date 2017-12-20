@@ -1,16 +1,30 @@
-<h2>Forgot your password?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+<div class="container inner-main">
+  <div class="light_shadow_bg step_data text-center">
+    <div class="flex-container">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <%= render 'shared/custom_flash' %>
+        <h2>Forgot your password?</h2>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <div class="step_jobName_form stepThree_form">
+            <div class="form-group col-sm-12">
+              <%= f.text_field :mobile_no, :class => 'form-control', autofocus: true %>  
+              <span class="line-bdr"></span>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-12">
+              <div class="step-bottom-btn-wrap">
+                <%= f.submit "Send me reset password instructions", class: 'btn btn-start btn-custom btn-block' %>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <%= render "users/shared/links" %>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
 
-<%= render "users/shared/links" %>

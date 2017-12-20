@@ -34,6 +34,8 @@ class MessageResponse
       'invite_reviewer'
     when 'verification_code'
       'mobile_verification_code_message'
+    when 'tmp_password_reset'
+      'tmp_password_reset'
     end
 
     response_message = ResponseMessage.where(message_type: message_type).first

@@ -14,7 +14,8 @@ class ResponseMessage < ApplicationRecord
     error_in_submit_applicant: 'Response for not submit applicant information',
     invite_manager: 'Response for Manager',
     invite_reviewer: 'Response for Reviewer',
-    mobile_verification_code_message: 'Message for send mobile verification code'
+    mobile_verification_code_message: 'Message for send mobile verification code',
+    tmp_password_reset: 'Response for setting temporary password'
   }
 
   validates_presence_of :message_type, :message

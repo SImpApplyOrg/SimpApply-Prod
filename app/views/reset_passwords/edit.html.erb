@@ -1,0 +1,37 @@
+<%= content_for :top_div_class, 'dashApplicant dashboard-profile-wrapper fill_bg' %>
+<%= content_for :row_class, 'bg-white' %>
+<div class="reset_password_form_length">
+  <div class="dashApplicant-header light-parpal-bg clearfix">
+    <span class="light-bg-purpallight pull-left">
+      <%= link_to '<i class="fa fa-long-arrow-left light-red-clr white-bdr" aria-hidden="true"></i>'.html_safe, root_path %>
+    </span>
+    <h2 class="text-center">Change your password</h2>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mtl">
+    <%= render 'shared/custom_flash' %>
+    <%= form_for(@user, url: update_password_reset_passwords_path, :html => { method: :patch}, :html => { id: 'reset_password' }) do |f| %>
+
+      <div class="form-group clearfix">
+        <%= f.label :password, "New password", class: 'control-label'  %><br />
+        <%= f.password_field :password, autofocus: true, autocomplete: "off", required: true , minlength: Devise.password_length.min,  class: 'form-control' %>
+        <%= f.error_span(:password) %>
+      </div>
+
+      <div class="form-group clearfix">
+        <%= f.label :password_confirmation, "Confirm new password", class: 'control-label'  %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off", required: true,minlength: Devise.password_length.min,  class: 'form-control'   %>
+        <%= f.error_span(:password_confirmation) %>
+      </div>
+
+      <div class="skip-add-btn">
+        <div class="row">
+          <div  class = "text-center">
+            <%= f.submit "Change my password", :class => 'btn btn-start light-parpal-bg' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+   
