@@ -27,7 +27,6 @@ $(document).on('turbolinks:load', function() {
                         message: "Mobile no can't be blank"
                     },
                     remote: {
-                        message: 'Mobile no is not valid',
                         url: '/users/check_mobile_no',
                         type: 'POST'
                     }
@@ -127,7 +126,7 @@ $(document).on('turbolinks:load', function() {
         // onTabClick: function(tab, navigation, index) {
         //     return validateTab(index);
         // },
-        
+
         'previousSelector': '.button-previous',
 
         onNext: function(tab, navigation, index) {
@@ -138,7 +137,7 @@ $(document).on('turbolinks:load', function() {
         // onPrevious: function(tab, navigation, index) {
         //     return validateTab(index + 1);
         // },
-        
+
         onTabShow: function(tab, navigation, index) {
             var tabs = $('#installationForm').find('.tab-pane');
             var numTabs = tabs.length;
@@ -197,5 +196,5 @@ $(document).on('turbolinks:load', function() {
     });
 
 
-  
+
 });

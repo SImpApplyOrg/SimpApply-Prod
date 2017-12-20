@@ -2,7 +2,16 @@ class UsersController < ApplicationController
 
   def check_mobile_no
     success = Phonie::Phone.parse(params[:user][:mobile_no])
-    render json: { valid: !!success }
+    message = ""
+    valid = !success
+
+    if !valid
+      valid = User.where(mobile_no: params[:user][:mobile_no]).any?
+      message = "Mobile no already exsits" if valid
+    else
+      message = "Mobile no is not valid"
+    end
+    render json: { valid: !valid, message: message }
   end
 
   def send_verification_code
