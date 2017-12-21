@@ -27,7 +27,6 @@ $(document).on('turbolinks:load', function() {
                         message: "Mobile no can't be blank"
                     },
                     remote: {
-                        message: 'Mobile no is not valid',
                         url: '/users/check_mobile_no',
                         type: 'POST'
                     }
@@ -79,7 +78,7 @@ $(document).on('turbolinks:load', function() {
             }
         }
     })
-    
+
     $("#user_mobile_no").on("countrychange", function(e, countryData) {
         $('#installationForm').formValidation('revalidateField', 'user[mobile_no]');
         // $("#user_mobile_no").val($(this).val());

@@ -8,7 +8,7 @@
       <th scope="row">Role</th>
       <td><%= invite_user.role %></td>
     </tr>
-    <tr> 
+    <tr>
       <th scope="row">Invite sent at</th>
       <td><%= invite_user.created_at %></td>
     </tr>
@@ -16,17 +16,18 @@
       <th scope="row">Invite status</th>
       <td><%= invite_user.status %></td>
     </tr>
-    <tr>
-      <th scope="row">Action</th>
-      <td>
-        <% if current_user.organization_name == current_organization_name %>
+    <% if current_user.organization_name == current_organization_name %>
+      <tr>
+        <th scope="row">Action</th>
+        <td>
+
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                             user_invite_path(invite_user),
                             :method => :delete,
                             :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
                             :class => 'btn btn-danger btn-sm' %>
-        <% end %>
-      </td>
-    </tr>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>

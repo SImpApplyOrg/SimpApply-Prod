@@ -18,7 +18,6 @@ $(document).on('turbolinks:load', function() {
               message: "Mobile no can't be blank"
             },
             remote: {
-              message: 'Mobile no is not valid',
               url: '/users/check_mobile_no',
               type: 'POST'
             }
@@ -46,7 +45,7 @@ $(document).on('turbolinks:load', function() {
           $('#addCollaboratorForm').formValidation('revalidateField', 'user[mobile_no]');
           $('#header1').addClass('hide');
           $('#header2').removeClass('hide');
-          
+
           return true;
         }
         // onTabShow: function(tab, navigation, index) {
