@@ -34,8 +34,8 @@ class MessageResponse
       'invite_reviewer'
     when 'verification_code'
       'mobile_verification_code_message'
-    when 'tmp_password_reset'
-      'tmp_password_reset'
+    when 'temp_password_reset'
+      'temp_password_reset'
     end
 
     response_message = ResponseMessage.where(message_type: message_type).first
@@ -70,7 +70,7 @@ class MessageResponse
         @merchant.user.first_name if @merchant.present? && @merchant.user.present?
       when 'organization_name'
         @merchant.user.organization_name if @merchant.present? && @merchant.user.present?
-      when 'mobile_verification_code'
+      when 'mobile_verification_code', 'temp_password_reset'
         @token
       else
         MessageTag.get_tag_value(tag, @applicant)

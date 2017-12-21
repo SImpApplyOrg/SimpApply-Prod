@@ -11,6 +11,7 @@ class User < ApplicationRecord
   after_create :assign_user_to_merchant, if: "user_role.blank?"
   after_save :create_user_invitation, :if => :invitation_token?
   after_update :change_user_invite_status, if: "!temp_invitation_token.blank?"
+  before_save :modify_mobile_no
 
   validates_presence_of :organization_name, :address, if: "is_merchant == 'true'"
   validates_format_of :organization_name, with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/, if: "organization_name.present?"
@@ -61,9 +62,12 @@ class User < ApplicationRecord
     tmp_password = generate_random_password
     user = User.find_by_mobile_no(mobile_no)
     return false if user.blank?
-    message_response = MessageResponse.new("tmp_password_reset", merchant, nil, token)
-    TwilioResponse.new("#{message_response.get_message} #{tmp_password}", mobile_no).send_response 
-    user.update_attributes(password: tmp_password, tmp_pasword_status: true) 
+
+    if user.update_attributes(password: tmp_password, tmp_pasword_status: true)
+      message = MessageResponse.new("temp_password_reset", nil, nil, tmp_password).get_message
+      TwilioResponse.new(message, mobile_no).send_response
+    end
+    user
   end
 
   private
@@ -103,5 +107,9 @@ class User < ApplicationRecord
 
     def generate_random_password
       5.times.map{rand(10)}.join
+    end
+
+    def modify_mobile_no
+      self.mobile_no = self.mobile_no.gsub(/[\s\()-]/, '')
     end
 end

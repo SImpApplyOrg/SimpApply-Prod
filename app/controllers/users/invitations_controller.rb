@@ -41,7 +41,7 @@ class Users::InvitationsController < Devise::InvitationsController
         format.json { render json: resource.errors, status: :unprocessable_entity  }
         format.html { respond_with_navigational(resource) { render :new } }
       end
-      
+
     end
   end
 
@@ -96,6 +96,7 @@ class Users::InvitationsController < Devise::InvitationsController
     end
 
     def invite_resource(&block)
+      params[:user][:mobile_no] = params[:user][:mobile_no].gsub(/[\s\()-]/, '')
       invite_for = current_organization_user || current_user
       @user = User.find_by(mobile_no: invite_params[:mobile_no])
       # @user is an instance or nil

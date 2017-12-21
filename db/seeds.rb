@@ -33,6 +33,8 @@ ResponseMessage.where(message_type: 'invite_reviewer').first_or_create(message: 
 
 ResponseMessage.where(message_type: 'mobile_verification_code_message').first_or_create(message: "Hi, Here is your verification code: {{mobile_verification_code}}")
 
+ResponseMessage.where(message_type: 'temp_password_reset').first_or_create(message: "Hi, Here is your temporary password is: {{temp_password}}")
+
 JobApplicationQuestion.where(is_custom_field: true, question: "No of job applications").first_or_create(question_title: 'Total no of job applications for this applicant')
 
 MessageTag.where(tag_name: 'sign_up_link').first_or_create(is_editable: false)
@@ -42,3 +44,4 @@ MessageTag.where(tag_name: 'merchant_first_name').first_or_create(is_editable: f
 MessageTag.where(tag_name: 'invitation_accept_link').first_or_create(is_editable: false)
 MessageTag.where(tag_name: 'organization_name').first_or_create(is_editable: false)
 MessageTag.where(tag_name: 'mobile_verification_code').first_or_create(is_editable: false)
+MessageTag.where(tag_name: 'temp_password').first_or_create(is_editable: false)

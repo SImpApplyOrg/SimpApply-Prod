@@ -19,7 +19,8 @@ $(document).on('turbolinks:load', function() {
             },
             remote: {
               url: '/users/check_mobile_no',
-              type: 'POST'
+              type: 'POST',
+              data: { validate_only: true }
             }
           }
         }

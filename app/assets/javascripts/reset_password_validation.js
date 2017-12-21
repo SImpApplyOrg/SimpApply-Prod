@@ -33,5 +33,31 @@ $(document).on('turbolinks:load', function() {
                 }
             }
         }
-    })   
+    });
+
+    $('.forgetPassword')
+    .formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-question',
+            validating: 'fa fa-refresh'
+        },
+        // This option will not ignore invisible fields which belong to inactive panels
+        excluded: ':disabled',
+        fields: {
+            'user[mobile_no]': {
+                validators: {
+                    notEmpty: {
+                        message: "Mobile no can't be blank"
+                    },
+                    remote: {
+                        url: '/users/check_mobile_no',
+                        type: 'POST',
+                        data: { validate_only: true }
+                    }
+                }
+            }
+        }
+    })
 });

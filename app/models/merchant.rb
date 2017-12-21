@@ -16,6 +16,8 @@ class Merchant < ApplicationRecord
   has_many :job_applications
   has_many :applicants, through: :job_applications
 
+  before_save :modify_mobile_no
+
   def self.get_merchant_and_message_type(options)
     merchant_code = options[:Body].strip.downcase
 
@@ -67,5 +69,9 @@ class Merchant < ApplicationRecord
       return [merchant, "#{message_type_prefix}error"] if merchant.errors.any?
 
       return [merchant, "#{message_type_prefix}new"]
+    end
+
+    def modify_mobile_no
+      self.mobile_no = self.mobile_no.gsub(/[\s\()-]/, '')
     end
 end

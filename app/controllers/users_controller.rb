@@ -4,8 +4,10 @@ class UsersController < ApplicationController
     success = Phonie::Phone.parse(params[:user][:mobile_no])
     message = ""
     valid = !success
+    validate_only = params[:validate_only].present?
 
-    if !valid
+    if !valid && !validate_only
+      params[:user][:mobile_no] = params[:user][:mobile_no].gsub(/[\s\()-]/, '')
       valid = User.where(mobile_no: params[:user][:mobile_no]).any?
       message = "Mobile no already exsits" if valid
     else

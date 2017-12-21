@@ -15,7 +15,7 @@ class ResponseMessage < ApplicationRecord
     invite_manager: 'Response for Manager',
     invite_reviewer: 'Response for Reviewer',
     mobile_verification_code_message: 'Message for send mobile verification code',
-    tmp_password_reset: 'Response for setting temporary password'
+    temp_password_reset: 'Response for set temporary password'
   }
 
   validates_presence_of :message_type, :message
