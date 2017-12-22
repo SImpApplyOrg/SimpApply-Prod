@@ -40,8 +40,6 @@ $(document).on('turbolinks:load', function() {
   });
 
   function set_organization_name(obj) {
-    $.get('/set_organization', { organization_user_id: obj.data('user_id') }, function(response) {
-      alert(response["message"]);
-    });
+    $.get('/set_organization', { organization_user_id: obj.val() } );
   }
 });

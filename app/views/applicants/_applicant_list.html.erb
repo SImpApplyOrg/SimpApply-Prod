@@ -1,26 +1,47 @@
 <% unless @no_view_screen_available_message %>
   <%= @upgrade_account_message %>
 
-  <% @applicants.each_with_index do |applicant, index| %>
+  <% @applicants.each_slice(2) do |applicant_slice| %>
+    <div class="row faq-bottom-border">
+      <% applicant_slice.each do |applicant| %>
+        <% screen_tabs = get_screen_tabs_for_applicant(@view_screen, applicant) %>
 
-    <% screen_tabs = get_screen_tabs_for_applicant(@view_screen, applicant) %>
+        <% url =  screen_tabs.count <= 1 ? "javascript:;" : applicant_path(applicant) %>
 
-    <% url =  screen_tabs.count <= 1 ? "javascript:;" : applicant_path(applicant) %>
-
-    <% applicant_details = get_details(@view_screen, applicant, screen_tabs.first) %>
-
-    <div class="row">
-      <%= link_to url, class: "#{'even' if index%2 == 0 }" do %>
-        <div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 p-nill">
+        <% applicant_details = get_details(@view_screen, applicant, screen_tabs.first) %>
+        <div class="col-md-6 p-nill">
           <div class="light-gray-bg applicant-box clearfix">
-            <% applicant_details.each do |index, tab_field| %>
-              <h2><%= tab_field["question"] %></h2>
-              <span><%= tab_field["answer"] %></span>
-            <% end %>
+            <div class="faq-name">
+              <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+              <div class="click-title">
+                <h2><%= link_to applicant.first_name, url %></h2>
+                <span><%= applicant.last_name %></span>
+              </div>
+            </div>
+            <div class="faq-group hide">
+              <% applicant_details.each do |index, tab_field| %>
+                <div class="faq-main">
+                  <div class="faq-heading">
+                    <h4 class="faq-title">
+                      <%= tab_field["question"] %>
+                    </h4>
+                  </div>
+                  <div class="faq-answer">
+                    <div class="faq-answer-body">
+                      <%= tab_field["answer"] %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <div class="dashApplicant-blog">
+               <div class="pull-right">
+                 <span class="light-red-bdr">
+                   <i class="fa fa-question light-red-clr" aria-hidden="true"></i>
+                 </span>
+               </div>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 dashApplicant-blog">
-          <div class="pull-right"><span class="light-red-bdr"><i class="fa fa-question light-red-clr" aria-hidden="true"></i></span></div>
         </div>
       <% end %>
     </div>

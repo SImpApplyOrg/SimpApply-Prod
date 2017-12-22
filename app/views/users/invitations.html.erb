@@ -11,25 +11,25 @@
 </div>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mtl">
-  <div class="row">
-    <table class="table table-hover">
-      <tbody>
-        <% if @user_invitations.present? %>
-          <% @user_invitations.each do |invite_user| %>
+  <div class="tab-content invitation-tabs">
+    <% if @invitations.present? %>
+      <% @invitations.each do |invite_user| %>
+        <table class="table table-hover table-horizontal">
+          <tbody>
             <tr>
-              <th><%= model_class.human_attribute_name(:Invited_by) %></th>
+              <th scope="row"><%= model_class.human_attribute_name(:Invited_by) %></th>
               <td><%= user_name(invite_user.sender) %></td>
             </tr>
             <tr>
-              <th><%= model_class.human_attribute_name(:invited_as) %></th>
-              <td><%= invite_user.role %></td>
-            </tr>
-            <tr> 
-              <th><%= model_class.human_attribute_name(:invite_sent_at) %></th>
-              <td><%= invite_user.created_at %></td>
+              <th scope="row"><%= model_class.human_attribute_name(:invited_as) %></th>
+              <td><%= invite_user.role.titleize %></td>
             </tr>
             <tr>
-              <th><%=t '.actions', :default => t("helpers.actions") %></th>
+              <th scope="row"><%= model_class.human_attribute_name(:invite_sent_at) %></th>
+              <td><%= zone_time invite_user.created_at %></td>
+            </tr>
+            <tr>
+              <th scope="row"><%=t '.actions', :default => t("helpers.actions") %></th>
               <% if current_user.organization_name == current_organization_name %>
                 <td>
                   <% if invite_user.status == 'pending' %>
@@ -45,9 +45,17 @@
                 </td>
               <% end %>
             </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      <% end %>
+    <% else %>
+      <table class="table table-hover table-horizontal">
+        <tbody>
+          <tr>
+            <td align="center">Right now no any invitations for you</td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>

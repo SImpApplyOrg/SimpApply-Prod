@@ -68,6 +68,10 @@ class Applicant < ApplicationRecord
     self.get_question_value('1')
   end
 
+  def last_name
+    self.get_question_value('2')
+  end
+
   private
 
     def assign_reminder_date

@@ -2,7 +2,6 @@ class WelcomeController < ApplicationController
   layout :resolve_layout
 
   def index
-    @invitations = current_user.reverse_user_invitations.pending if current_user
   end
 
   def update_organization_name
@@ -11,7 +10,6 @@ class WelcomeController < ApplicationController
 
   def set_organization
     session[:organization_user_id] = params[:organization_user_id]
-    render json: { message: 'Your current organization has been changed' }, status: 200
   end
 
   private

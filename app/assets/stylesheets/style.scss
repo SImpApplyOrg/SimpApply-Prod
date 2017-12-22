@@ -683,7 +683,7 @@ a.light-parpal-bg:active {
     padding-right: 0;
 }
 .applicant-box {
-    padding: 12px 15px;
+    padding: 30px 20px;
     margin: 3px 0 0;
     box-sizing: border-box;
 }
@@ -1033,15 +1033,24 @@ a.light-parpal-bg:active {
 /*--Media--*/
 
 @media screen and (max-width: 767px) {
-    /*.sign-up-steps.step4 {
-    height: auto !important;
-}*/
-    /*.flex-container{
-    height: 100%;
-    }*/
     .width-full {
         width: 100%;
     }
+    /*--new--css-21-12-17--*/
+  .panel-custom .panel-heading {padding: 4px 5px; }
+  .panel-custom .panel-body {padding: 5px; font-size: 12px; }
+  .light-gray-bg .panel-custom .fa.fa-user-circle-o {font-size: 20px !important; color: #595959; }
+  .panel-custom .panel-title {margin-top: 0; margin-bottom: 0; font-size: 14px; color: inherit; }
+  .panel-custom .panel-group .panel {margin-right: 5px; }
+  .panel-custom .panel-group {margin-bottom: 0px; }
+
+  .panel-custom .collapse {display: block; height: auto !important; }
+  .panel-custom .panel-title a {pointer-events: none; }
+  .mtm{ margin-top: 10px; }
+  .click-title{ cursor: pointer; }
+  .panel-custom .panel-default {border: none !important; border-bottom-width: medium; border-bottom-style: none; border-bottom-color: currentcolor; background: transparent; box-shadow: none !important; border-bottom: 1px solid #d1cdcd !important; border-radius: 0; padding-bottom: 5px; margin-bottom: 5px; }
+  .panel-custom .panel-default .panel-heading, .panel-custom .panel-body {border: 0 !important; background: none; padding: 2px; }
+  .panel-custom .panel-title {color: #4a4a4a; font-weight: 600; font-size: 16px; }
     span.shared-links {
     margin-right: 0;
     display: block;
@@ -1088,3 +1097,140 @@ a.light-parpal-bg:active {
         padding: 15px 50px;
     }
 }
+
+/*--new--css-21-12-17--*/
+.light-gray-bg .fa.fa-user-circle-o {font-size: 35px; color: #7e7e7e; float: left; width: 50px; }
+.mbs{ margin-bottom: 5px !important; }
+.qdata {letter-spacing: 0px !important; padding-right: 2px; }
+
+h4.faq-title {
+    color: #4a4a4a;
+    font-weight: 600;
+    font-size: 16px;
+    margin:  0;
+}
+
+.faq-heading {
+    padding:  2px;
+}
+
+.faq-answer-body {
+    padding:  2px;
+}
+
+.faq-main {
+    border-bottom: 1px solid #d1cdcd !important;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+.faq-name {
+    margin-bottom: 15px;
+}
+.faq-bg {
+    background: #f5f5f5;
+}
+@media (min-width: 992px){
+    .faq-bottom-border .dashApplicant-blog {
+        display: none;
+    }
+    .faq-group {
+        display: block !important;
+        width: calc(100% - 170px);
+        float:left;
+        padding-left: 15px;
+    }
+    .faq-name {
+        width: 170px;
+        float: left;
+    }
+    .faq-bottom-border {
+        border-bottom: 4px solid #fff;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        margin: 0;
+        width: 100%;
+    }
+    .faq-bottom-border .p-nill {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        float: none;
+    }
+    .faq-bottom-border .p-nill:first-child {
+        border-right: 2px solid #fff;
+    }
+
+    .faq-bottom-border .p-nill:last-child {
+        border-left: 2px solid #fff;
+    }
+    .faq-bg {
+        padding: 0;
+    }
+}
+@media screen and (max-width: 991px) {
+    .faq-bottom-border .applicant-box {
+        width: calc(100% - 70px);
+        width: -webkit-calc(100% - 70px);
+        width: -moz-calc(100% - 70px);
+    }
+    .faq-bottom-border .dashApplicant-blog {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 70px;
+        bottom: 0;
+        background: #fff;
+    }
+    .faq-bottom-border .dashApplicant-blog span {
+        margin: 0px auto;
+        width: 30px;
+        float: none;
+        height: 100%;
+        width: 100%;
+        border: none;
+        display: inline-block;
+    }
+    .faq-bottom-border .applicant-box {
+        padding: 15px;
+    }
+    .faq-bottom-border .p-nill {
+        border-bottom: 4px solid #fff;
+    }
+    .faq-bottom-border .dashApplicant-blog .pull-right {
+        float: none !important;
+        height: 100%;
+    }
+    .faq-bottom-border .dashApplicant-blog .fa {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        left: 0;
+        right: 0;
+        text-align: center;
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        padding: 1px;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -o-border-radius: 5px;
+        border: 3px solid #df8587;
+    }
+    .faq-name {
+        margin: 0;
+    }
+    .faq-group {
+        margin-top: 15px;
+    }
+}
+

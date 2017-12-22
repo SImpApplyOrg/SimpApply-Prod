@@ -1,3 +1,13 @@
 <%- model_class = User %>
 
-<%= render partial: 'invite_user', collection: @user_invitations, as: :invite_user %>
+<% if @user_invitations.blank? %>
+  <table class="table table-hover table-horizontal">
+    <tbody>
+      <tr>
+        <td align="center">Users not yet invited.</td>
+      </tr>
+    </tbody>
+  </table>
+<% else %>
+  <%= render partial: 'invite_user', collection: @user_invitations, as: :invite_user %>
+<% end %>

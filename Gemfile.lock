@@ -190,6 +190,7 @@ GEM
       mini_portile2 (~> 2.2.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
+    phonelib (0.6.18)
     phonie (3.3.1)
     phony (2.15.48)
     phony_rails (0.14.6)
@@ -344,6 +345,7 @@ DEPENDENCIES
   mandrill-api
   nested_form
   pg
+  phonelib
   phonie
   phony_rails
   pry

@@ -58,8 +58,6 @@
             <div role="tabpanel" class="tab-pane organization-names" id="organizations">
               <%= render 'welcome/organization_list', organization_user_id: session[:organization_user_id], invitations: invitations %>
             </div>
-          <% elsif current_user.merchant? %>
-            <div class="current_organization" id="<%=current_user.id%>"></div>
           <% end %>
         </div>
       </div>

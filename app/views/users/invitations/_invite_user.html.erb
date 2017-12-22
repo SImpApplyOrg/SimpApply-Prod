@@ -6,15 +6,15 @@
     </tr>
     <tr>
       <th scope="row">Role</th>
-      <td><%= invite_user.role %></td>
+      <td><%= invite_user.role.titleize %></td>
     </tr>
     <tr>
       <th scope="row">Invite sent at</th>
-      <td><%= invite_user.created_at %></td>
+      <td><%= zone_time invite_user.created_at %></td>
     </tr>
     <tr>
       <th scope="row">Invite status</th>
-      <td><%= invite_user.status %></td>
+      <td><%= invite_user.status.titleize %></td>
     </tr>
     <% if current_user.organization_name == current_organization_name %>
       <tr>
