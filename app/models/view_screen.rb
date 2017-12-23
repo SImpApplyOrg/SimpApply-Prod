@@ -8,7 +8,7 @@ class ViewScreen < ApplicationRecord
 
   validates_presence_of :screen_for
   # validates_uniqueness_of :screen_for, if: 'screen_for.present?'
-  validate :check_screen_tabs_position
+  validate :check_screen_tabs_position, :check_active_screen
 
   after_initialize :assign_screen_for
 
@@ -34,4 +34,14 @@ class ViewScreen < ApplicationRecord
         end
       end
     end
+
+    def check_active_screen
+      non_deletable_screen_tabs = []
+      screen_tabs.each { |screen_tab| non_deletable_screen_tabs << screen_tab if !screen_tab.marked_for_destruction? }
+      check_active = non_deletable_screen_tabs.pluck(:is_active)
+      if !check_active.include?(true) && !self.new_record?
+        errors.add(:base, 'at-least one screen tab must be active')
+      end
+    end
+
 end

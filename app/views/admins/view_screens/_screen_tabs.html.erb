@@ -1,6 +1,15 @@
 <%= f.fields_for :screen_tabs do |screen_tab| %>
-  <div class="well col-lg-4">
-    <%= screen_tab.link_to_remove "Remove", class: 'pull-right' %>
+  <div class="well col-lg-4 screen_tabs_present">
+
+    <% if screen_tab.object.persisted? %>
+      <div class="pull-right screen_tab_remove">
+        <%= screen_tab.check_box :_destroy %>
+        <%= screen_tab.label :_destroy, 'Remove' %>
+      </div>
+    <% else %>
+      <%= screen_tab.link_to_remove "Remove", class: 'pull-right screen_tab_remove' %>
+    <% end %>
+
     <div class="clearfix"></div>
 
     <div class="form-group">
@@ -35,4 +44,4 @@
   </div>
 <% end %>
 
-<%= f.link_to_add "New tab", :screen_tabs, :class=> "btn btn-primary" %>
+<%= f.link_to_add "New tab", :screen_tabs, :class=> "btn btn-primary add_new_tab" %>

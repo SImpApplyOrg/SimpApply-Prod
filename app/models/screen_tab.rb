@@ -10,7 +10,7 @@ class ScreenTab < ApplicationRecord
 
   scope :active, -> { where(is_active: true) }
 
-  before_save :check_and_change_position
+  before_save :check_and_change_position 
 
   private
     def check_and_change_position
